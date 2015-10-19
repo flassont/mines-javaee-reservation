@@ -1,0 +1,12 @@
+<table class="table table-striped">
+	<tr>
+		<th>Login</th>
+		<th>Nom</th>
+		<th>Prénom</th>
+		<th>Email</th>
+		<th>Téléphone</th>
+		<th>Action</th>
+	</tr>
+	
+	
+</table>

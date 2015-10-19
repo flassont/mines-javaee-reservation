@@ -1,0 +1,26 @@
+@CHARSET "ISO-8859-1";
+
+.login-form {
+	width: 25%; min-width 250px;
+	margin: auto;
+	border-radius: 9px;
+	border: 2px solid #E0E0E0;
+	padding: 0px 5px 5px 5px;
+}
+
+.form-header {
+	text-align: center;
+}
+
+.inline-button {
+	width: 40%;
+	display: inline-block;
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
