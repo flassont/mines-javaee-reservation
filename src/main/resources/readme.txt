@@ -1,0 +1,1 @@
+Contient les ressources (configuration de logger, ...).
