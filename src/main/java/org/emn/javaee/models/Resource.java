@@ -1,8 +1,7 @@
 package org.emn.javaee.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Resource instance
@@ -18,6 +17,18 @@ public class Resource {
     private String location;
 
     private String description;
+
+    /**
+     * User in charge of this Resource
+     */
+    @ManyToOne
+    private User responsible;
+
+    /**
+     * This Resource's general type
+     */
+    @ManyToOne
+    private ResourceType type;
 
     public int getId() {
         return id;
@@ -49,5 +60,21 @@ public class Resource {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getResponsible() {
+        return responsible;
+    }
+
+    public void setResponsible(User responsible) {
+        this.responsible = responsible;
+    }
+
+    public ResourceType getType() {
+        return type;
+    }
+
+    public void setType(ResourceType type) {
+        this.type = type;
     }
 }

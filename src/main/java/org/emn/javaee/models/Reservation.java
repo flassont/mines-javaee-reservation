@@ -2,6 +2,7 @@ package org.emn.javaee.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.sql.Date;
 
 /**
@@ -21,6 +22,18 @@ public class Reservation {
      * Reservation end date
      */
     private Date end;
+
+    /**
+     * Resource reserved
+     */
+    @ManyToOne
+    private Resource reserved;
+
+    /**
+     * User reserving the Resource
+     */
+    @ManyToOne
+    private User reserver;
 
     public int getId() {
         return id;
@@ -44,5 +57,21 @@ public class Reservation {
 
     public void setEnd(Date end) {
         this.end = end;
+    }
+
+    public Resource getReserved() {
+        return reserved;
+    }
+
+    public void setReserved(Resource reserved) {
+        this.reserved = reserved;
+    }
+
+    public User getReserver() {
+        return reserver;
+    }
+
+    public void setReserver(User reserver) {
+        this.reserver = reserver;
     }
 }

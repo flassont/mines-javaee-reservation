@@ -3,6 +3,8 @@ package org.emn.javaee.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * Resources supertype
@@ -14,6 +16,12 @@ public class ResourceType {
 
     @Column(nullable = false)
     private String name;
+
+    /**
+     * Resource instances depending of this ResourceType
+     */
+    @OneToMany
+    private List<Resource> resources;
 
     public int getId() {
         return id;
@@ -29,5 +37,13 @@ public class ResourceType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 }
