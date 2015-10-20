@@ -1,5 +1,12 @@
 @CHARSET "ISO-8859-1";
 
+.search-form {
+	border-radius: 9px;
+	border: 1px solid #E0E0E0;
+	padding: 9px;
+	margin-bottom: 9px;
+}
+
 .login-form {
 	width: 25%; min-width 250px;
 	margin: auto;
