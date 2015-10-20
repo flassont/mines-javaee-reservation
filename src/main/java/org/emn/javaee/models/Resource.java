@@ -8,7 +8,7 @@ import java.util.List;
  */
 @Entity
 public class Resource {
-    @Id
+    @Id @GeneratedValue
     private int id;
 
     @Column(nullable = false)

@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.emn.javaee.crud.UserCrud;
+import org.emn.javaee.models.User;
+
 /**
  * Servlet implementation class HelloServlet
  */
-@WebServlet(urlPatterns = {"/login", "/signup", "/manager" })
+@WebServlet(urlPatterns = {"/login", "/signup", "/manager", "/newUser"})
 public class HelloServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -33,8 +36,25 @@ public class HelloServlet extends HttpServlet {
 		if(request.getServletPath().equals("/manager")){
 			request.setAttribute("page", "template/manager.jsp");
 			request.setAttribute("title", "Manager");
-			request.setAttribute("types", Arrays.asList(new User("Type 1", 1), new User("Type 2", 2), new User("Type 3", 3)));
+			//request.setAttribute("types", Arrays.asList(new User("Type 1", 1), new User("Type 2", 2), new User("Type 3", 3)));
 			request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// add a new user in DB
+		if (request.getServletPath().equals("/newUser")) {
+			User user = new User();
+			user.setFirstName(request.getParameterValues("firstname")[0]);
+			user.setLastName(request.getParameterValues("lastname")[0]);
+			user.setPhone(request.getParameterValues("phone")[0]);
+			user.setMail(request.getParameterValues("email")[0]);
+			user.setLogin(request.getParameterValues("login")[0]);
+			user.setPassword(request.getParameterValues("password")[0]);
+			user.setIsAdmin(false);
+			UserCrud crud = new UserCrud();
+			crud.create(user);
 		}
 	}
 

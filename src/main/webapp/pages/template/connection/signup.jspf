@@ -6,7 +6,7 @@
 				Vous avez déjà un compte ? <a href="login">Connectez-vous</a>
 			</p>
 		</span>
-		<form id="loginForm" method="POST" action="/signup">
+		<form id="loginForm" method="POST" action="/reservation/newUser">
 			<div class="form-group">
 				<label for="login">Nom d'utilisateur</label> <input type="text"
 					class="form-control" id="login" name="login" placeholder="Login">
