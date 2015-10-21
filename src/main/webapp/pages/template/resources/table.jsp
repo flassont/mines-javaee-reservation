@@ -14,7 +14,7 @@
 		<tr>
 			<td>${resource.id}</td>
 			<td>${resource.name}</td>
-			<td>${resource.responsible}</td>
+			<td>${resource.responsible.firstName} ${resource.responsible.lastName}</td>
 			<td>${resource.location}</td>
 			<td class="text-center">
 				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

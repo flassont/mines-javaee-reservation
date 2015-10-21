@@ -6,7 +6,7 @@
 		<label for="responsible">Responsable</label>
 		<select class="form-control" id="responsible" name="responsible">
 		<c:forEach items="${requestScope.responsibles}" var="responsible">
-			<option>${responsible.lastName} ${responsible.firstName}</option>
+			<option value="${responsible.id}">${responsible.lastName} ${responsible.firstName}</option>
 		</c:forEach>
 		</select>
 	</div>
@@ -15,7 +15,7 @@
 		<label for="type">Type de ressource</label>
 		<select class="form-control" id="type" name="type">
 		<c:forEach items="${requestScope.types}" var="type">
-			<option>${type.name}</option>
+			<option value="${type.id}">${type.name}</option>
 		</c:forEach>
 		</select>
 	</div>
