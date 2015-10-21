@@ -15,7 +15,7 @@ public class Resource {
     @Column (name = "ID")
     private int id;
 
-    @Column (name = "NAME", nullable = false)
+    @Column (name = "NAME", unique = true, nullable = false)
     private String name;
 
     @Column (name = "LOCATION")
