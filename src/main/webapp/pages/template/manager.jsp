@@ -8,14 +8,14 @@
 	<div class="row">
 		<div class="col-md-3">
 			<div class="search-form">
-				<jsp:include page="${requestScope.entity}/filter.jspf" />
+				<jsp:include page="${requestScope.entity}/filter.jsp" />
 			</div>
 			<button type="button" class="btn btn-default btn-block">Créer</button>
 		</div>
 		<div class="col-md-9">
 			<c:choose>
 				<c:when test="${requestScope.creationMode}"><jsp:include
-						page="${requestScope.entity}/creationForm.jspf" /></c:when>
+						page="${requestScope.entity}/creationForm.jsp" /></c:when>
 				<c:otherwise><jsp:include
 						page="${requestScope.entity}/table.jsp" /></c:otherwise>
 			</c:choose>

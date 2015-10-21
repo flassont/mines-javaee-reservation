@@ -8,7 +8,7 @@
 		</span>
 		
 		<form id="loginForm" method="POST" action="/reservation/newUser">
-			<%@include file="../user/userForm.jspf" %>
+			<%@include file="../user/userForm.jsp" %>
 		</form>
 	</div>
 </div>
