@@ -100,7 +100,7 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// create user
-		handleFormUser(request);
+		handleFormUser(request, response);
 		this.redirectToUsers(request, response);
 	}
 
@@ -118,16 +118,25 @@ public class UserServlet extends HttpServlet {
 	/**
 	 * If a form has been submitted to create or update a user, we handle it here
 	 * @param request
+	 * @throws IOException 
 	 */
-	private void handleFormUser(HttpServletRequest request) {
+	private void handleFormUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		if(request.getParameterValues("firstName") != null)
 		{
 			User user;
 			// we update a user as its id has been past
 			if(request.getParameter("id") != null)
 			{
-				int id = Integer.valueOf(request.getParameter("id"));
-				 user = this.crud.find(id);
+				try{
+					int id = Integer.valueOf(request.getParameter("id"));
+					user = this.crud.find(id);
+				}
+				catch(Exception e)
+				{
+					// After that return, the user will be redirected to the list of users
+					return;
+				}
+				
 			}
 			else // new user
 			{
@@ -140,6 +149,7 @@ public class UserServlet extends HttpServlet {
 			user.setLogin(request.getParameterValues("login")[0]);
 			user.setPassword(request.getParameterValues("password")[0]);
 			user.setIsAdmin(false);
+			// Remember : this function updates a user or creates it if not found in the context
 			this.crud.create(user);
 		}
 	}
