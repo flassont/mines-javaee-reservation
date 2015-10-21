@@ -1,33 +1,27 @@
 package org.emn.javaee.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Resources supertype
  */
 @Entity
-@NamedQueries({
-	@NamedQuery( name = "ResourceType.findAll",
-			query = "SELECT R FROM ResourceType AS R" )
-})
+@Table (name = "RESOURCETYPE")
 public class ResourceType {
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue
+    @Column (name = "ID")
     private int id;
 
-    @Column(nullable = false)
+    @Column (name = "NAME", unique = true, nullable = false)
     private String name;
 
     /**
      * Resource instances depending of this ResourceType
      */
-    @OneToMany
+    @OneToMany (mappedBy = "type")
     private List<Resource> resources;
 
     public int getId() {

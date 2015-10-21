@@ -7,78 +7,82 @@ import java.util.List;
  * Resource instance
  */
 @Entity
-@NamedQueries({
-	@NamedQuery( name = "Resource.findAll",
-			query = "SELECT R FROM Resource AS R" )
-})
+@Table (name = "RESOURCE")
 public class Resource {
-	@Id @GeneratedValue
-	private int id;
 
-	@Column(nullable = false)
-	private String name;
+    @Id
+    @GeneratedValue
+    @Column (name = "ID")
+    private int id;
 
-	private String location;
+    @Column (name = "NAME", unique = true, nullable = false)
+    private String name;
 
-	private String description;
+    @Column (name = "LOCATION")
+    private String location;
 
-	/**
-	 * User in charge of this Resource
-	 */
-	@ManyToOne
-	private User responsible;
+    @Column (name = "DESCRIPTION")
+    private String description;
 
-	/**
-	 * This Resource's general type
-	 */
-	@ManyToOne
-	private ResourceType type;
+    /**
+     * User in charge of this Resource
+     */
+    @ManyToOne
+    @JoinColumn (name = "RESPONSIBLE_ID")
+    private User responsible;
 
-	public int getId() {
-		return id;
-	}
+    /**
+     * This Resource's general type
+     */
+    @ManyToOne
+    @JoinColumn (name = "TYPE_ID")
+    private ResourceType type;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public User getResponsible() {
-		return responsible;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setResponsible(User responsible) {
-		this.responsible = responsible;
-	}
+    public User getResponsible() {
+        return responsible;
+    }
 
-	public ResourceType getType() {
-		return type;
-	}
+    public void setResponsible(User responsible) {
+        this.responsible = responsible;
+    }
 
-	public void setType(ResourceType type) {
-		this.type = type;
-	}
+    public ResourceType getType() {
+        return type;
+    }
+
+    public void setType(ResourceType type) {
+        this.type = type;
+    }
 }

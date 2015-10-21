@@ -1,85 +1,83 @@
 package org.emn.javaee.models;
 
+import javax.persistence.*;
 import java.sql.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 /**
  * Reservation of a Resource by a User
  */
 @Entity
-@NamedQueries({
-	@NamedQuery( name = "Reservation.findAll",
-			query = "SELECT R FROM Reservation AS R" )
-})
+@Table (name = "RESERVATION")
 public class Reservation {
-	@Id @GeneratedValue
-	private int id;
 
-	/**
-	 * Reservation beginning date
-	 */
-	private Date begin;
+    @Id
+    @GeneratedValue
+    @Column (name = "ID")
+    private int id;
 
-	/**
-	 * Reservation end date
-	 */
-	private Date end;
+    /**
+     * Reservation beginning date
+     */
+    @Column (name = "BEGIN")
+    private Date begin;
 
-	/**
-	 * Resource reserved
-	 */
-	@ManyToOne
-	private Resource reserved;
+    /**
+     * Reservation end date
+     */
+    @Column (name = "END" )
+    private Date end;
 
-	/**
-	 * User reserving the Resource
-	 */
-	@ManyToOne
-	private User reserver;
+    /**
+     * Resource reserved
+     */
+    @ManyToOne
+    @JoinColumn (name = "RESERVED_ID")
+    private Resource reserved;
 
-	public int getId() {
-		return id;
-	}
+    /**
+     * User reserving the Resource
+     */
+    @ManyToOne
+    @JoinColumn (name = "RESERVER_ID")
+    private User reserver;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public Date getBegin() {
-		return begin;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setBegin(Date begin) {
-		this.begin = begin;
-	}
+    public Date getBegin() {
+        return begin;
+    }
 
-	public Date getEnd() {
-		return end;
-	}
+    public void setBegin(Date begin) {
+        this.begin = begin;
+    }
 
-	public void setEnd(Date end) {
-		this.end = end;
-	}
+    public Date getEnd() {
+        return end;
+    }
 
-	public Resource getReserved() {
-		return reserved;
-	}
+    public void setEnd(Date end) {
+        this.end = end;
+    }
 
-	public void setReserved(Resource reserved) {
-		this.reserved = reserved;
-	}
+    public Resource getReserved() {
+        return reserved;
+    }
 
-	public User getReserver() {
-		return reserver;
-	}
+    public void setReserved(Resource reserved) {
+        this.reserved = reserved;
+    }
 
-	public void setReserver(User reserver) {
-		this.reserver = reserver;
-	}
+    public User getReserver() {
+        return reserver;
+    }
+
+    public void setReserver(User reserver) {
+        this.reserver = reserver;
+    }
 }
