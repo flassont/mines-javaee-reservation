@@ -1,22 +1,36 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<table class="table table-striped">
+<div class="panel panel-primary">
+	<!-- Default panel contents -->
+	<div class="panel-heading">Liste des types de ressource</div>
 
-	<tr>
-		<th class="col-md-1">#</th>
-		<th>Libellé</th>
-		<th class="col-md-1 text-center">Action</th>
-	</tr>
+	<table class="table table-striped">
 
-	<c:forEach items="${requestScope.types}" var="type">
 		<tr>
-			<td>${type.id}</td>
-			<td>${type.name}</td>
-			<td class="text-center">
-				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-			</td>
+			<th>#</th>
+			<th>Nom</th>
+			<th class="text-center">Action</th>
 		</tr>
-	</c:forEach>
-	
-</table>
+
+		<c:forEach items="${requestScope.resourceTypes}" var="type">
+			<tr>
+				<td>${type.id}</td>
+				<td>${type.name}</td>
+				<td class="text-center">
+					<div class="btn-group btn-group-sm">
+						<a
+							href="<%= application.getContextPath()%>/${requestScope.entity}/edit?id=${type.id}"
+							class="btn btn-default"> <span
+							class="glyphicon glyphicon glyphicon-edit"></span>
+						</a> <a
+							href="<%= application.getContextPath()%>/${requestScope.entity}/delete?id=${type.id}"
+							class="btn btn-danger"> <span
+							class="glyphicon glyphicon-remove"></span>
+						</a>
+					</div>
+				</td>
+			</tr>
+		</c:forEach>
+
+	</table>
+</div>

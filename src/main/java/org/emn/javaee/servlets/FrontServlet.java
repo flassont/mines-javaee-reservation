@@ -1,18 +1,12 @@
 package org.emn.javaee.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.emn.javaee.crud.UserCrud;
-import org.emn.javaee.models.User;
 
 /**
  * Servlet implementation class HelloServlet
@@ -27,10 +21,6 @@ public class FrontServlet extends HttpServlet {
 		String path = request.getPathInfo();
 		if(path.startsWith("/users")){
 			request.getRequestDispatcher("/users").forward(request, response);
-		}
-		else if(path.startsWith("/typeResources"))
-		{
-			request.getRequestDispatcher("/typeResources").forward(request, response);
 		}
 
 	}
