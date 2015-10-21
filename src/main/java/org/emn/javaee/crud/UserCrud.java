@@ -1,8 +1,8 @@
 package org.emn.javaee.crud;
 
+import java.util.HashMap;
 import java.util.List;
-
-import javax.persistence.Query;
+import java.util.Map;
 
 import org.emn.javaee.models.User;
 
@@ -13,28 +13,15 @@ public class UserCrud extends GenericCrud<User>{
 	
 	public List<User> findMT(String lastName, String firstName, boolean isAdmin)
 	{
-		System.out.println(firstName);
-		String queryString = "SELECT * FROM User where ISADMIN = :isAdmin ";
-		if(firstName != null && firstName != "")
-		{
-			System.out.println("test1");
-			queryString += " and FIRSTNAME like :firstName ";
+		Map<String, Object> filters = new HashMap<>(3);
+		if(!lastName.isEmpty()) {
+			filters.put("lastName", "%" + lastName + "%");
 		}
-		if(lastName != null && lastName != "")
-		{
-			queryString += " and LASTNAME like :lastName";
+		if(!firstName.isEmpty()) {
+			filters.put("firstName", "%" + firstName + "%");
 		}
-		Query query = this.em.createNativeQuery(queryString, User.class);
-		if(lastName != null && lastName != "")
-		{
-			query.setParameter("lastName", "%" + lastName + "%");
-		}
-		if(firstName != null && firstName != "")
-		{
-			System.out.println("test2");
-			query.setParameter("firstName", "%" + firstName + "%");
-		}
-		query.setParameter("isAdmin", isAdmin);
-		return query.getResultList();
+		filters.put("isAdmin", isAdmin);
+
+		return this.filter(filters);
 	}
 }
