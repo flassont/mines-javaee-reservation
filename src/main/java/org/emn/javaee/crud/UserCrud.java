@@ -18,11 +18,11 @@ public class UserCrud extends GenericCrud<User>{
 		if(firstName != null && firstName != "")
 		{
 			System.out.println("test1");
-			queryString += "and FIRSTNAME like :firstName";
+			queryString += " and FIRSTNAME like :firstName ";
 		}
 		if(lastName != null && lastName != "")
 		{
-			queryString += "and LASTNAME like :lastName";
+			queryString += " and LASTNAME like :lastName";
 		}
 		Query query = this.em.createNativeQuery(queryString, User.class);
 		if(lastName != null && lastName != "")

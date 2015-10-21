@@ -31,6 +31,39 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String path = request.getPathInfo();
+		if(path.startsWith("/delete"))
+		{
+			handleDeletion(request);
+		}
+		handleFullOrFilteredList(request);
+		request.setAttribute("page", "template/manager.jsp");
+		request.setAttribute("entity", "users");
+		request.setAttribute("title", "Utilisateurs");
+		request.setAttribute("creationMode", "/new".equals(path));
+		request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
+	}
+
+	/**
+	 * Deletes a user
+	 * @param request
+	 */
+	private void handleDeletion(HttpServletRequest request) {
+		try {
+			int id = Integer.valueOf(request.getParameter("id"));
+			this.crud.remove(id);
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
+	/**
+	 * Retrieve the full list of users or the filtered list of users based on parameters past as GET
+	 * @param request
+	 */
+	private void handleFullOrFilteredList(HttpServletRequest request) {
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		Boolean administrator = "on".equals(request.getParameter("administrator"));
@@ -42,19 +75,22 @@ public class UserServlet extends HttpServlet {
 		{
 			request.setAttribute("users", crud.findAll());
 		}
-		request.setAttribute("page", "template/manager.jsp");
-		request.setAttribute("entity", "users");
-		request.setAttribute("title", "Utilisateurs");
-		String path = request.getPathInfo();
-		request.setAttribute("creationMode", "/new".equals(path));
-		request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Post");
+		handleFormUser(request);
+		// redirect after a post to avoid sending again the same data
+		response.sendRedirect(getServletContext().getContextPath() + request.getServletPath());
+	}
+	
+	/**
+	 * If a form has been submitted to create a user, we handle it here
+	 * @param request
+	 */
+	private void handleFormUser(HttpServletRequest request) {
 		if(request.getParameterValues("firstName") != null)
 		{
 			System.out.println("form envoyé");
@@ -68,7 +104,6 @@ public class UserServlet extends HttpServlet {
 			user.setIsAdmin(false);
 			this.crud.create(user);
 		}
-		response.sendRedirect("/reservation/test/users");
 	}
 
 }
