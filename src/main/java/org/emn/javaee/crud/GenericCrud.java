@@ -7,6 +7,7 @@ import javax.persistence.Query;
 import java.lang.reflect.*;
 import java.util.List;
 
+import org.emn.javaee.models.User;
 import org.emn.javaee.tools.Em;
 
 /**
