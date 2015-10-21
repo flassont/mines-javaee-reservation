@@ -51,7 +51,7 @@ public class GenericCrud<Entity> {
 	{
 		EntityTransaction t = this.em.getTransaction();
 		t.begin();
-		this.em.persist(entity);
+		this.em.merge(entity);
 		t.commit();
 		return entity;
 	}
