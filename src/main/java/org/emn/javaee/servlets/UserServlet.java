@@ -45,8 +45,8 @@ public class UserServlet extends HttpServlet {
 				try {
 					int id = Integer.valueOf(request.getParameter("id"));
 					User user = this.crud.find(id);
+					// add the current user to fill the input values in the jsp user form
 					request.setAttribute("user", user);
-					//response.sendRedirect();
 				}
 				catch(Exception e){};
 
@@ -87,6 +87,9 @@ public class UserServlet extends HttpServlet {
 		Boolean administrator = "on".equals(request.getParameter("administrator"));
 		if( firstName != null || lastName != null || administrator)
 		{
+			request.setAttribute("lastName", lastName);
+			request.setAttribute("firstName", firstName);
+			request.setAttribute("administrator", administrator);
 			request.setAttribute("users", crud.findMT(lastName, firstName, administrator));
 		}
 		else
@@ -136,7 +139,6 @@ public class UserServlet extends HttpServlet {
 					// After that return, the user will be redirected to the list of users
 					return;
 				}
-				
 			}
 			else // new user
 			{
