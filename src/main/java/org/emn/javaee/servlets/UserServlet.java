@@ -68,7 +68,7 @@ public class UserServlet extends HttpServlet {
 			user.setIsAdmin(false);
 			this.crud.create(user);
 		}
-		this.doGet(request, response);
+		response.sendRedirect("/reservation/test/users");
 	}
 
 }
