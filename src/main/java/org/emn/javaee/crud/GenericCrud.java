@@ -34,7 +34,7 @@ public class GenericCrud<Entity> {
 	};
 
 	/**
-	 * Creates the entity
+	 * Creates or update the entity
 	 * @param entity
 	 * @return the newly created entity
 	 */
@@ -42,7 +42,7 @@ public class GenericCrud<Entity> {
 	{
 		EntityTransaction t = this.em.getTransaction();
 		t.begin();
-		this.em.persist(entity);
+		this.em.merge(entity);
 		t.commit();
 		return entity;
 	}
@@ -106,19 +106,4 @@ public class GenericCrud<Entity> {
 		Query query = this.em.createNamedQuery( this.entityClass.getSimpleName() + ".findAll" );
 		return query.getResultList();
 	}
-
-	/**
-	 * Updates the entity
-	 * @param entity
-	 * @return the updated entity
-	 */
-	public Entity update(Entity entity) {
-		EntityTransaction t = this.em.getTransaction();
-		t.begin();
-		Entity e = this.em.merge(entity);
-		t.commit();
-		return e;
-	}
-
-
 }

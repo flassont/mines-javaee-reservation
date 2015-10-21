@@ -46,6 +46,7 @@ public class UserServlet extends HttpServlet {
 					int id = Integer.valueOf(request.getParameter("id"));
 					User user = this.crud.find(id);
 					request.setAttribute("user", user);
+					//response.sendRedirect();
 				}
 				catch(Exception e){};
 
@@ -55,7 +56,7 @@ public class UserServlet extends HttpServlet {
 			request.setAttribute("page", "template/manager.jsp");
 			request.setAttribute("entity", "users");
 			request.setAttribute("title", "Utilisateurs");
-			request.setAttribute("creationMode", "/new".equals(path));
+			request.setAttribute("creationMode", "/new".equals(path) || (path != null && path.startsWith("/edit")));
 			request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
 		}
 	}
@@ -115,13 +116,23 @@ public class UserServlet extends HttpServlet {
 	}
 
 	/**
-	 * If a form has been submitted to create a user, we handle it here
+	 * If a form has been submitted to create or update a user, we handle it here
 	 * @param request
 	 */
 	private void handleFormUser(HttpServletRequest request) {
 		if(request.getParameterValues("firstName") != null)
 		{
-			User user = new User();
+			User user;
+			// we update a user as its id has been past
+			if(request.getParameter("id") != null)
+			{
+				int id = Integer.valueOf(request.getParameter("id"));
+				 user = this.crud.find(id);
+			}
+			else // new user
+			{
+				user = new User();
+			}
 			user.setFirstName(request.getParameterValues("firstName")[0]);
 			user.setLastName(request.getParameterValues("lastName")[0]);
 			user.setPhone(request.getParameterValues("phone")[0]);
