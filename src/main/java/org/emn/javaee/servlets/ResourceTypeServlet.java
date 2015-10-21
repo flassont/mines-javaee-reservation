@@ -54,7 +54,6 @@ public class ResourceTypeServlet extends HttpServlet {
 
 			}
 			// list resourceTypes
-			System.out.println("marqueur");
 			handleFullOrFilteredList(request);
 			request.setAttribute("page", "template/manager.jsp");
 			request.setAttribute("entity", "resourceTypes");
@@ -72,7 +71,6 @@ public class ResourceTypeServlet extends HttpServlet {
 		handleFormResourceType(request, response);
 		if(request.getAttribute("error") == null)
 		{
-			System.out.println("error est null");
 			this.redirectToResourceTypes(request, response);
 		}
 		else
@@ -141,8 +139,7 @@ public class ResourceTypeServlet extends HttpServlet {
 			}
 			if(this.crud.nameAlreadyExist(name, id))
 			{
-				System.out.println("ERREUR ! le nom existe déjà !");
-				request.setAttribute("error", "Erreur, ce type de ressource existe déjà.");
+				request.setAttribute("error", "Erreur, le type de ressource \"" + name + "\" existe déjà.");
 				return;
 			}
 			resourceType.setName(name);
