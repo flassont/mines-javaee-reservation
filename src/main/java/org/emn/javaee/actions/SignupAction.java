@@ -10,7 +10,7 @@ public class SignupAction extends Action{
 	public SignupAction()
 	{
 		this.pattern = "/users";
-		this.page = "template/connection/signup.jspf";
+		this.page = "template/connection/signup.jsp";
 		this.title = "Inscription";
 	}
 

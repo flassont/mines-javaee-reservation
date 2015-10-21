@@ -23,26 +23,29 @@ import org.emn.javaee.actions.*;
 public class FrontServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Action> actions;
+//	private ArrayList<Action> actions;
 
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
-		this.actions = new ArrayList<Action>();
-		actions.add(new SignupAction());
-	}
+//	public void init(ServletConfig config) throws ServletException {
+//		super.init(config);
+//		this.actions = new ArrayList<Action>();
+//		actions.add(new SignupAction());
+//	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String path = request.getPathInfo();
-		Action a = this.findAction(path);
-		if(a == null)
-		{
-			System.out.println("action est null");
+		if(path.startsWith("/users")){
+			request.getRequestDispatcher("/users").forward(request, response);
 		}
-		else 
-		{
-			a.handle(request);
-			request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
-		}
+//		Action a = this.findAction(path);
+//		if(a == null)
+//		{
+//			System.out.println("action est null");
+//		}
+//		else 
+//		{
+//			a.handle(request);
+//			request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
+//		}
 		// response.getWriter().write(request.getContextPath());
 		/*if (request.getServletPath().equals("/pages/login")) {
 			request.setAttribute("page", "template/connection/login.jspf");
@@ -72,7 +75,7 @@ public class FrontServlet extends HttpServlet {
 	 * @param path
 	 * @return action if found else null
 	 */
-	private Action findAction(String path)
+	/*private Action findAction(String path)
 	{
 		for(Action a: this.actions)
 		{
@@ -84,5 +87,5 @@ public class FrontServlet extends HttpServlet {
 			}
 		}
 		return null;
-	}
+	}*/
 }

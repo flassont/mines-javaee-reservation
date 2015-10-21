@@ -2,7 +2,10 @@ package org.emn.javaee.crud;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+
 import java.lang.reflect.*;
+import java.util.List;
 
 import org.emn.javaee.tools.Em;
 
@@ -92,6 +95,16 @@ public class GenericCrud<Entity> {
 	 */
 	public Entity find(int id) {
 		return this.em.find(this.entityClass, id);
+	}
+	
+	/**
+	 * Find all the entities
+	 * @return collection of entities
+	 */
+	public List<Entity> findAll()
+	{
+		Query query = this.em.createNamedQuery( this.entityClass.getSimpleName() + ".findAll" );
+		return query.getResultList();
 	}
 
 	/**

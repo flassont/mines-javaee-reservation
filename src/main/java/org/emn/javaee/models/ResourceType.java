@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import java.util.List;
 
@@ -11,6 +13,10 @@ import java.util.List;
  * Resources supertype
  */
 @Entity
+@NamedQueries({
+	@NamedQuery( name = "ResourceType.findAll",
+			query = "SELECT R FROM ResourceType AS R" )
+})
 public class ResourceType {
     @Id @GeneratedValue
     private int id;
