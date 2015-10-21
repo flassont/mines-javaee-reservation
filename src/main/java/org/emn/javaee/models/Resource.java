@@ -8,6 +8,10 @@ import java.util.List;
  */
 @Entity
 @Table (name = "RESOURCE")
+@NamedQueries({
+	@NamedQuery( name = "Resource.findAll",
+			query = "SELECT R FROM Resource AS R" )
+})
 public class Resource {
 
     @Id

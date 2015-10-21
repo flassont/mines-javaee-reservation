@@ -8,6 +8,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table (name = "USER")
+@NamedQueries({
+	@NamedQuery( name = "User.findAll",
+			query = "SELECT U FROM User AS U" )
+})
 public class User {
 
     @Id

@@ -8,6 +8,10 @@ import java.sql.Date;
  */
 @Entity
 @Table (name = "RESERVATION")
+@NamedQueries({
+	@NamedQuery( name = "Reservation.findAll",
+			query = "SELECT R FROM Reservation AS R" )
+})
 public class Reservation {
 
     @Id
