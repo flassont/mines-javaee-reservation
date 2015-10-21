@@ -3,11 +3,19 @@ package org.emn.javaee.crud;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.MapAttribute;
 
 import java.lang.reflect.*;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import org.emn.javaee.models.User;
 import org.emn.javaee.tools.Em;
 
 /**
@@ -35,7 +43,7 @@ public class GenericCrud<Entity> {
 	};
 
 	/**
-	 * Creates or update the entity
+	 * Creates or updates the entity
 	 * @param entity
 	 * @return the newly created entity
 	 */
@@ -104,7 +112,45 @@ public class GenericCrud<Entity> {
 	 */
 	public List<Entity> findAll()
 	{
-		Query query = this.em.createNamedQuery( this.entityClass.getSimpleName() + ".findAll" );
+		Query query = this.em.createNamedQuery(this.entityClass.getSimpleName() + ".findAll");
 		return query.getResultList();
+	}
+
+	protected List<Entity> filter(Map<String, Object> filters) {
+		Set<String> keys = filters.keySet();
+
+		CriteriaBuilder cb = this.em.getCriteriaBuilder();
+		CriteriaQuery<Entity> query = cb.createQuery(this.entityClass);
+
+		Root<Entity> root = query.from(this.entityClass);
+		EntityType<Entity> entityType = root.getModel();
+		Expression<Boolean> condition = cb.conjunction();
+		for (Attribute<? super Entity,?> attribute: entityType.getAttributes()){
+			String attributeName = attribute.getName();
+
+			// No filter, reach next attribute
+			if(!keys.contains(attributeName)) {
+				continue;
+			}
+
+			// Exists, check whether use like (for String)
+			// or equal (other types)
+			Object expectedValue = filters.get(attributeName);
+			if(attribute.getJavaType() == String.class) {
+				condition = cb.and(condition, cb.like(root.get(attributeName).as(String.class), (String) expectedValue));
+			} else if (attribute.getJavaType() == Boolean.class) {
+				Expression<Boolean> expectedExpression;
+				if ((Boolean) expectedValue) {
+					expectedExpression = cb.isTrue(root.get(attributeName).as(Boolean.class));
+				} else {
+					expectedExpression = cb.isFalse(root.get(attributeName).as(Boolean.class));
+				}
+				condition = cb.and(condition, expectedExpression);
+			} else {
+				condition = cb.and(condition, cb.equal(root.get(attributeName), expectedValue));
+			}
+		}
+
+		return this.em.createQuery(query.where(condition)).getResultList();
 	}
 }
