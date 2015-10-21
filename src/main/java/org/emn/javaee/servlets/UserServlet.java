@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.emn.javaee.crud.UserCrud;
+import org.emn.javaee.models.User;
 
 /**
  * Servlet implementation class UserServlet
@@ -30,7 +31,6 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("servlet user");
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		Boolean administrator = "on".equals(request.getParameter("administrator"));
@@ -46,9 +46,6 @@ public class UserServlet extends HttpServlet {
 		request.setAttribute("entity", "users");
 		request.setAttribute("title", "Utilisateurs");
 		String path = request.getPathInfo();
-		System.out.println(request.getServletPath());
-		System.out.println(request.getRequestURL());
-		System.out.println(request.getPathInfo());
 		request.setAttribute("creationMode", "/new".equals(path));
 		request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
 	}
@@ -57,8 +54,21 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		System.out.println("Post");
+		if(request.getParameterValues("firstName") != null)
+		{
+			System.out.println("form envoyé");
+			User user = new User();
+			user.setFirstName(request.getParameterValues("firstName")[0]);
+			user.setLastName(request.getParameterValues("lastName")[0]);
+			user.setPhone(request.getParameterValues("phone")[0]);
+			user.setMail(request.getParameterValues("mail")[0]);
+			user.setLogin(request.getParameterValues("login")[0]);
+			user.setPassword(request.getParameterValues("password")[0]);
+			user.setIsAdmin(false);
+			this.crud.create(user);
+		}
+		this.doGet(request, response);
 	}
 
 }

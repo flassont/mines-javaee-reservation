@@ -19,7 +19,7 @@
                 TODO Change the value to "update" once tests are done
             -->
             <!--<property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+<!--             <property name="hibernate.hbm2ddl.auto" value="update"/> -->
         </properties>
     </persistence-unit>
 </persistence>
