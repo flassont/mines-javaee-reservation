@@ -1,4 +1,4 @@
-<form method="get" action="users">
+<form method="get" action="<%=application.getContextPath()%>/${requestScope.entity}">
 
 	<div class="form-group">
 		<label for="lastName">Nom</label>
