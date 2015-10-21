@@ -14,7 +14,7 @@ import org.emn.javaee.models.User;
 /**
  * Servlet implementation class ResourceTypeServlet
  */
-@WebServlet("/ResourceTypeServlet")
+@WebServlet("/resourceTypes/*")
 public class ResourceTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ResourceTypeCrud crud;
@@ -79,11 +79,6 @@ public class ResourceTypeServlet extends HttpServlet {
 		if( name != null )
 		{
 			request.setAttribute("name", name);
-			/*Map<String, Object> filters = new HashMap<String, Object>();
-			filters.put("lastName", lastName);
-			filters.put("firstName", firstName);
-			filters.put("isAdmin", administrator);
-			request.setAttribute("users", crud.filter(filters));*/
 			request.setAttribute("resourceTypes", crud.findBy(name));
 		}
 		else

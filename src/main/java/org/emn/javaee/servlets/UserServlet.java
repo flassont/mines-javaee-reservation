@@ -92,11 +92,6 @@ public class UserServlet extends HttpServlet {
 			request.setAttribute("lastName", lastName);
 			request.setAttribute("firstName", firstName);
 			request.setAttribute("administrator", administrator);
-			/*Map<String, Object> filters = new HashMap<String, Object>();
-			filters.put("lastName", lastName);
-			filters.put("firstName", firstName);
-			filters.put("isAdmin", administrator);
-			request.setAttribute("users", crud.filter(filters));*/
 			request.setAttribute("users", crud.findBy(lastName, firstName, administrator));
 		}
 		else
