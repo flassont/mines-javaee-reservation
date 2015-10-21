@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<form method="POST" action="resources">
+<form method="POST" action="<%=application.getContextPath()%>/${requestScope.entity}">
 	
 	<div class="form-group">
 		<label for="responsible">Responsable</label>

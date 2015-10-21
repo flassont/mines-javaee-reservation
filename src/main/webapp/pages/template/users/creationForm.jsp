@@ -1,3 +1,3 @@
-<form id="loginForm" method="POST" action="users" class="form-horizontal">
+<form method="POST" action="<%=application.getContextPath()%>/${requestScope.entity}" class="form-horizontal">
 	<%@ include file="userForm.jsp" %>
 </form>
