@@ -17,10 +17,14 @@
 			<td>${user.lastName}</td>
 			<td>${user.firstName}</td>
 			<td class="text-center">
-				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				<a href="<%= application.getContextPath()%>/${requestScope.entity}/edit?id=${user.id}">
+					<span class="glyphicon glyphicon glyphicon-edit"></span>
+				</a>
+				<a href="<%= application.getContextPath()%>/${requestScope.entity}/delete?id=${user.id}">
+					<span class="glyphicon glyphicon-remove"></span>
+				</a>
 			</td>
 		</tr>
 	</c:forEach>
-	
+
 </table>

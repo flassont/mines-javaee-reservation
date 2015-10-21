@@ -18,47 +18,64 @@ import org.emn.javaee.models.User;
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserCrud crud;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserServlet() {
-        super();
-        this.crud = new UserCrud();
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserServlet() {
+		super();
+		this.crud = new UserCrud();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getPathInfo();
-		if(path.startsWith("/delete"))
+		// remove user
+		if(path != null && path.startsWith("/delete"))
 		{
-			handleDeletion(request);
+			handleDeletion(request, response);
 		}
-		handleFullOrFilteredList(request);
-		request.setAttribute("page", "template/manager.jsp");
-		request.setAttribute("entity", "users");
-		request.setAttribute("title", "Utilisateurs");
-		request.setAttribute("creationMode", "/new".equals(path));
-		request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
+		else 
+		{
+			// edit / see user
+			if (path != null && path.startsWith("/edit"))
+			{
+				try {
+					int id = Integer.valueOf(request.getParameter("id"));
+					User user = this.crud.find(id);
+					request.setAttribute("user", user);
+				}
+				catch(Exception e){};
+
+			}
+			// list users
+			handleFullOrFilteredList(request);
+			request.setAttribute("page", "template/manager.jsp");
+			request.setAttribute("entity", "users");
+			request.setAttribute("title", "Utilisateurs");
+			request.setAttribute("creationMode", "/new".equals(path));
+			request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
+		}
 	}
 
 	/**
 	 * Deletes a user
 	 * @param request
+	 * @throws IOException 
 	 */
-	private void handleDeletion(HttpServletRequest request) {
+	private void handleDeletion(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
 			int id = Integer.valueOf(request.getParameter("id"));
 			this.crud.remove(id);
 		}
-		catch(Exception e)
-		{
-			
-		}
+		catch(Exception e){}
+		finally{
+			this.redirectToUsers(request, response);
+		};
 	}
-	
+
 	/**
 	 * Retrieve the full list of users or the filtered list of users based on parameters past as GET
 	 * @param request
@@ -81,11 +98,22 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// create user
 		handleFormUser(request);
-		// redirect after a post to avoid sending again the same data
+		this.redirectToUsers(request, response);
+	}
+
+	/**
+	 * Redirect to the list of users
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	private void redirectToUsers(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
 		response.sendRedirect(getServletContext().getContextPath() + request.getServletPath());
 	}
-	
+
 	/**
 	 * If a form has been submitted to create a user, we handle it here
 	 * @param request
@@ -93,7 +121,6 @@ public class UserServlet extends HttpServlet {
 	private void handleFormUser(HttpServletRequest request) {
 		if(request.getParameterValues("firstName") != null)
 		{
-			System.out.println("form envoyé");
 			User user = new User();
 			user.setFirstName(request.getParameterValues("firstName")[0]);
 			user.setLastName(request.getParameterValues("lastName")[0]);
