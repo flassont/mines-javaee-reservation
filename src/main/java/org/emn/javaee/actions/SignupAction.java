@@ -9,10 +9,13 @@ public class SignupAction extends Action{
 
 	public SignupAction()
 	{
-		this.pattern = "/signup";
+		this.pattern = "/users";
+		this.page = "template/connection/signup.jspf";
+		this.title = "Inscription";
 	}
 
-	public String treat(HttpServletRequest request) {
+	public void handle(HttpServletRequest request) {
+		super.handle(request);
 		if(request.getParameterValues("firstname") != null)
 		{
 			User user = new User();
@@ -25,9 +28,7 @@ public class SignupAction extends Action{
 			user.setIsAdmin(false);
 			UserCrud crud = new UserCrud();
 			crud.create(user);
-			return "/users";
 		}
-		return "/signup";
 	}
 
 }

@@ -4,9 +4,17 @@ import javax.servlet.http.HttpServletRequest;
 
 public abstract class Action {
     protected String pattern;
-	public abstract String treat(HttpServletRequest request);
+    protected String page;
+    protected String title;
+    
+	public  void handle(HttpServletRequest request){
+		request.setAttribute("page", this.page);
+		request.setAttribute("title", this.title);
+	};
+	
 	public String getPattern()
 	{
 		return this.pattern;
 	}
+
 }

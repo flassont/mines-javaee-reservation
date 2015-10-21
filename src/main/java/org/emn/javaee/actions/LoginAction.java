@@ -6,13 +6,12 @@ public class LoginAction extends Action{
 
 	public LoginAction()
 	{
-		this.pattern = "/login";
+		this.pattern = "/pages/login";
 	}
 	
 	@Override
-	public String treat(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+	public void handle(HttpServletRequest request) {
+
 	}
 
 }
