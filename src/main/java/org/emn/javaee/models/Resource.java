@@ -7,27 +7,35 @@ import java.util.List;
  * Resource instance
  */
 @Entity
+@Table (name = "RESOURCE")
 public class Resource {
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue
+    @Column (name = "ID")
     private int id;
 
-    @Column(nullable = false)
+    @Column (name = "NAME", nullable = false)
     private String name;
 
+    @Column (name = "LOCATION")
     private String location;
 
+    @Column (name = "DESCRIPTION")
     private String description;
 
     /**
      * User in charge of this Resource
      */
     @ManyToOne
+    @JoinColumn (name = "RESPONSIBLE_ID")
     private User responsible;
 
     /**
      * This Resource's general type
      */
     @ManyToOne
+    @JoinColumn (name = "TYPE_ID")
     private ResourceType type;
 
     public int getId() {

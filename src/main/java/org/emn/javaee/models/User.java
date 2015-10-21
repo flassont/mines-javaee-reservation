@@ -1,51 +1,51 @@
 package org.emn.javaee.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Application user.
  * Can manage Resource when admin
  */
 @Entity
+@Table (name = "USER")
 public class User {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
+    @Column (name = "ID")
     private int id;
 
-    @Column(nullable = false)
+    @Column (name = "LOGIN", nullable = false)
     private String login;
 
     /**
      * Plain password
      */
-    @Column(nullable = false)
+    @Column (name = "PASSWORD", nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column (name = "LASTNAME", nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column (name = "FIRSTNAME", nullable = false)
     private String firstName;
 
     /**
      * Email address
      */
-    @Column(nullable = false)
+    @Column (name = "MAIL", nullable = false)
     private String mail;
 
     /**
      * Phone number
      */
-    @Column(length = 12)
+    @Column (name = "PHONE", length = 12)
     private String phone;
 
     /**
      * Is this User administrator
      */
+    @Column (name = "ISADMIN")
     private boolean isAdmin;
 
     public int getId() {

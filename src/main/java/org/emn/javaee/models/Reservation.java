@@ -1,39 +1,44 @@
 package org.emn.javaee.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.sql.Date;
 
 /**
  * Reservation of a Resource by a User
  */
 @Entity
+@Table (name = "RESERVATION")
 public class Reservation {
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue
+    @Column (name = "ID")
     private int id;
 
     /**
      * Reservation beginning date
      */
+    @Column (name = "BEGIN")
     private Date begin;
 
     /**
      * Reservation end date
      */
+    @Column (name = "END" )
     private Date end;
 
     /**
      * Resource reserved
      */
     @ManyToOne
+    @JoinColumn (name = "RESERVED_ID")
     private Resource reserved;
 
     /**
      * User reserving the Resource
      */
     @ManyToOne
+    @JoinColumn (name = "RESERVER_ID")
     private User reserver;
 
     public int getId() {
