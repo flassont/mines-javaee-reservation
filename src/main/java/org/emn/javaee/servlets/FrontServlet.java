@@ -28,6 +28,10 @@ public class FrontServlet extends HttpServlet {
 		if(path.startsWith("/users")){
 			request.getRequestDispatcher("/users").forward(request, response);
 		}
+		else if(path.startsWith("/typeResources"))
+		{
+			request.getRequestDispatcher("/typeResources").forward(request, response);
+		}
 
 	}
 

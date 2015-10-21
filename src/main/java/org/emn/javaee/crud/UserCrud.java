@@ -11,7 +11,7 @@ import org.emn.javaee.models.User;
  */
 public class UserCrud extends GenericCrud<User>{
 	
-	public List<User> findMT(String lastName, String firstName, boolean isAdmin)
+	public List<User> findBy(String lastName, String firstName, boolean isAdmin)
 	{
 		Map<String, Object> filters = new HashMap<>(3);
 		if(!lastName.isEmpty()) {

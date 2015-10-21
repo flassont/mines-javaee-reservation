@@ -116,7 +116,7 @@ public class GenericCrud<Entity> {
 		return query.getResultList();
 	}
 
-	protected List<Entity> filter(Map<String, Object> filters) {
+	public List<Entity> filter(Map<String, Object> filters) {
 		Set<String> keys = filters.keySet();
 
 		CriteriaBuilder cb = this.em.getCriteriaBuilder();
