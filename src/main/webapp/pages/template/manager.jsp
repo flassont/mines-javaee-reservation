@@ -10,7 +10,7 @@
 			<div class="search-form">
 				<jsp:include page="${requestScope.entity}/filter.jsp" />
 			</div>
-			<button type="button" class="btn btn-default btn-block">Créer</button>
+			<a href="<%=application.getContextPath()%>/${requestScope.entity}/new" role="button" class="btn btn-primary">Créer</a>
 		</div>
 		<div class="col-md-9">
 			<c:choose>
