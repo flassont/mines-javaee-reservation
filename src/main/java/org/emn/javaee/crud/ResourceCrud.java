@@ -21,4 +21,9 @@ public class ResourceCrud extends GenericCrud<Resource> {
         nameFilter.put("name", "%" + nameFragment + "%");
         return this.filter(nameFilter);
     }
+    
+    public List<Resource> findByNameAndLocationAndResponsible(String name, String location, String responsible) {
+        // todo
+    	return null;
+    }
 }

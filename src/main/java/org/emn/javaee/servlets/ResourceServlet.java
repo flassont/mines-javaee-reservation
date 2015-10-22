@@ -47,7 +47,7 @@ public class ResourceServlet extends HttpServlet {
         // remove user
         if(path != null && path.startsWith("/delete"))
         {
-            //handleDeletion(request, response);
+            handleDeletion(request, response);
         }
         else
         {
@@ -119,15 +119,46 @@ public class ResourceServlet extends HttpServlet {
      */
     private void handleFullOrFilteredList(HttpServletRequest request) {
         String name = request.getParameter("name");
-        if( name != null )
+        String location = request.getParameter("location");
+        String responsible = request.getParameter("responsible");
+        if( name != null || location != null  || responsible != null)
         {
             request.setAttribute("name", name);
-            request.setAttribute("resources", crud.findByNameContaining(name));
+            request.setAttribute("location", location);
+            request.setAttribute("responsible", responsible);
+            request.setAttribute("resources", crud.findByNameContaining(name, location, responsible));
         }
         else
         {
             request.setAttribute("resources", crud.findAll());
         }
     }
+    
+    /**
+	 * Deletes a resource
+	 * @param request
+	 * @throws IOException 
+	 */
+	private void handleDeletion(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		try {
+			int id = Integer.valueOf(request.getParameter("id"));
+			this.crud.remove(id);
+		}
+		catch(Exception e){}
+		finally{
+			this.redirectToResources(request, response);
+		};
+	}
+	
+	/**
+	 * Redirect to the list of resources
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	private void redirectToResources(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		response.sendRedirect(getServletContext().getContextPath() + request.getServletPath());
+	}
 
 }
