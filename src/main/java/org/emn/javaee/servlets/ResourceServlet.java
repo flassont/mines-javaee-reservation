@@ -51,19 +51,19 @@ public class ResourceServlet extends HttpServlet {
         }
         else
         {
-            // edit / see resourceType
+            // edit / see resource
             if (path != null && path.startsWith("/edit"))
             {
-				/*try {
+				try {
 					int id = Integer.valueOf(request.getParameter("id"));
-					User user = this.crud.find(id);
+					Resource resource = this.crud.find(id);
 					// add the current user to fill the input values in the jsp user form
-					request.setAttribute("user", user);
+					request.setAttribute("resource", resource);
 				}
-				catch(Exception e){};*/
+				catch(Exception e){};
 
             }
-            // list resourceTypes
+            // list resources
             handleFullOrFilteredList(request);
             request.setAttribute("page", "template/manager.jsp");
             request.setAttribute("entity", "resources");
@@ -82,7 +82,7 @@ public class ResourceServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         handleForm(request);
-        doGet(request, response);
+		this.redirectToResources(request, response);
     }
 
     /**
