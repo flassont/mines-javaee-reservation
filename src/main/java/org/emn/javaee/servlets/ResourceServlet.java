@@ -126,7 +126,7 @@ public class ResourceServlet extends HttpServlet {
             request.setAttribute("name", name);
             request.setAttribute("location", location);
             request.setAttribute("responsible", responsible);
-            request.setAttribute("resources", crud.findByNameContaining(name, location, responsible));
+            request.setAttribute("resources", crud.findByNameContaining(name));
         }
         else
         {
