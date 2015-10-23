@@ -126,7 +126,7 @@ public class UserServlet extends HttpServlet {
 	 * @throws IOException 
 	 */
 	private void handleFormUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		if(request.getParameterValues("firstName")[0] != null)
+		if(request.getParameter("firstName") != null)
 		{
 			User user;
 			// we update a user as its id has been past
