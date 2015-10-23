@@ -39,17 +39,15 @@ public class AuthenticationFilter implements javax.servlet.Filter {
 			User user = crud.findByLoginAndPassword(login, password);
 			if(user != null)
 			{
-				System.out.println("user n'est pas null");
-				session.setAttribute("user", user);	
+				session.setAttribute("authenticatedUser", user);	
 			}
 			else
 			{
-				System.out.println("user est null");
 				req.setAttribute("error", "Erreur de connexion, l'utilisateur " + login + " / " + password + " n'existe pas.");
 			}
 		}
 
-		if (session.getAttribute("user") == null) {
+		if (session.getAttribute("authenticatedUser") == null) {
 			request.setAttribute("page", "template/connection/login.jsp");
 			request.setAttribute("title", "Connection");
 			request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
