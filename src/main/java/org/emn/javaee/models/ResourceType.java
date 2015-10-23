@@ -25,7 +25,7 @@ public class ResourceType {
     /**
      * Resource instances depending of this ResourceType
      */
-    @OneToMany (mappedBy = "type")
+    @OneToMany (mappedBy = "type", cascade=CascadeType.REMOVE)
     private List<Resource> resources;
 
     public int getId() {
