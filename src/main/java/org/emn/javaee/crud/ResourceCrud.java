@@ -1,11 +1,13 @@
 package org.emn.javaee.crud;
 
-import org.emn.javaee.models.Resource;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
+import javax.persistence.Query;
+
+import org.emn.javaee.models.Resource;
 
 /**
  * Resource CRUD
@@ -22,8 +24,36 @@ public class ResourceCrud extends GenericCrud<Resource> {
         return this.filter(nameFilter);
     }
     
+    /*
+     * Search resources by name, location and its responsible firstName and/or lastName
+     */
     public List<Resource> findByNameAndLocationAndResponsible(String name, String location, String responsible) {
-        // todo
-    	return null;
+    	String queryString = "SELECT r FROM Resource r WHERE 1=1 ";
+		if(name != null)
+		{
+			queryString += " AND name like :name ";
+		}
+		if(location != null)
+		{
+			queryString += " AND location like :location ";
+		}
+		if(responsible != null)
+		{
+			queryString += " AND (r.responsible.firstName like :responsible OR r.responsible.lastName like :responsible OR concat(r.responsible.firstName,r.responsible.lastName) like :responsible)";
+		}
+		Query query = this.em.createQuery(queryString, Resource.class);
+		if(name != null)
+		{
+			query.setParameter("name", "%" + name + "%");
+		}
+		if(location != null)
+		{
+			query.setParameter("location", "%" + location + "%");
+		}
+		if(responsible != null)
+		{
+			query.setParameter("responsible", "%" + responsible.replace(" ", "") + "%");
+		}
+		return query.getResultList();
     }
 }
