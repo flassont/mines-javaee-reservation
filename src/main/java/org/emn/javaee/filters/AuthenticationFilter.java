@@ -28,7 +28,6 @@ public class AuthenticationFilter implements javax.servlet.Filter {
 			ServletRequest request, ServletResponse response, FilterChain chain)
 					throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest)request;
-		HttpServletResponse resp = (HttpServletResponse)response;
 		HttpSession session = ((HttpServletRequest) request).getSession();
 
 		String login = req.getParameter("login");

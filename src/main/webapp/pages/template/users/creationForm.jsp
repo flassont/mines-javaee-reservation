@@ -2,7 +2,7 @@
 <!-- If a user entity has been past, it means we're editing it. To update it, we need to pass its id as parameter -->
 <c:choose>
 	<c:when test="${not empty user}">
-		<c:set var="parameter" value="?id=${user.id}" />
+		<c:set var="parameter" value="/edit?id=${user.id}" />
 		<c:set var="panelTitle" value="${user.firstName} ${user.lastName}" />
 	</c:when>
 	<c:otherwise>

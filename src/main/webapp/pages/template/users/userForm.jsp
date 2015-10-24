@@ -3,7 +3,7 @@
 <div class="form-group">
 	<label for="login">Nom d'utilisateur</label> <input type="text"
 		class="form-control" value="${user.login}" id="login" name="login"
-		placeholder="Login">
+		placeholder="Login" <c:if test="${not empty parameter}">readonly</c:if>> 
 </div>
 
 <div class="form-group">

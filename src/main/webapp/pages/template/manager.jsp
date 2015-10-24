@@ -26,6 +26,12 @@
 		</c:choose>
 
 		<div class="${colDef}">
+			<c:if test="${not empty requestScope.error}">
+				<div class="panel panel-danger">
+					<div class="panel-heading">Erreur</div>
+					<div class="panel-body">${requestScope.error}</div>
+				</div>
+			</c:if>
 			<c:choose>
 				<c:when test="${requestScope.creationMode}">
 					<jsp:include page="${requestScope.entity}/creationForm.jsp" />

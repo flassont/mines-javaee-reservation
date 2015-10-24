@@ -1,5 +1,10 @@
 package org.emn.javaee.crud;
 
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
@@ -9,12 +14,6 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.MapAttribute;
-
-import java.lang.reflect.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.emn.javaee.tools.Em;
 
