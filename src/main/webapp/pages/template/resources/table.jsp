@@ -8,7 +8,7 @@
 		<tr>
 			<th>#</th>
 			<th>Libellé</th>
-			<th>Propriétaire</th>
+			<th>Responsable</th>
 			<th>Localisation</th>
 			<th class="text-center">Action</th>
 		</tr>

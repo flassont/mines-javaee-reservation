@@ -10,7 +10,7 @@
 	
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      	<ul class="nav navbar-nav">
-	        	<li <c:if test="${requestScope.entity == 'bookings'}"> class="active"</c:if>><a href="<%= application.getContextPath()%>/bookings">Réservations</a></li>
+	        	<li <c:if test="${requestScope.entity == 'reservations'}"> class="active"</c:if>><a href="<%= application.getContextPath()%>/reservations">Réservations</a></li>
 	        	<li <c:if test="${requestScope.entity == 'resources'}">class="active"</c:if>><a href="<%= application.getContextPath()%>/resources">Ressources</a></li>
 	        	<li <c:if test="${requestScope.entity == 'resourceTypes'}">    class="active"</c:if>><a href="<%= application.getContextPath()%>/resourceTypes">Types de ressources</a></li>
 	        	<li <c:if test="${requestScope.entity == 'users'}">    class="active"</c:if>><a href="<%= application.getContextPath()%>/users">Utilisateurs</a></li>
