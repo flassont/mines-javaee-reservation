@@ -2,44 +2,44 @@
 <!-- Value will be filled if we past the user variable in case of editing -->
 <div class="form-group">
 	<label for="login">Nom d'utilisateur</label> <input type="text"
-		class="form-control" value="${user.login}" id="login" name="login"
+		class="form-control" value="${model.login}" id="login" name="login"
 		placeholder="Login">
 </div>
 
 <div class="form-group">
 	<label for="password">Mot de passe</label> <input type="password"
-		class="form-control" value="${user.password}" id="password"
+		class="form-control" value="${model.password}" id="password"
 		name="password" placeholder="Mot de passe">
 </div>
 
 <div class="form-group">
 	<label for="lastName">Nom</label> <input type="text"
-		class="form-control" value="${user.lastName}" id="lastName"
+		class="form-control" value="${model.lastName}" id="lastName"
 		name="lastName" placeHolder="Nom">
 </div>
 
 <div class="form-group">
-	<label for="firstName">Prénom</label> <input type="text"
-		class="form-control" value="${user.firstName}" id="firstName"
-		name="firstName" placeHolder="Prénom">
+	<label for="firstName">Prï¿½nom</label> <input type="text"
+		class="form-control" value="${model.firstName}" id="firstName"
+		name="firstName" placeHolder="Prï¿½nom">
 
 </div>
 
 <div class="form-group">
 	<label for="mail">Email</label> <input type="email"
-		class="form-control" value="${user.mail}" id="mail" name="mail"
+		class="form-control" value="${model.mail}" id="mail" name="mail"
 		placeHolder="Email">
 </div>
 
 <div class="form-group">
-	<label for="phone">Téléphone</label> <input type="text"
-		class="form-control" value="${user.phone}" id="phone" name="phone"
-		placeHolder="Téléphone">
+	<label for="phone">Tï¿½lï¿½phone</label> <input type="text"
+		class="form-control" value="${model.phone}" id="phone" name="phone"
+		placeHolder="Tï¿½lï¿½phone">
 </div>
 
 <div class="text-center">
 	<c:choose>
-		<c:when test="${not empty user}">
+		<c:when test="${not empty model}">
 			<button type="submit" class="btn btn-success inline-button">Modifier</button>
 		</c:when>
 		<c:otherwise>

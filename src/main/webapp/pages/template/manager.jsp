@@ -16,8 +16,8 @@
 						<jsp:include page="${requestScope.entity}/filter.jsp" />
 					</div>
 					<a
-						href="<%=application.getContextPath()%>/${requestScope.entity}/new"
-						role="button" class="btn btn-primary btn-block">Créer</a>
+						href="<%=application.getContextPath()%>/test/${requestScope.entity}/new"
+						role="button" class="btn btn-primary btn-block">Crï¿½er</a>
 				</div>
 			</c:when>
 			<c:otherwise>
