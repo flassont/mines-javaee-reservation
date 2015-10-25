@@ -83,9 +83,10 @@ public class GenericCrud<Entity> {
 	 */
 	public boolean remove(int id) {
 		Entity entity = (Entity) this.find(id);
+		
 		if(entity == null) return false;
 		try 
-		{
+		{	
 			EntityTransaction t = this.em.getTransaction();
 			t.begin();
 			this.em.remove(entity);

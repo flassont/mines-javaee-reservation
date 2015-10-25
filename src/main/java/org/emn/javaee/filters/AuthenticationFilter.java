@@ -31,8 +31,8 @@ public class AuthenticationFilter implements javax.servlet.Filter {
 		HttpServletResponse resp = (HttpServletResponse)response;
 		HttpSession session = ((HttpServletRequest) request).getSession();
 
-		String login = req.getParameter("login");
-		String password = req.getParameter("password");
+		String login = req.getParameter("loginAuth");
+		String password = req.getParameter("passwordAuth");
 		if(login != null && password != null)
 		{
 			UserCrud crud = new UserCrud();

@@ -100,4 +100,32 @@ public class ResourceAction extends ActionDispatcher<Resource> {
 		return model;
 	}
 
+	@Override
+	protected void validateFields(HttpServletRequest req) throws BeanValidationError {
+		String name = req.getParameter(FIELD_NAME);
+		if(!isFieldValid(name)) {
+			throw new BeanValidationError("Libellé invalide.");
+		}
+		
+		int typeId = Integer.parseInt(req.getParameter(FIELD_TYPE));
+		if(typeCrud.find(typeId) == null) {
+			throw new BeanValidationError("Type de ressource inexistant");
+		}
+		
+		int responsibleId = Integer.parseInt(req.getParameter(FIELD_RESPONSIBLE));
+		if(userCrud.find(responsibleId) == null) {
+			throw new BeanValidationError("Responsable inexistant");
+		}
+		
+		String description = req.getParameter(FIELD_DESCRIPTION);
+		if(!isFieldValid(description)) {
+			throw new BeanValidationError("Description invalide.");
+		}
+		
+		String location = req.getParameter(FIELD_DESCRIPTION);
+		if(!isFieldValid(location)) {
+			throw new BeanValidationError("Localisation invalide.");
+		}
+	}
+
 }

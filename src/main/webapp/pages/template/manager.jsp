@@ -15,7 +15,7 @@
 					</div>
 					<a
 						href="<%=application.getContextPath()%>/app/${requestScope.entity}/new"
-						role="button" class="btn btn-primary btn-block">Crï¿½er</a>
+						role="button" class="btn btn-primary btn-block">Créer</a>
 				</div>
 			</c:when>
 			<c:otherwise>
@@ -24,6 +24,14 @@
 		</c:choose>
 
 		<div class="${colDef}">
+		
+			<c:if test="${not empty transactionError}">
+				<div class="panel panel-danger">
+					<div class="panel-heading">Erreur</div>
+					<div class="panel-body">${transactionError}</div>
+				</div>
+			</c:if>
+			
 			<c:choose>
 				<c:when test="${requestScope.creationMode}">
 					<jsp:include page="${requestScope.entity}/creationForm.jsp" />
@@ -32,6 +40,7 @@
 					<jsp:include page="${requestScope.entity}/table.jsp" />
 				</c:otherwise>
 			</c:choose>
+			
 		</div>
 
 	</div>

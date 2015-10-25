@@ -24,6 +24,7 @@ public abstract class ActionDispatcher<T> {
     protected static final String REQUEST_ATTR_PAGE_NAME = "page";
     protected static final String REQUEST_ATTR_ENTITY_NAME = "entity";
     protected static final String REQUEST_ATTR_TITLE_NAME = "title";
+	protected static final String SESSION_ATTR_ERROR_NAME = "transactionError";
     protected final GenericCrud<T> crud;
 
     protected ActionDispatcher(GenericCrud<T> crud) {
@@ -96,8 +97,21 @@ public abstract class ActionDispatcher<T> {
                     resp.sendError(404);
                     return;
             }
+
+			if (req.getSession().getAttribute(SESSION_ATTR_ERROR_NAME) == null) {
+				goToList(req, resp);
+				
+			} else { 
+				String path = req.getServletContext().getContextPath() + req.getServletPath() + "/" + getEntityFolderName() + "/";
+				
+				if (action.equals(REQUEST_PATH_CREATE)) {
+					resp.sendRedirect(path + REQUEST_PATH_CREATE);
+				}
+				else {
+					resp.sendRedirect(path + REQUEST_PATH_EDIT + "?id=" + getId(req));
+				}
+			}
         }
-        goToList(req, resp);
     }
 
     /**
@@ -160,9 +174,15 @@ public abstract class ActionDispatcher<T> {
      * @param resp The response
      */
     protected void createEntitySave(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        T model = createEntityModel();
-        model = mapEntity(model, req);
-        crud.create(model);
+    	try {
+			validateFields(req);
+			T model = createEntityModel();
+			model = mapEntity(model, req);
+			crud.create(model);
+
+		} catch (BeanValidationError e) {
+			req.getSession().setAttribute(SESSION_ATTR_ERROR_NAME, e.getMessage());
+		}
     }
 
     /**
@@ -190,9 +210,14 @@ public abstract class ActionDispatcher<T> {
      * @param resp The response
      */
     protected void editEntitySave(HttpServletRequest req, HttpServletResponse resp) {
-        T model = crud.find(getId(req));
-        model = mapEntity(model, req);
-        crud.create(model);
+    	try {
+			validateFields(req);
+			T model = crud.find(getId(req));
+			model = mapEntity(model, req);
+			crud.create(model);
+		} catch (BeanValidationError e) {
+			req.getSession().setAttribute(SESSION_ATTR_ERROR_NAME, e.getMessage());
+		}
     }
 
     /**
@@ -211,7 +236,9 @@ public abstract class ActionDispatcher<T> {
      * @param resp The response
      */
     protected void deleteEntity(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        this.crud.remove(getId(req));
+    	if (!this.crud.remove(getId(req))) {
+			req.getSession().setAttribute(SESSION_ATTR_ERROR_NAME, "Impossible de supprimer cette entité, vérifier ses dépendences.");
+		}
     }
 
     /**
@@ -223,6 +250,12 @@ public abstract class ActionDispatcher<T> {
         req.setAttribute(REQUEST_ATTR_PAGE_NAME, REQUEST_ATTR_TEMPLATE_VALUE);
         req.setAttribute(REQUEST_ATTR_ENTITY_NAME, getEntityFolderName());
         req.setAttribute(REQUEST_ATTR_TITLE_NAME, getEntityPageTitle());
+
+		String error = (String) req.getSession().getAttribute(SESSION_ATTR_ERROR_NAME);
+		if (error != null) {
+			req.setAttribute(SESSION_ATTR_ERROR_NAME, error);
+			req.getSession().removeAttribute(SESSION_ATTR_ERROR_NAME);
+		}
     }
 
     /**
@@ -246,4 +279,10 @@ public abstract class ActionDispatcher<T> {
         // Action handled, back to list
         resp.sendRedirect(req.getServletContext().getContextPath() + req.getServletPath() + "/" + getEntityFolderName());
     }
+
+	protected abstract void validateFields(HttpServletRequest req) throws BeanValidationError;
+
+	protected static boolean isFieldValid(String value) {
+		return (value != null) && (!value.trim().isEmpty());
+	}
 }

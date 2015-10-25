@@ -9,7 +9,7 @@
 			<th>#</th>
 			<th>Libellé</th>
 			<th>Responsable</th>
-			<th>Localisation</th>
+			<th>Type</th>
 			<th class="text-center">Action</th>
 		</tr>
 
@@ -19,7 +19,7 @@
 				<td>${resource.name}</td>
 				<td>${resource.responsible.firstName}
 					${resource.responsible.lastName}</td>
-				<td>${resource.location}</td>
+				<td>${resource.type.name}</td>
 				<td class="text-center">
 					<div class="btn-group btn-group-sm">
 						<a

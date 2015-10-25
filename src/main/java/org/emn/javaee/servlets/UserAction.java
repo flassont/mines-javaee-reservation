@@ -74,4 +74,37 @@ public class UserAction extends ActionDispatcher<User> {
 
         return model;
     }
+
+	@Override
+	protected void validateFields(HttpServletRequest req) throws BeanValidationError {
+		String login = req.getParameter(FIELD_LOGIN);
+		if(!isFieldValid(login)) {
+			throw new BeanValidationError("Login invalide.");
+		}
+		
+		String password = req.getParameter(FIELD_PASSWORD);
+		if(!isFieldValid(password)) {
+			throw new BeanValidationError("Mot de passe invalide.");
+		}
+
+		String lastName = req.getParameter(FIELD_LAST_NAME);
+		if(!isFieldValid(lastName)) {
+			throw new BeanValidationError("Nom invalide.");
+		}
+
+		String firstName = req.getParameter(FIELD_FIRST_NAME);
+		if(!isFieldValid(firstName)) {
+			throw new BeanValidationError("Prénom invalide.");
+		}
+
+		String mail = req.getParameter(FIELD_MAIL);
+		if(!isFieldValid(mail)) {
+			throw new BeanValidationError("email invalide.");
+		}
+
+		String phone = req.getParameter(FIELD_PHONE);
+		if(!isFieldValid(phone)) {
+			throw new BeanValidationError("Téléphone invalide.");
+		}
+	}
 }

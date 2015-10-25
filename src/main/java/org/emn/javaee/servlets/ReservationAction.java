@@ -45,7 +45,7 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 
 	@Override
 	protected String getEntityPageTitle() {
-		return "Rï¿½servations";
+		return "Réservations";
 	}
 
 	@Override
@@ -116,6 +116,29 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		model.setReserver(this.userCrud.find(userId));
 
 		return model;
+	}
+
+	@Override
+	protected void validateFields(HttpServletRequest req) throws BeanValidationError {
+		int reservedId = Integer.parseInt(req.getParameter(FIELD_RESERVED_NAME));
+		if(userCrud.find(reservedId) == null) {
+			throw new BeanValidationError("Utilisateur invalide");
+		}
+		
+		int reserverId = Integer.parseInt(req.getParameter(FIELD_RESERVER_NAME));
+		if(resourceCrud.find(reserverId) == null){
+			throw new BeanValidationError("Ressource invalide");
+		}
+		
+		String begin = req.getParameter(FIELD_BEGIN_NAME);
+		if(!isFieldValid(begin)) {
+			throw new BeanValidationError("Date de début invalide");
+		}
+		
+		String end = req.getParameter(FIELD_END_NAME);
+		if(!isFieldValid(end)) {
+			throw new BeanValidationError("Date de fin invalide");
+		}
 	}
 
 	private void createEntityStepOne(HttpServletRequest req, HttpServletResponse resp) {

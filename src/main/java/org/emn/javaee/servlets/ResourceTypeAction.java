@@ -50,4 +50,12 @@ public class ResourceTypeAction extends ActionDispatcher<ResourceType> {
 		return model;
 	}
 
+	@Override
+	protected void validateFields(HttpServletRequest req) throws BeanValidationError {
+		String name = req.getParameter(FIELD_NAME);
+		if(!isFieldValid(name)) {
+			throw new BeanValidationError("Libellé invalide.");
+		}
+	}
+
 }

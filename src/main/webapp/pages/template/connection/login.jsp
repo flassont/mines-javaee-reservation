@@ -14,12 +14,12 @@
 		<form method="POST"
 			action="${javax.servlet.forward.request_uri}">
 			<div class="form-group">
-				<label for="login">Nom d'utilisateur</label> <input type="text"
-					class="form-control" id="login" name="login" placeholder="Login">
+				<label for="loginAuth">Nom d'utilisateur</label> <input type="text"
+					class="form-control" id="loginAuth" name="loginAuth" placeholder="Login">
 			</div>
 			<div class="form-group">
-				<label for="password">Mot de passe</label> <input type="password"
-					class="form-control" id="password" name="password"
+				<label for="passwordAuth">Mot de passe</label> <input type="password"
+					class="form-control" id="passwordAuth" name="passwordAuth"
 					placeholder="Mot de passe">
 			</div>
 			<div class="text-center">
