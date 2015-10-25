@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <div class="panel panel-primary">
 	<div class="panel-heading">Liste des réservations</div>
@@ -18,8 +19,8 @@
 				<td>${reservation.id}</td>
 				<td>${reservation.reserver.firstName} ${reservation.reserver.lastName}</td>
 				<td>${reservation.reserved.name}</td>
-				<td class="col-md-2">${reservation.begin}</td>
-				<td class="col-md-2">${reservation.end}</td>
+				<td class="col-md-2"><fmt:formatDate value="${reservation.begin}" pattern="dd/MM/yyyy" /></td>
+				<td class="col-md-2"><fmt:formatDate value="${reservation.end}" pattern="dd/MM/yyyy"/></td>
 				<td class="text-center col-md-2">
 					<div class="btn-group btn-group-sm">
 						<a

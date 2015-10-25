@@ -29,12 +29,12 @@
 			
 	<div class="form-group">
 		<label for="begin">Début</label>
-		<input type="date" class="form-control" id="begin" name="begin" required>
+		<input type="date" class="form-control" id="begin" name="begin" data-provide="datepicker" data-date-format="dd/mm/yyyy" required>
 	</div>
 			
 	<div class="form-group">
 		<label for="end">Fin</label>
-		<input type="date" class="form-control" id="end" name="end" required>
+		<input type="date" class="form-control" id="end" name="end" data-provide="datepicker" data-date-format="dd/mm/yyyy" required>
 	</div>
 
 	<div class="text-center">
