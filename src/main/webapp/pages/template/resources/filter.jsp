@@ -1,4 +1,4 @@
-<form method="get" action="resources">
+<form method="get" action="<%=application.getContextPath()%>/app/${requestScope.entity}">
 
 	<div class="form-group">
 		<label for="name">Libellé</label>
@@ -11,8 +11,8 @@
 	</div>
 	
 	<div class="form-group">
-		<label for="location">Localisation</label>
-		<input type="text" class="form-control" value="${location}" id="location" name="location" placeholder="Localisation">
+		<label for="resourceType">Type</label>
+		<input type="text" class="form-control" value="${location}" id="resourceType" name="resourceType" placeholder="Type">
 	</div>
 	
 	<button type="submit" class="btn btn-default">Rechercher</button>

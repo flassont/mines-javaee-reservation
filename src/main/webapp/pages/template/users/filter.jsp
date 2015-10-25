@@ -9,7 +9,7 @@
     </c:otherwise>
 </c:choose>
 
-<form method="get" action="<%=application.getContextPath()%>/test/${requestScope.entity}/search">
+<form method="get" action="<%=application.getContextPath()%>/app/${requestScope.entity}/search">
 
 	<div class="form-group">
 		<label for="lastName">Nom</label>
@@ -17,7 +17,7 @@
 	</div>
 	
 	<div class="form-group">
-		<label for="firstName">Prï¿½nom</label>
+		<label for="firstName">Prénom</label>
 		<input type="text" class="form-control" value="${firstName}" id="firstName" name="firstName" placeholder="Nom">
 	</div>
 	

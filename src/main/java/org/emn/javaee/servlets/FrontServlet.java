@@ -1,7 +1,5 @@
 package org.emn.javaee.servlets;
 
-import org.emn.javaee.models.User;
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -10,14 +8,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.emn.javaee.models.Reservation;
+import org.emn.javaee.models.Resource;
+import org.emn.javaee.models.ResourceType;
+import org.emn.javaee.models.User;
+
 /**
  * Servlet implementation class HelloServlet
  */
-@WebServlet(urlPatterns = {"/test/*"})
+@WebServlet(urlPatterns = {"/app/*"})
 public class FrontServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	ActionDispatcher<User> userAction = new UserAction();
+	
+	private ActionDispatcher<User> userAction = new UserAction();
+	private ActionDispatcher<ResourceType> typeAction = new ResourceTypeAction();
+	private ActionDispatcher<Resource> resourceAction = new ResourceAction();
+	private ActionDispatcher<Reservation> reservationAction = new ReservationAction();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -31,9 +38,21 @@ public class FrontServlet extends HttpServlet {
 			case "users":
 				userAction.handleGet(request, response);
 				break;
+			case "resourceTypes":
+				typeAction.handleGet(request, response);
+				break;
 			case "resources":
-			case "typeResources":
+				resourceAction.handleGet(request, response);
+				break;
+			case "reservations":
+				reservationAction.handleGet(request, response);
+				break;
+			case "logout":
+				request.getRequestDispatcher("/logout").forward(request, response);
+				break;
+			default:
 				request.getRequestDispatcher("/" + paths[0]).forward(request, response);
+				break;
 		}
 	}
 
@@ -49,8 +68,18 @@ public class FrontServlet extends HttpServlet {
 			case "users":
 				userAction.handlePost(request, response);
 				break;
+			case "resourceTypes":
+				typeAction.handlePost(request, response);
+				break;
+			case "resources":
+				resourceAction.handlePost(request, response);
+				break;
+			case "reservations":
+				reservationAction.handlePost(request, response);
+				break;
 			default:
 				this.doGet(request, response);
+				break;
 		}
 	}
 

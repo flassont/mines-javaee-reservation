@@ -3,38 +3,38 @@
 <div class="form-group">
 	<label for="login">Nom d'utilisateur</label> <input type="text"
 		class="form-control" value="${model.login}" id="login" name="login"
-		placeholder="Login">
+		placeholder="Login" required>
 </div>
 
 <div class="form-group">
 	<label for="password">Mot de passe</label> <input type="password"
 		class="form-control" value="${model.password}" id="password"
-		name="password" placeholder="Mot de passe">
+		name="password" placeholder="Mot de passe" required>
 </div>
 
 <div class="form-group">
 	<label for="lastName">Nom</label> <input type="text"
 		class="form-control" value="${model.lastName}" id="lastName"
-		name="lastName" placeHolder="Nom">
+		name="lastName" placeHolder="Nom" required>
 </div>
 
 <div class="form-group">
-	<label for="firstName">Prï¿½nom</label> <input type="text"
+	<label for="firstName">Prénom</label> <input type="text"
 		class="form-control" value="${model.firstName}" id="firstName"
-		name="firstName" placeHolder="Prï¿½nom">
+		name="firstName" placeHolder="Prénom" required>
 
 </div>
 
 <div class="form-group">
 	<label for="mail">Email</label> <input type="email"
 		class="form-control" value="${model.mail}" id="mail" name="mail"
-		placeHolder="Email">
+		placeHolder="Email"required>
 </div>
 
 <div class="form-group">
-	<label for="phone">Tï¿½lï¿½phone</label> <input type="text"
+	<label for="phone">Téléphone</label> <input type="text"
 		class="form-control" value="${model.phone}" id="phone" name="phone"
-		placeHolder="Tï¿½lï¿½phone">
+		placeHolder="Téléphone" required>
 </div>
 
 <div class="text-center">

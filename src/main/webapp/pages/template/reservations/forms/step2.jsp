@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<form method="post" action="<%=application.getContextPath()%>/${requestScope.entity}/${parameter}">	
+			
+				Salut
+<form method="post" action="<%=application.getContextPath()%>/app/${requestScope.entity}/${parameter}">	
 	
 	<div class="form-group">
 		<label for="resourceType">Type de la ressource</label>
@@ -11,7 +13,7 @@
 	
 	<div class="form-group">
 		<label for="reserved">Ressource</label>
-		<select class="form-control" id="reserved" name="reserved">
+		<select class="form-control" id="reserved" name="reserved" required>
 			<c:forEach items="${resources}" var="resource">
 				<option value="${resource.id}">${resource.name}</option>
 			</c:forEach>
@@ -21,23 +23,23 @@
 	<div class="form-group">
 		<label for="reserver">Utilisateur</label>
 		<select class="form-control" id="reserver" name="reserver" readonly>
-			<option value="${requestScope.authenticatedUser.id}">${requestScope.authenticatedUser.firstName} ${requestScope.authenticatedUser.lastName}</option>
+			<option value="${authenticatedUser.id}">${authenticatedUser.firstName} ${authenticatedUser.lastName}</option>
 		</select>
 	</div>
 			
 	<div class="form-group">
 		<label for="begin">Début</label>
-		<input type="date" class="form-control" id="begin" name="begin">
+		<input type="date" class="form-control" id="begin" name="begin" required>
 	</div>
 			
 	<div class="form-group">
 		<label for="end">Fin</label>
-		<input type="date" class="form-control" id="end" name="end">
+		<input type="date" class="form-control" id="end" name="end" required>
 	</div>
 
 	<div class="text-center">
 		<c:choose>
-			<c:when test="${not empty reservation}">
+			<c:when test="${not empty model}">
 				<button type="submit" class="btn btn-success inline-button">Modifier</button>
 			</c:when>
 			<c:otherwise>

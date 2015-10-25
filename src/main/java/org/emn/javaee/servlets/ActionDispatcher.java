@@ -244,6 +244,6 @@ public abstract class ActionDispatcher<T> {
      */
     private void goToList(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // Action handled, back to list
-        resp.sendRedirect(req.getServletPath() + "/" + getEntityFolderName());
+        resp.sendRedirect(req.getServletContext().getContextPath() + req.getServletPath() + "/" + getEntityFolderName());
     }
 }

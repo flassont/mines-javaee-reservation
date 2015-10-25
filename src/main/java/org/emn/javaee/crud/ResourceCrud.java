@@ -1,6 +1,5 @@
 package org.emn.javaee.crud;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +21,14 @@ public class ResourceCrud extends GenericCrud<Resource> {
         Map<String, Object> nameFilter= new HashMap<>();
         nameFilter.put("name", "%" + nameFragment + "%");
         return this.filter(nameFilter);
+    }
+    
+    public List<Resource> findByType(int type) {
+    	Map<String, Object> typeFilter = new HashMap<>(1);
+    	
+    	typeFilter.put("type", type);
+    	
+    	return this.filter(typeFilter);
     }
     
     /*

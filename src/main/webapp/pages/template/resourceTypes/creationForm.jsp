@@ -1,9 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- If a resource type entity has been past, it means we're editing it. To update it, we need to pass its id as parameter -->
 <c:choose>
-	<c:when test="${not empty resourceType}">
-		<c:set var="parameter" value="/edit?id=${resourceType.id}" />
-		<c:set var="panelTitle" value="${resourceType.name}" />
+	<c:when test="${not empty model}">
+		<c:set var="parameter" value="/edit?id=${model.id}" />
+		<c:set var="panelTitle" value="${model.name}" />
 	</c:when>
 	<c:otherwise>
 		<c:set var="parameter" value="/new" />
@@ -21,17 +21,17 @@
 				</div>
 			</c:if>
 			<form method="POST"
-				action="<%=application.getContextPath()%>/${requestScope.entity}${parameter}">
+				action="<%=application.getContextPath()%>/app/${requestScope.entity}${parameter}">
 
 				<div class="form-group">
 					<label for="name">Libellé</label> <input type="text"
-						class="form-control" id="name" value="${resourceType.name}"
-						name="name" placeholder="Libellé">
+						class="form-control" id="name" value="${model.name}"
+						name="name" placeholder="Libellé" required>
 				</div>
 
 				<div class="text-center">
 					<c:choose>
-						<c:when test="${not empty resourceType}">
+						<c:when test="${not empty model}">
 							<button type="submit" class="btn btn-success inline-button">Modifier</button>
 						</c:when>
 						<c:otherwise>

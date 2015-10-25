@@ -12,18 +12,18 @@
 			<th class="text-center">Action</th>
 		</tr>
 
-		<c:forEach items="${requestScope.resourceTypes}" var="type">
+		<c:forEach items="${requestScope.models}" var="type">
 			<tr>
 				<td>${type.id}</td>
 				<td>${type.name}</td>
 				<td class="text-center">
 					<div class="btn-group btn-group-sm">
 						<a
-							href="<%= application.getContextPath()%>/${requestScope.entity}/edit?id=${type.id}"
+							href="<%= application.getContextPath()%>/app/${requestScope.entity}/edit?id=${type.id}"
 							class="btn btn-default"> <span
 							class="glyphicon glyphicon glyphicon-edit"></span>
 						</a> <a
-							href="<%= application.getContextPath()%>/${requestScope.entity}/delete?id=${type.id}"
+							href="<%= application.getContextPath()%>/app/${requestScope.entity}/delete?id=${type.id}"
 							class="btn btn-danger"> <span
 							class="glyphicon glyphicon-remove"></span>
 						</a>

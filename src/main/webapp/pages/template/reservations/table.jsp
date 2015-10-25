@@ -13,7 +13,7 @@
 			<th class="col-md-1 text-center">Action</th>
 		</tr>
 	
-		<c:forEach items="${requestScope.reservations}" var="reservation">
+		<c:forEach items="${requestScope.models}" var="reservation">
 			<tr>
 				<td>${reservation.id}</td>
 				<td>${reservation.reserver.firstName} ${reservation.reserver.lastName}</td>
@@ -23,11 +23,11 @@
 				<td class="text-center col-md-2">
 					<div class="btn-group btn-group-sm">
 						<a
-							href="<%= application.getContextPath()%>/${requestScope.entity}/edit?id=${reservation.id}"
+							href="<%= application.getContextPath()%>/app/${requestScope.entity}/edit?id=${reservation.id}"
 							class="btn btn-default"> <span
 							class="glyphicon glyphicon glyphicon-edit"></span>
 						</a> <a
-							href="<%= application.getContextPath()%>/${requestScope.entity}/delete?id=${reservation.id}"
+							href="<%= application.getContextPath()%>/app/${requestScope.entity}/delete?id=${reservation.id}"
 							class="btn btn-danger"> <span
 							class="glyphicon glyphicon-remove"></span>
 						</a>
