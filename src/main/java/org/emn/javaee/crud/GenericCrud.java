@@ -139,7 +139,7 @@ public class GenericCrud<Entity> {
 			Object expectedValue = filters.get(attributeName);
 			if(attribute.getJavaType() == String.class) {
 				System.out.println("C'est un string");
-				condition = cb.and(condition, cb.like(root.get(attributeName).as(String.class), (String) expectedValue));
+				condition = cb.and(condition, cb.like(root.get(attributeName).as(String.class), "%" + (String) expectedValue + "%"));
 			} else if (attribute.getJavaType() == Boolean.class) {
 				System.out.println("c'est un boolean");
 				Expression<Boolean> expectedExpression;
