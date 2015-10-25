@@ -16,14 +16,16 @@
 	    <div class="collapse navbar-collapse" id="main-nav">
 	      	<ul class="nav navbar-nav">
 	        	<li <c:if test="${requestScope.entity == 'reservations'}"> class="active"</c:if>><a href="<%= application.getContextPath()%>/app/reservations">Réservations</a></li>
-	        	<li <c:if test="${requestScope.entity == 'resources'}">class="active"</c:if>><a href="<%= application.getContextPath()%>/app/resources">Ressources</a></li>
-	        	<li <c:if test="${requestScope.entity == 'resourceTypes'}">    class="active"</c:if>><a href="<%= application.getContextPath()%>/app/resourceTypes">Types de ressources</a></li>
-	        	<li <c:if test="${requestScope.entity == 'users'}">    class="active"</c:if>><a href="<%= application.getContextPath()%>/app/users">Utilisateurs</a></li>
-	      	</ul>
+		        	<c:if test="${authenticatedUser.isAdmin}">
+		        		<li <c:if test="${requestScope.entity == 'resources'}">class="active"</c:if>><a href="<%= application.getContextPath()%>/app/resources">Ressources</a></li>
+		        		<li <c:if test="${requestScope.entity == 'resourceTypes'}">    class="active"</c:if>><a href="<%= application.getContextPath()%>/app/resourceTypes">Types de ressources</a></li>
+		        		<li <c:if test="${requestScope.entity == 'users'}">    class="active"</c:if>><a href="<%= application.getContextPath()%>/app/users">Utilisateurs</a></li>
+		        	</c:if>	
+	        	</ul>
 	      
 	      	<ul class="nav navbar-nav navbar-right">
-	        	  <li><a href="#">Profil</a></li>
-	          	<li><a href="logout">Deconnexion</a></li>
+<!-- 	        	  <li><a href="#">Profil</a></li> -->
+	          	<li><a href="<%=application.getContextPath()%>/app/logout">Deconnexion</a></li>
 	      	</ul>
 	    </div>
  	</div>

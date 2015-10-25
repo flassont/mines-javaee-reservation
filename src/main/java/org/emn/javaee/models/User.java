@@ -108,7 +108,7 @@ public class User {
         this.phone = phone;
     }
 
-    public boolean isAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
     }
 
