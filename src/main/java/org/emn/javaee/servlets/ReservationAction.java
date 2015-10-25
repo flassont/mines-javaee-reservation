@@ -1,17 +1,19 @@
 package org.emn.javaee.servlets;
 
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.emn.javaee.crud.ReservationCrud;
 import org.emn.javaee.crud.ResourceCrud;
 import org.emn.javaee.crud.ResourceTypeCrud;
 import org.emn.javaee.crud.UserCrud;
 import org.emn.javaee.models.Reservation;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReservationAction extends ActionDispatcher<Reservation> {
 
@@ -20,11 +22,14 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 	public static final String FIELD_RESERVED_NAME = "reserved";
 	public static final String FIELD_RESERVER_NAME = "reserver";
 	public static final String FIELD_RESERVED_TYPE_NAME = "resourceType";
-	
+
 	private static final String REQUEST_ATTR_RESOURCETYPES_NAME = "resourceTypes";
 	private static final String REQUEST_ATTR_SELECTED_RESOURCETYPE_NAME = "resourceType";
 	private static final String REQUEST_ATTR_RESOURCES_NAME = "resources";
-//	private static final String REQUEST_ATTR
+
+
+	private static final String DATE_EXPECTED_FORMAT = "dd/MM/yyyy";
+	private final SimpleDateFormat formatter = new SimpleDateFormat(DATE_EXPECTED_FORMAT);
 
 	private ResourceTypeCrud typeCrud;
 	private ResourceCrud resourceCrud;
@@ -99,8 +104,14 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		int resourceId = Integer.parseInt(req.getParameter(FIELD_RESERVED_NAME));
 		int userId = Integer.parseInt(req.getParameter(FIELD_RESERVER_NAME));
 
-		model.setBegin(Date.valueOf(begin));
-		model.setEnd(Date.valueOf(end));
+		try {
+			model.setBegin(readDate(begin));
+			model.setEnd(readDate(end));
+		} catch (ParseException e) {
+			Date now = new Date();
+			model.setBegin(now);
+			model.setBegin(now);
+		}
 		model.setReserved(this.resourceCrud.find(resourceId));
 		model.setReserver(this.userCrud.find(userId));
 
@@ -116,5 +127,10 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		
 		req.setAttribute(REQUEST_ATTR_RESOURCES_NAME, this.resourceCrud.findByType(typeId));
 		req.setAttribute(REQUEST_ATTR_SELECTED_RESOURCETYPE_NAME, this.typeCrud.find(typeId));
+	}
+
+	private Date readDate(String date) throws ParseException {
+		date = date.trim();
+		return formatter.parse(date);
 	}
 }
