@@ -12,7 +12,7 @@
 			<div class="alert alert-danger" role="alert">${error}</div>
 		</c:if>
 		<form method="POST"
-			action="${requestScope['javax.servlet.forward.request_uri']}">
+			action="${javax.servlet.forward.request_uri}">
 			<div class="form-group">
 				<label for="login">Nom d'utilisateur</label> <input type="text"
 					class="form-control" id="login" name="login" placeholder="Login">

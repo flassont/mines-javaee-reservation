@@ -39,7 +39,9 @@ public class AuthenticationFilter implements javax.servlet.Filter {
 			User user = crud.findByLoginAndPassword(login, password);
 			if(user != null)
 			{
-				session.setAttribute("authenticatedUser", user);	
+				session.setAttribute("authenticatedUser", user);
+				resp.sendRedirect(request.getServletContext().getContextPath() + "/app/reservations");
+				return;
 			}
 			else
 			{
@@ -60,8 +62,6 @@ public class AuthenticationFilter implements javax.servlet.Filter {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-
 	}
 
 }
