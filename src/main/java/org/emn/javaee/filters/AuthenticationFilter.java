@@ -2,6 +2,7 @@ package org.emn.javaee.filters;
 
 import java.io.IOException;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
@@ -17,13 +18,13 @@ import org.emn.javaee.crud.UserCrud;
 import org.emn.javaee.models.User;
 
 @WebFilter("/*")
-public class AuthenticationFilter implements javax.servlet.Filter {
+public class AuthenticationFilter implements Filter {
 	protected ServletContext servletContext;
 
 	public void init(FilterConfig filterConfig) {
 		servletContext = filterConfig.getServletContext();
 	}
-
+	
 	public void doFilter(
 			ServletRequest request, ServletResponse response, FilterChain chain)
 					throws IOException, ServletException {
@@ -63,5 +64,4 @@ public class AuthenticationFilter implements javax.servlet.Filter {
 	@Override
 	public void destroy() {
 	}
-
 }

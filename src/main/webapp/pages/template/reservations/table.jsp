@@ -22,17 +22,22 @@
 				<td class="col-md-2"><fmt:formatDate value="${reservation.begin}" pattern="dd/MM/yyyy" /></td>
 				<td class="col-md-2"><fmt:formatDate value="${reservation.end}" pattern="dd/MM/yyyy"/></td>
 				<td class="text-center col-md-2">
+				
 					<div class="btn-group btn-group-sm">
+						<c:if test="${user.isAdmin}">
+							<a
+								href="<%= application.getContextPath()%>/app/${requestScope.entity}/edit?id=${reservation.id}"
+								class="btn btn-default"> <span
+								class="glyphicon glyphicon glyphicon-edit"></span>
+							</a>
+						</c:if>
 						<a
-							href="<%= application.getContextPath()%>/app/${requestScope.entity}/edit?id=${reservation.id}"
-							class="btn btn-default"> <span
-							class="glyphicon glyphicon glyphicon-edit"></span>
-						</a> <a
 							href="<%= application.getContextPath()%>/app/${requestScope.entity}/delete?id=${reservation.id}"
 							class="btn btn-danger"> <span
 							class="glyphicon glyphicon-remove"></span>
 						</a>
 					</div>
+					
 				</td>
 			</tr>
 		</c:forEach>

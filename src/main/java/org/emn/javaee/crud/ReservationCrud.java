@@ -7,4 +7,7 @@ import org.emn.javaee.models.Reservation;
  */
 public class ReservationCrud extends GenericCrud<Reservation>{
 
+	public boolean isResourceReserved(int id) {
+		return false;
+	}
 }
