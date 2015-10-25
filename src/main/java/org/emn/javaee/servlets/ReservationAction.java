@@ -40,7 +40,7 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 
 	@Override
 	protected String getEntityPageTitle() {
-		return "Réservations";
+		return "Rï¿½servations";
 	}
 
 	@Override
@@ -65,12 +65,12 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		Map<String, Object> filters = new HashMap<>(4);
 
 		String reserved = req.getParameter(FIELD_RESERVED_NAME);
-		if (reserved != null) {
+		if (reserved != null && !reserved.trim().isEmpty()) {
 			filters.put(FIELD_RESERVED_NAME, reserved);
 		}
 
 		String reserver = req.getParameter(FIELD_RESERVER_NAME);
-		if (reserved != null) {
+		if (reserved != null && !reserver.trim().isEmpty()) {
 			filters.put(FIELD_RESERVER_NAME, reserver);
 		}
 		

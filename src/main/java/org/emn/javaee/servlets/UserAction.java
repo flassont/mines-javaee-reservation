@@ -41,19 +41,18 @@ public class UserAction extends ActionDispatcher<User> {
         Map<String, Object> filters = new HashMap<>(3);
 
         String firstName = req.getParameter(FIELD_FIRST_NAME);
-        if (firstName != null) {
+        if (firstName != null && !firstName.trim().isEmpty()) {
             filters.put(FIELD_FIRST_NAME, firstName);
         }
 
         String lastName = req.getParameter(FIELD_LAST_NAME);
-        if (lastName != null) {
+        if (lastName != null && !lastName.trim().isEmpty()) {
             filters.put(FIELD_LAST_NAME, lastName);
         }
 
         Boolean administrator = BOOL_ON_STATUS.equals(req.getParameter(FIELD_ADMINISTRATOR));
-        if (administrator != null) {
-            filters.put(FIELD_ADMINISTRATOR, administrator);
-        }
+        // There's no null status
+        filters.put(FIELD_ADMINISTRATOR, administrator);
 
         return filters;
     }

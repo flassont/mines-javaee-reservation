@@ -31,7 +31,7 @@ public class ResourceTypeAction extends ActionDispatcher<ResourceType> {
 		Map<String, Object> filters = new HashMap<>(1);
 
 		String name = req.getParameter(FIELD_NAME);
-		if(name != null){
+		if(name != null && !name.trim().isEmpty()){
 			filters.put(FIELD_NAME, name);
 		}
 
