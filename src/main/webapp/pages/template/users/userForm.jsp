@@ -1,49 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="in" uri="/../../tags/input.tld"%>
+<%@ taglib prefix="mod" uri="/../../tags/modelSubmit.tld"%>
 <!-- Value will be filled if we past the user variable in case of editing -->
-<div class="form-group">
-	<label for="login">Nom d'utilisateur</label> <input type="text"
-		class="form-control" value="${model.login}" id="login" name="login"
-		placeholder="Login" required>
-</div>
+<!-- <div class="form-group"> -->
+<!-- 	<label for="login">Nom d'utilisateur</label> <input type="text" -->
+<%-- 		class="form-control" value="${model.login}" id="login" name="login" --%>
+<!-- 		placeholder="Login" required> -->
+<!-- </div> -->
+<in:Input name="login" display="Nom d'utilisateur" placeholder="Login" value="${model.login}"/>
+<in:Input name="password" display="Mot de passe" placeholder="Mot de passe" value="${model.password}" type="password"/>
+<in:Input name="lastName" display="Nom" placeholder="Nom" value="${model.lastName}"/>
+<in:Input name="firstName" display="Prénom" placeholder="Prénom" value="${model.firstName}"/>
+<in:Input name="mail" display="Email" placeholder="Email" value="${model.mail}" type="email"/>
+<in:Input name="phone" display="Téléphone" placeholder="Téléphone" value="${model.phone}"/>
 
-<div class="form-group">
-	<label for="password">Mot de passe</label> <input type="password"
-		class="form-control" value="${model.password}" id="password"
-		name="password" placeholder="Mot de passe" required>
-</div>
-
-<div class="form-group">
-	<label for="lastName">Nom</label> <input type="text"
-		class="form-control" value="${model.lastName}" id="lastName"
-		name="lastName" placeHolder="Nom" required>
-</div>
-
-<div class="form-group">
-	<label for="firstName">Prénom</label> <input type="text"
-		class="form-control" value="${model.firstName}" id="firstName"
-		name="firstName" placeHolder="Prénom" required>
-
-</div>
-
-<div class="form-group">
-	<label for="mail">Email</label> <input type="email"
-		class="form-control" value="${model.mail}" id="mail" name="mail"
-		placeHolder="Email"required>
-</div>
-
-<div class="form-group">
-	<label for="phone">Téléphone</label> <input type="text"
-		class="form-control" value="${model.phone}" id="phone" name="phone"
-		placeHolder="Téléphone" required>
-</div>
-
-<div class="text-center">
-	<c:choose>
-		<c:when test="${not empty model}">
-			<button type="submit" class="btn btn-success inline-button">Modifier</button>
-		</c:when>
-		<c:otherwise>
-			<button type="submit" class="btn btn-success inline-button">Valider</button>
-		</c:otherwise>
-	</c:choose>
-</div>
+<mod:ModelSubmit model="${model}"/>

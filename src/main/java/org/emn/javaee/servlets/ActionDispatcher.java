@@ -2,6 +2,7 @@ package org.emn.javaee.servlets;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -158,6 +159,12 @@ public abstract class ActionDispatcher<T> {
 	protected void getSearch(HttpServletRequest req, HttpServletResponse resp) {
 		Map<String, Object> filters = getFilters(req);
 		req.setAttribute(REQUEST_ATTR_MODELLIST_NAME, this.crud.filter(filters));
+		for (Entry<String, Object> entry : filters.entrySet())
+		{
+			req.setAttribute(entry.getKey(), entry.getValue());
+		}
+
+
 	}
 
 	/**
@@ -309,10 +316,10 @@ public abstract class ActionDispatcher<T> {
 				req.getServletContext().getContextPath() + req.getServletPath() + "/" + getEntityFolderName());
 	}
 
-//	private boolean isAdmin(HttpServletRequest req) {
-//		User user = (User) req.getSession().getAttribute("authenticatedUser");
-//		return user == null ? false : user.getIsAdmin();
-//	}
+	//	private boolean isAdmin(HttpServletRequest req) {
+	//		User user = (User) req.getSession().getAttribute("authenticatedUser");
+	//		return user == null ? false : user.getIsAdmin();
+	//	}
 
 	protected abstract void validateFields(HttpServletRequest req) throws BeanValidationError;
 

@@ -21,7 +21,7 @@
 				</div>
 			</c:if>
 			<form method="POST"
-				action="<%=application.getContextPath()%>/app/${requestScope.entity}${parameter}">
+				action="${param.contextPath}/app/${requestScope.entity}${parameter}">
 
 				<div class="form-group">
 					<label for="name">Libellé</label> <input type="text"

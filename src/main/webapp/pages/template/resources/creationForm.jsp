@@ -15,7 +15,7 @@
 	<div class="panel-body">
 		<div class="container-fluid">
 			<form method="POST"
-				action="<%=application.getContextPath()%>/app/${requestScope.entity}${parameter}">
+				action="${param.contextPath}/app/${requestScope.entity}${parameter}">
 
 				<div class="form-group">
 					<label for="resourceType">Type de ressource</label> <select

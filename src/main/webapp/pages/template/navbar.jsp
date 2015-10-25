@@ -1,5 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <nav class="navbar navbar-default">
  	<div class="container-fluid">
 	  
@@ -10,16 +8,16 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-	     	<a class="navbar-brand" href="<%=application.getContextPath()%>/app">Ressource Manager</a>
+	     	<a class="navbar-brand" href="${param.contextPath}/app">Ressource Manager</a>
 	    </div>
 	
 	    <div class="collapse navbar-collapse" id="main-nav">
 	      	<ul class="nav navbar-nav">
-	        	<li <c:if test="${requestScope.entity == 'reservations'}"> class="active"</c:if>><a href="<%= application.getContextPath()%>/app/reservations">Réservations</a></li>
+	        	<li <c:if test="${requestScope.entity == 'reservations'}"> class="active"</c:if>><a href="${param.contextPath}/app/reservations">Réservations</a></li>
 		        	<c:if test="${authenticatedUser.isAdmin}">
-		        		<li <c:if test="${requestScope.entity == 'resources'}">class="active"</c:if>><a href="<%= application.getContextPath()%>/app/resources">Ressources</a></li>
-		        		<li <c:if test="${requestScope.entity == 'resourceTypes'}">    class="active"</c:if>><a href="<%= application.getContextPath()%>/app/resourceTypes">Types de ressources</a></li>
-		        		<li <c:if test="${requestScope.entity == 'users'}">    class="active"</c:if>><a href="<%= application.getContextPath()%>/app/users">Utilisateurs</a></li>
+		        		<li <c:if test="${requestScope.entity == 'resources'}">class="active"</c:if>><a href="${param.contextPath}/app/resources">Ressources</a></li>
+		        		<li <c:if test="${requestScope.entity == 'resourceTypes'}">    class="active"</c:if>><a href="${param.contextPath}/app/resourceTypes">Types de ressources</a></li>
+		        		<li <c:if test="${requestScope.entity == 'users'}">    class="active"</c:if>><a href="${param.contextPath}/app/users">Utilisateurs</a></li>
 		        	</c:if>	
 	        	</ul>
 	      

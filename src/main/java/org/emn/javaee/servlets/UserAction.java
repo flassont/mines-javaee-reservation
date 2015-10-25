@@ -16,7 +16,7 @@ public class UserAction extends ActionDispatcher<User> {
 
     public static final String FIELD_FIRST_NAME = "firstName";
     public static final String FIELD_LAST_NAME = "lastName";
-    public static final String FIELD_ADMINISTRATOR = "administrator";
+    public static final String FIELD_ADMINISTRATOR = "isAdmin";
     public static final String FIELD_LOGIN = "login";
     public static final String FIELD_PASSWORD = "password";
     public static final String FIELD_PHONE = "phone";

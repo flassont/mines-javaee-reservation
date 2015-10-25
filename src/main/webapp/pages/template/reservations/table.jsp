@@ -6,12 +6,12 @@
 	
 	<table class="table table-striped">
 		<tr>
-			<th class="col-md-1">#</th>
+			<th>#</th>
 			<th>Utilisateur</th>
 			<th>Ressource</th>
 			<th>Début</th>
 			<th>Fin</th>
-			<th class="col-md-1 text-center">Action</th>
+			<th>Action</th>
 		</tr>
 	
 		<c:forEach items="${requestScope.models}" var="reservation">
@@ -26,13 +26,13 @@
 					<div class="btn-group btn-group-sm">
 						<c:if test="${user.isAdmin}">
 							<a
-								href="<%= application.getContextPath()%>/app/${requestScope.entity}/edit?id=${reservation.id}"
+								href="${param.contextPath}/app/${requestScope.entity}/edit?id=${reservation.id}"
 								class="btn btn-default"> <span
 								class="glyphicon glyphicon glyphicon-edit"></span>
 							</a>
 						</c:if>
 						<a
-							href="<%= application.getContextPath()%>/app/${requestScope.entity}/delete?id=${reservation.id}"
+							href="${param.contextPath}/app/${requestScope.entity}/delete?id=${reservation.id}"
 							class="btn btn-danger"> <span
 							class="glyphicon glyphicon-remove"></span>
 						</a>

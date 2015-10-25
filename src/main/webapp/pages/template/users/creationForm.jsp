@@ -16,7 +16,7 @@
 	<div class="panel-body">
 		<div class="container-fluid">
 			<form method="POST"
-				action="<%=application.getContextPath()%>/app/${requestScope.entity}${parameter}"
+				action="${param.contextPath}/app/${requestScope.entity}${parameter}"
 				class="form-horizontal">
 				<%@ include file="userForm.jsp"%>
 			</form>

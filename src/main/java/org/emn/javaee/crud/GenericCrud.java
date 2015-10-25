@@ -127,6 +127,7 @@ public class GenericCrud<Entity> {
 		Expression<Boolean> condition = cb.conjunction();
 		for (Attribute<? super Entity,?> attribute: entityType.getAttributes()){
 			String attributeName = attribute.getName();
+			System.out.println("generic crud attribut : " +attributeName);
 
 			// No filter, reach next attribute
 			if(!keys.contains(attributeName)) {
@@ -137,16 +138,21 @@ public class GenericCrud<Entity> {
 			// or equal (other types)
 			Object expectedValue = filters.get(attributeName);
 			if(attribute.getJavaType() == String.class) {
+				System.out.println("C'est un string");
 				condition = cb.and(condition, cb.like(root.get(attributeName).as(String.class), (String) expectedValue));
 			} else if (attribute.getJavaType() == Boolean.class) {
+				System.out.println("c'est un boolean");
 				Expression<Boolean> expectedExpression;
 				if ((Boolean) expectedValue) {
+					System.out.println("la valeur est vraie");
 					expectedExpression = cb.isTrue(root.get(attributeName).as(Boolean.class));
 				} else {
+					System.out.println("la valeur est fausse");
 					expectedExpression = cb.isFalse(root.get(attributeName).as(Boolean.class));
 				}
 				condition = cb.and(condition, expectedExpression);
 			} else {
+				System.out.println("ni string ni boolean");
 				condition = cb.and(condition, cb.equal(root.get(attributeName), expectedValue));
 			}
 		}

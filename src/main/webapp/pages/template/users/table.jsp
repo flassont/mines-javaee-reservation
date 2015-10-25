@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <div class="panel panel-primary">
   <!-- Default panel contents -->
   <div class="panel-heading">Liste des utilisateurs</div>
@@ -22,10 +21,10 @@
 			<td>${user.firstName}</td>
 			<td class="text-center">
 				<div class="btn-group btn-group-sm" >
-					<a href="<%= application.getContextPath()%>/app/${requestScope.entity}/edit?id=${user.id}" class="btn btn-default">
+					<a href="${param.contextPath}/app/${requestScope.entity}/edit?id=${user.id}" class="btn btn-default">
 						<span class="glyphicon glyphicon glyphicon-edit"></span>
 					</a>
-					<a href="<%= application.getContextPath()%>/app/${requestScope.entity}/delete?id=${user.id}" class="btn btn-danger">
+					<a href="${param.contextPath}/app/${requestScope.entity}/delete?id=${user.id}" class="btn btn-danger">
 						<span class="glyphicon glyphicon-remove"></span>
 					</a>
 				</div>

@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@include file="navbar.jsp"%>
 
 <div class="container">
@@ -11,10 +10,12 @@
 				<c:set var="colDef" value="col-md-9" />
 				<div class="col-md-3">
 					<div class="search-form">
-						<jsp:include page="${requestScope.entity}/filter.jsp" />
+						<jsp:include page="${requestScope.entity}/filter.jsp">
+							<jsp:param name="contextPath" value="${param.contextPath}"/>
+						</jsp:include>
 					</div>
 					<a
-						href="<%=application.getContextPath()%>/app/${requestScope.entity}/new"
+						href="${param.contextPath}/app/${requestScope.entity}/new"
 						role="button" class="btn btn-primary btn-block">Créer</a>
 				</div>
 			</c:when>
@@ -34,10 +35,14 @@
 			
 			<c:choose>
 				<c:when test="${requestScope.creationMode}">
-					<jsp:include page="${requestScope.entity}/creationForm.jsp" />
+					<jsp:include page="${requestScope.entity}/creationForm.jsp">
+						<jsp:param name="contextPath" value="${param.contextPath}"/>
+					</jsp:include>
 				</c:when>
 				<c:otherwise>
-					<jsp:include page="${requestScope.entity}/table.jsp" />
+					<jsp:include page="${requestScope.entity}/table.jsp">
+						<jsp:param name="contextPath" value="${param.contextPath}"/>
+					</jsp:include>
 				</c:otherwise>
 			</c:choose>
 			

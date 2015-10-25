@@ -1,7 +1,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<form method="post" action="<%=application.getContextPath()%>/app/${requestScope.entity}/${parameter}">	
+<form method="post" action="${param.contextPath}/app/${requestScope.entity}/${parameter}">	
 	
 	<div class="form-group">
 		<label for="resourceType">Type de la ressource</label>

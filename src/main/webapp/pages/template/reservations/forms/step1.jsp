@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<form method="get" action="<%=application.getContextPath()%>/app/${requestScope.entity}/new">
+<form method="get" action="${param.contextPath}/app/${requestScope.entity}/new">
 	
 	<div class="form-group">
 		<label for="resourceType">Type de la ressource</label>
