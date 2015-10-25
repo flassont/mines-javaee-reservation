@@ -4,11 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="<%= application.getContextPath()%>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%= application.getContextPath()%>/css/style.css">
 <title>${requestScope.title}</title>
 </head>
 <body>
 	<jsp:include page="${requestScope.page}" />
+
+    <script type="text/javascript" src="<%= application.getContextPath()%>/css/jquery-1.11.13.min.js"></script>
+    <script type="text/javascript" src="<%= application.getContextPath()%>/css/bootstrap.min.js"></script>
 </body>
 </html>

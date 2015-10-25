@@ -1,10 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<div class="container">
+<%@include file="navbar.jsp"%>
 
-	<div class="row">
-		<%@include file="navbar.jsp"%>
-	</div>
+<div class="container">
 
 	<div class="row">
 
@@ -17,7 +15,7 @@
 					</div>
 					<a
 						href="<%=application.getContextPath()%>/app/${requestScope.entity}/new"
-						role="button" class="btn btn-primary btn-block">Créer</a>
+						role="button" class="btn btn-primary btn-block">Crï¿½er</a>
 				</div>
 			</c:when>
 			<c:otherwise>

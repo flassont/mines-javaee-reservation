@@ -4,11 +4,16 @@
  	<div class="container-fluid">
 	  
 	    <div class="navbar-header">
-	     	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"></button>
+	     	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 	     	<a class="navbar-brand" href="<%=application.getContextPath()%>">Ressource Manager</a>
 	    </div>
 	
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	    <div class="collapse navbar-collapse" id="main-nav">
 	      	<ul class="nav navbar-nav">
 	        	<li <c:if test="${requestScope.entity == 'reservations'}"> class="active"</c:if>><a href="<%= application.getContextPath()%>/app/reservations">Réservations</a></li>
 	        	<li <c:if test="${requestScope.entity == 'resources'}">class="active"</c:if>><a href="<%= application.getContextPath()%>/app/resources">Ressources</a></li>
