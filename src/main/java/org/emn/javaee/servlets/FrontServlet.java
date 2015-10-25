@@ -74,7 +74,7 @@ public class FrontServlet extends HttpServlet {
 			return;
 		}
 
-		User user = (User) request.getSession().getAttribute("authicatedUser");
+		User user = (User) request.getSession().getAttribute("authenticatedUser");
 		if (isAllowed(user, paths)) {
 			switch (paths[1]) {
 			case "users":
