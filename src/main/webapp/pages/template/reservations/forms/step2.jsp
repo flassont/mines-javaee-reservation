@@ -1,14 +1,13 @@
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-			
-				Salut
 <form method="post" action="<%=application.getContextPath()%>/app/${requestScope.entity}/${parameter}">	
 	
 	<div class="form-group">
 		<label for="resourceType">Type de la ressource</label>
 		<input type="text" class="form-control" id="resourceType"
 		placeholder="${requestScope.resourceType.name}" 
-		disabled">
+		disabled/>
 	</div>
 	
 	<div class="form-group">
