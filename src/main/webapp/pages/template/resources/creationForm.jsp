@@ -1,4 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="mod" uri="/../../tags/modelSubmit.tld"%>
+<%@ taglib prefix="in" uri="/../../tags/input.tld"%>
+
 <!-- If a resource entity has been past, it means we're editing it. To update it, we need to pass its id as parameter -->
 <c:choose>
 	<c:when test="${not empty model}">
@@ -16,7 +19,7 @@
 		<div class="container-fluid">
 			<form method="POST"
 				action="${param.contextPath}/app/${requestScope.entity}${parameter}">
-
+				
 				<div class="form-group">
 					<label for="resourceType">Type de ressource</label> <select
 						class="form-control" id="resourceType" name="resourceType" required>
@@ -36,35 +39,11 @@
 						</c:forEach>
 					</select>
 				</div>
-				<div class="form-group">
-					<label for=name>Libellé</label> <input type="text"
-						class="form-control" value="${model.name}" id="name"
-						name="name" placeholder="Libellé" required>
-				</div>
+				<in:Input name="name" display="Libellé" placeholder="Libellé" value="${model.name}"/>
+				<in:Input name="description" display="Description" placeholder="Description" value="${model.description}"/>
+				<in:Input name="location" display="Localisation" placeholder="Localisation" value="${model.location}"/>
 
-				<div class="form-group">
-					<label for=description>Description</label>
-					<textarea rows="3" class="form-control" id="description"
-						name="description" placeholder="Description" required>${model.description}</textarea>
-				</div>
-
-				<div class="form-group">
-					<label for=location>Localisation</label> <input type="text"
-						class="form-control" id="location" name="location"
-						value="${model.location}" placeholder="Localisation" required>
-				</div>
-
-				<div class="text-center">
-					<c:choose>
-						<c:when test="${not empty model}">
-							<button type="submit" class="btn btn-success inline-button">Modifier</button>
-						</c:when>
-						<c:otherwise>
-							<button type="submit" class="btn btn-success inline-button">Valider</button>
-						</c:otherwise>
-					</c:choose>
-				</div>
-
+				<mod:ModelSubmit model="${model}"/>
 			</form>
 		</div>
 	</div>

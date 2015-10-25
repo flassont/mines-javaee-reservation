@@ -60,7 +60,7 @@ public class ResourceAction extends ActionDispatcher<Resource> {
 
 	@Override
 	protected Map<String, Object> getFilters(HttpServletRequest req) {
-		Map<String, Object> filters = new HashMap<>(5);
+		Map<String, Object> filters = new HashMap<>();
 
 		String name = req.getParameter(FIELD_NAME);
 		if (name != null) {
@@ -68,12 +68,12 @@ public class ResourceAction extends ActionDispatcher<Resource> {
 		}
 
 		String responsible = req.getParameter(FIELD_RESPONSIBLE);
-		if (responsible != null && responsible.trim().isEmpty()) {
+		if (responsible != null && !responsible.trim().isEmpty()) {
 			filters.put(FIELD_RESPONSIBLE, responsible);
 		}
 
 		String type = req.getParameter(FIELD_TYPE);
-		if (type != null && type.trim().isEmpty()) {
+		if (type != null && !type.trim().isEmpty()) {
 			filters.put(FIELD_TYPE, type);
 		}
 
@@ -92,8 +92,9 @@ public class ResourceAction extends ActionDispatcher<Resource> {
 		model.setLocation(req.getParameter(FIELD_LOCATION));
 
 		int typeId = Integer.parseInt(req.getParameter(FIELD_TYPE));
+		
 		model.setType(typeCrud.find(typeId));
-
+		
 		int userId = Integer.parseInt(req.getParameter(FIELD_RESPONSIBLE));
 		model.setResponsible(userCrud.find(userId));
 

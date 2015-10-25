@@ -12,7 +12,7 @@ import java.util.Date;
 	@NamedQuery( name = "Reservation.findAll",
 			query = "SELECT R FROM Reservation AS R" )
 })
-public class Reservation {
+public class Reservation extends AbstractModel {
 
     @Id
     @GeneratedValue
@@ -86,4 +86,9 @@ public class Reservation {
     public void setReserver(User reserver) {
         this.reserver = reserver;
     }
+
+	@Override
+	public String getFilterBy() {
+		return "begin";
+	}
 }

@@ -11,6 +11,8 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
@@ -118,7 +120,6 @@ public class GenericCrud<Entity> {
 
 	public List<Entity> filter(Map<String, Object> filters) {
 		Set<String> keys = filters.keySet();
-
 		CriteriaBuilder cb = this.em.getCriteriaBuilder();
 		CriteriaQuery<Entity> query = cb.createQuery(this.entityClass);
 
@@ -126,18 +127,27 @@ public class GenericCrud<Entity> {
 		EntityType<Entity> entityType = root.getModel();
 		Expression<Boolean> condition = cb.conjunction();
 		for (Attribute<? super Entity,?> attribute: entityType.getAttributes()){
+			
 			String attributeName = attribute.getName();
-			System.out.println("generic crud attribut : " +attributeName);
-
+			System.out.println("generic crud attribut : " +attributeName+" => " + attribute.isAssociation()+ " | "+attribute.getJavaType());
 			// No filter, reach next attribute
 			if(!keys.contains(attributeName)) {
+				System.out.println("next");
 				continue;
 			}
 
 			// Exists, check whether use like (for String)
 			// or equal (other types)
 			Object expectedValue = filters.get(attributeName);
-			if(attribute.getJavaType() == String.class) {
+			if(attribute.isAssociation() && attribute.getName().equals("responsible"))
+			{
+				System.out.println("*******************JOIN*******************");
+				Join<Object, org.emn.javaee.models.AbstractModel> association = root.join(attribute.getName());
+				condition = cb.and(condition, cb.equal(association.get("firstName"),(String) expectedValue));
+				//condition = cb.and(condition, cb.like(association.get("firstName"),(String) expectedValue));
+
+			}
+			else if(attribute.getJavaType() == String.class) {
 				System.out.println("C'est un string");
 				condition = cb.and(condition, cb.like(root.get(attributeName).as(String.class), "%" + (String) expectedValue + "%"));
 			} else if (attribute.getJavaType() == Boolean.class) {
@@ -151,10 +161,10 @@ public class GenericCrud<Entity> {
 					expectedExpression = cb.isFalse(root.get(attributeName).as(Boolean.class));
 				}
 				condition = cb.and(condition, expectedExpression);
-			} else {
+			} /*else {
 				System.out.println("ni string ni boolean");
 				condition = cb.and(condition, cb.equal(root.get(attributeName), expectedValue));
-			}
+			}*/
 		}
 
 		return this.em.createQuery(query.where(condition)).getResultList();

@@ -12,7 +12,7 @@ import javax.persistence.*;
 	@NamedQuery( name = "User.findAll",
 			query = "SELECT U FROM User AS U" )
 })
-public class User {
+public class User extends AbstractModel{
 
     @Id
     @GeneratedValue
@@ -115,4 +115,9 @@ public class User {
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
+
+	@Override
+	public String getFilterBy() {
+		return this.firstName;
+	}
 }

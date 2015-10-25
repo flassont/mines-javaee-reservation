@@ -1,19 +1,9 @@
-<form method="get" action="${param.contextPath}/app/${requestScope.entity}">
+<form method="get" action="${param.contextPath}/app/${requestScope.entity}/search">
+<%@ taglib prefix="in" uri="/../../tags/input.tld"%>
 
-	<div class="form-group">
-		<label for="name">Libellé</label>
-		<input type="text" class="form-control" value="${name}" id="name" name="name" placeholder="Libellé">
-	</div>
-	
-	<div class="form-group">
-		<label for="responsible">Responsable</label>
-		<input type="text" class="form-control" value="${responsible}" id="responsible" name="responsible" placeholder="Responsable">
-	</div>
-	
-	<div class="form-group">
-		<label for="resourceType">Type</label>
-		<input type="text" class="form-control" value="${location}" id="resourceType" name="resourceType" placeholder="Type">
-	</div>
+	<in:Input required="false" name="name" display="Libellé" placeholder="Libellé" value="${name}"/>	
+	<in:Input required="false" name="responsible" display="Responsable" placeholder="Responsable" value="${responsible}"/>	
+	<in:Input required="false" name="resourceType" display="Type de ressource" placeholder="Type de ressource" value="${resourceType}"/>
 	
 	<button type="submit" class="btn btn-default">Rechercher</button>
 	

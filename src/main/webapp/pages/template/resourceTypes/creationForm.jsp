@@ -17,14 +17,8 @@
 	<div class="panel-heading">${panelTitle}</div>
 	<div class="panel-body">
 		<div class="container-fluid">
-			<c:if test="${not empty error}">
-				<div class="alert alert-danger" role="alert">
-					${error}
-				</div>
-			</c:if>
 			<form method="POST"
 				action="${param.contextPath}/app/${requestScope.entity}${parameter}">
-					
 				<in:Input name="name" display="Libellé" placeholder="Libellé" value="${model.name}"/>
 				<mod:ModelSubmit model="${model}"/>
 			</form>

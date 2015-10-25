@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="in" uri="/../../tags/input.tld"%>
 
-<form method="get" action="${param.contextPath}/app/${requestScope.entity}">
+<form method="get" action="${param.contextPath}/app/${requestScope.entity}/search">
 	
 	<div class="form-group">
 		<label for="reserved">Ressource</label>

@@ -12,7 +12,7 @@ import java.util.List;
 	@NamedQuery( name = "ResourceType.findAll",
 			query = "SELECT R FROM ResourceType AS R" )
 })
-public class ResourceType {
+public class ResourceType extends AbstractModel{
 
     @Id
     @GeneratedValue
@@ -51,4 +51,9 @@ public class ResourceType {
     public void setResources(List<Resource> resources) {
         this.resources = resources;
     }
+
+	@Override
+	public String getFilterBy() {
+		return "name";
+	}
 }
