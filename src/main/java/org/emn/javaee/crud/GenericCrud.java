@@ -183,15 +183,26 @@ public class GenericCrud<Entity> {
 			// get the filters of the joined entity separated by ","
 			associationFilters = association.getJavaType().newInstance().getFilterBy().split(",");
 			// array of predicate
-			Predicate[] predicates = new Predicate[associationFilters.length];
+			Predicate[] predicates = new Predicate[associationFilters.length+1];
+			Expression<String> concat = null;
 			int i = 0;
 			// loop through the array of filters
 			for(String s:associationFilters)
 			{
+				if(i == 0)
+				{
+					concat = cb.lower(association.get(s).as(String.class));
+				}
+				else
+				{
+					concat = cb.concat(concat, cb.lower(association.get(s).as(String.class)));
+				}
 				// add the predicate according to the current filter
 				predicates[i]=cb.like(cb.lower(association.get(s).as(String.class)), "%" + ((String) expectedValue).toLowerCase() + "%");
 				i++;
 			}
+			predicates[i]=cb.like(concat, "%" + ((String) expectedValue).replace(" ", "").toLowerCase() + "%");
+
 			// finally, make a or condition on all the filters
 			condition = cb.and(condition, cb.or(predicates));
 		} catch(Exception e)
