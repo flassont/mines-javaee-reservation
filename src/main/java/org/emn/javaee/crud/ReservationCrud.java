@@ -53,4 +53,17 @@ public class ReservationCrud extends GenericCrud<Reservation> {
 		query.setParameter("resourceType", resourceType);
 		return !query.getResultList().isEmpty();
 	}
+	
+	/**
+	 * Return true if at least on reservation has a the given resource, else false
+	 * @param resourceType
+	 * @return boolean
+	 */
+	public boolean existWithResource(Resource resource)
+	{
+		String queryString = "SELECT r from Reservation r where r.reserved = :resource";
+		Query query = this.em.createQuery(queryString, Reservation.class);
+		query.setParameter("resource", resource);
+		return !query.getResultList().isEmpty();
+	}
 }

@@ -1,11 +1,13 @@
 package org.emn.javaee.servlets;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.emn.javaee.crud.ReservationCrud;
 import org.emn.javaee.crud.ResourceCrud;
 import org.emn.javaee.crud.ResourceTypeCrud;
 import org.emn.javaee.crud.UserCrud;
@@ -25,12 +27,14 @@ public class ResourceAction extends ActionDispatcher<Resource> {
 
 	private ResourceTypeCrud typeCrud;
 	private UserCrud userCrud;
+	private ReservationCrud reservationCrud;
 
 	public ResourceAction() {
 		super(new ResourceCrud());
 		
 		this.typeCrud = new ResourceTypeCrud();
 		this.userCrud = new UserCrud();
+		this.reservationCrud = new ReservationCrud();
 	}
 
 	@Override
@@ -129,5 +133,17 @@ public class ResourceAction extends ActionDispatcher<Resource> {
 			throw new BeanValidationError("Localisation invalide.");
 		}
 	}
-
+	
+	@Override
+	protected void deleteEntity(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		Resource resource = this.crud.find(getId(req));
+		
+		if (this.reservationCrud.existWithResource(resource)) {
+			req.getSession().setAttribute(SESSION_ATTR_ERROR_NAME,
+					"Impossible de supprimer la ressource " + resource.getName()+". Des réservations y sont liées.");
+			return;
+		} 
+		
+		super.deleteEntity(req, resp);
+	}
 }
