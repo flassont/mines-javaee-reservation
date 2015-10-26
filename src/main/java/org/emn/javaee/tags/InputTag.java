@@ -1,17 +1,16 @@
 package org.emn.javaee.tags;
 
-
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+
 /**
  * Tag to simplify the input in the templates
- * @author Xavier
- *
  */
 public class InputTag extends SimpleTagSupport {
+	
 	private String placeholder;
 	private String value;
 	private String name;
@@ -53,21 +52,15 @@ public class InputTag extends SimpleTagSupport {
 		String r = required == null ? "required" : "";
 		String t = type == null ? "text" : type;
 		JspWriter out = getJspContext().getOut();
-		if(t.equals("checkbox"))
-		{
-			out.println("<div class=\"checkbox\">"+
-					"<label for=\""+name+"\"><input type=\""+t+"\""+
-					"id=\""+name+"\" name=\""+name+"\""+
-					"placeholder=\""+placeholder+"\" "+r+" "+aHtml+" >"+
-					display+"</label></div>");
-		}
-		else
-		{
-			out.println("<div class=\"form-group\">"+
-					"<label for=\""+name+"\">"+display+"</label> <input type=\""+t+"\""+
-					"class=\"form-control\" value=\""+value+"\" id=\""+name+"\" name=\""+name+"\""+
-					"placeholder=\""+placeholder+"\" "+r+" "+aHtml+" >"+
-					"</div>");
+		if (t.equals("checkbox")) {
+			out.println("<div class=\"checkbox\">" + "<label for=\"" + name + "\"><input type=\"" + t + "\"" + "id=\""
+					+ name + "\" name=\"" + name + "\"" + "placeholder=\"" + placeholder + "\" " + r + " " + aHtml
+					+ " >" + display + "</label></div>");
+		} else {
+			out.println(
+					"<div class=\"form-group\">" + "<label for=\"" + name + "\">" + display + "</label> <input type=\""
+							+ t + "\"" + "class=\"form-control\" value=\"" + value + "\" id=\"" + name + "\" name=\""
+							+ name + "\"" + "placeholder=\"" + placeholder + "\" " + r + " " + aHtml + " >" + "</div>");
 		}
 	}
 }
