@@ -34,7 +34,7 @@ public class FrontServlet extends HttpServlet {
 	private ActionDispatcher<Reservation> reservationAction = new ReservationAction();
 
 	private List<String> userPaths = Arrays.asList("reservations", "logout");
-	private List<String> userActions = Arrays.asList("new","delete","search");
+	private List<String> userActions = Arrays.asList("new","delete","search", "edit");
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
