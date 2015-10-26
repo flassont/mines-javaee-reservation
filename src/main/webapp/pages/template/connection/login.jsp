@@ -4,9 +4,9 @@
 
 		<span class="form-header">
 			<h2>Se connecter</h2>
-			<p>
-				<a href="signup">Ou créez un compte</a>
-			</p>
+<!-- 			<p> -->
+<!-- 				<a href="signup">Ou créez un compte</a> -->
+<!-- 			</p> -->
 		</span>
 		<c:if test="${not empty error}">
 			<div class="alert alert-danger" role="alert">${error}</div>

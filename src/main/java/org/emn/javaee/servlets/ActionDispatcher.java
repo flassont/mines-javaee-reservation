@@ -42,15 +42,11 @@ public abstract class ActionDispatcher<T> {
 	}
 
 	/**
-	 * Handle and forward GET requests Throws 404 HTTP status code on unexpected
-	 * actions
+	 * Handle and forward GET requests Throws 404 HTTP status code on unexpected actions.
 	 *
-	 * @param req
-	 *            Original request
-	 * @param resp
-	 *            Original response
-	 * @throws IOException
-	 *             Status code cannot be set
+	 * @param req Original request.
+	 * @param resp Original response.
+	 * @throws IOException Status code cannot be set.
 	 */
 	public void handleGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		putDefaultRequestAttributes(req);
@@ -84,15 +80,12 @@ public abstract class ActionDispatcher<T> {
 	}
 
 	/**
-	 * Handle and forward POST requests Throws 404 HTTP status code on
-	 * unexpected actions, ie different from creation, edition or search
+	 * Handle and forward POST requests Throws 404 HTTP status code on unexpected actions,
+	 * ie different from creation, edition or search.
 	 *
-	 * @param req
-	 *            The request
-	 * @param resp
-	 *            The response
-	 * @throws IOException
-	 *             Status code cannot be set
+	 * @param req The request.
+	 * @param resp The response.
+	 * @throws IOException Status code cannot be set.
 	 */
 	public void handlePost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		putDefaultRequestAttributes(req);
@@ -131,38 +124,34 @@ public abstract class ActionDispatcher<T> {
 	}
 
 	/**
-	 * Get all entities of type T
+	 * Get all entities of type T.
 	 *
-	 * @param req
-	 *            The request
-	 * @param resp
-	 *            The response
+	 * @param req The request.
+	 * @param resp The response.
 	 */
 	protected void getAll(HttpServletRequest req, HttpServletResponse resp) {
 		req.setAttribute(REQUEST_ATTR_MODELLIST_NAME, this.crud.findAll());
 	}
 
 	/**
-	 * Get the HTTP page title
+	 * Get the HTTP page title.
 	 *
-	 * @return The page title
+	 * @return The page title.
 	 */
 	protected abstract String getEntityPageTitle();
 
 	/**
-	 * Get web assets folder name
+	 * Get web assets folder name.
 	 *
-	 * @return The web assets folder name
+	 * @return The web assets folder name.
 	 */
 	protected abstract String getEntityFolderName();
 
 	/**
-	 * Get entities of type T matching filters defined by getFilters method
+	 * Get entities of type T matching filters defined by getFilters method.
 	 *
-	 * @param req
-	 *            The request
-	 * @param resp
-	 *            The response
+	 * @param req The request.
+	 * @param resp The response.
 	 */
 	protected void getSearch(HttpServletRequest req, HttpServletResponse resp) {
 		Map<String, Object> filters = getFilters(req);
@@ -175,33 +164,28 @@ public abstract class ActionDispatcher<T> {
 	}
 
 	/**
-	 * Get filters on search
+	 * Get filters on search.
 	 *
-	 * @param req
-	 *            The request to get filters from
-	 * @return A map associating T filtering members' name with expected result
+	 * @param req The request to get filters from.
+	 * @return A map associating T filtering members' name with expected result.
 	 */
 	protected abstract Map<String, Object> getFilters(HttpServletRequest req);
 
 	/**
-	 * Prepare entity creation form
+	 * Prepare entity creation form.
 	 *
-	 * @param req
-	 *            The request
-	 * @param resp
-	 *            The response
+	 * @param req The request.
+	 * @param resp The response.
 	 */
 	protected void createEntity(HttpServletRequest req, HttpServletResponse resp) {
 		req.setAttribute(REQUEST_ATTR_CREATIONMODE_NAME, true);
 	}
 
 	/**
-	 * Save the created entity
+	 * Save the created entity.
 	 *
-	 * @param req
-	 *            The request
-	 * @param resp
-	 *            The response
+	 * @param req The request.
+	 * @param resp The response.
 	 */
 	protected void createEntitySave(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		try {
@@ -216,19 +200,17 @@ public abstract class ActionDispatcher<T> {
 	}
 
 	/**
-	 * Return an empty and not persisted entity
+	 * Return an empty and not persisted entity.
 	 *
-	 * @return The newly created entity
+	 * @return The newly created entity.
 	 */
 	protected abstract T createEntityModel();
 
 	/**
-	 * Prepare entity edition form ; req must have an id
+	 * Prepare entity edition form ; req must have an id.
 	 *
-	 * @param req
-	 *            The request
-	 * @param resp
-	 *            The response
+	 * @param req The request.
+	 * @param resp The response.
 	 */
 	protected void editEntity(HttpServletRequest req, HttpServletResponse resp) {
 		req.setAttribute(REQUEST_ATTR_CREATIONMODE_NAME, true);
@@ -236,12 +218,10 @@ public abstract class ActionDispatcher<T> {
 	}
 
 	/**
-	 * Save entity modifications
+	 * Save entity modifications.
 	 *
-	 * @param req
-	 *            The request
-	 * @param resp
-	 *            The response
+	 * @param req The request.
+	 * @param resp The response.
 	 */
 	protected void editEntitySave(HttpServletRequest req, HttpServletResponse resp) {
 		try {
@@ -259,23 +239,19 @@ public abstract class ActionDispatcher<T> {
 	}
 
 	/**
-	 * Map the entity to req parameters
+	 * Map the entity from request parameters.
 	 *
-	 * @param model
-	 *            The model
-	 * @param req
-	 *            The request
-	 * @return The mapped entity
+	 * @param model The model.
+	 * @param req The request.
+	 * @return The mapped entity.
 	 */
 	protected abstract T mapEntity(T model, HttpServletRequest req);
 
 	/**
-	 * Delete an entity ; request must contains an id
+	 * Delete an entity ; request must contains an id.
 	 *
-	 * @param req
-	 *            The request
-	 * @param resp
-	 *            The response
+	 * @param req The request.
+	 * @param resp The response.
 	 */
 	protected void deleteEntity(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		if (!this.crud.remove(getId(req))) {
@@ -285,9 +261,9 @@ public abstract class ActionDispatcher<T> {
 	}
 
 	/**
-	 * Add default request attributes for all pages
+	 * Add default request attributes for all pages.
 	 *
-	 * @param req
+	 * @param req The request.
 	 */
 	protected void putDefaultRequestAttributes(HttpServletRequest req) {
 		req.setAttribute(REQUEST_ATTR_PAGE_NAME, REQUEST_ATTR_TEMPLATE_VALUE);
@@ -302,34 +278,42 @@ public abstract class ActionDispatcher<T> {
 	}
 
 	/**
-	 * Get the id parameter from the request
+	 * Get the id parameter from the request.
 	 *
-	 * @param req
-	 *            The request
-	 * @return The id
+	 * @param req The request.
+	 * @return The id.
 	 */
 	protected int getId(HttpServletRequest req) {
 		return Integer.parseInt(req.getParameter("id"));
 	}
 
 	/**
-	 * Return to list screen for the entity
+	 * Return to list screen for the entity.
 	 *
-	 * @param req
-	 *            The request
-	 * @param resp
-	 *            The response
-	 * @throws IOException
+	 * @param req The request.
+	 * @param resp The response.
+	 * @throws IOException.
 	 */
 	private void goToList(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		// Action handled, back to list
-		resp.sendRedirect(
-				req.getServletContext().getContextPath() + req.getServletPath() + "/" + getEntityFolderName());
+		resp.sendRedirect(req.getServletContext().getContextPath() + req.getServletPath() + "/" + getEntityFolderName());
 	}
 
+	/**
+	 * This method is called before create and edit methods to validate the inputs.
+	 * 
+	 * @param req The request.
+	 * @throws BeanValidationError If a field is not valid. Call getMessage() on the exception to get the error message.
+	 */
+	protected abstract void validateFields(HttpServletRequest req) throws BeanValidationError;
+
+	/**
+	 * This class method check if a fiel is valid. A field is valid only if it is not null and if it is not empty.
+	 * 
+	 * @param value The field to check.
+	 * @return True if the fiel is valid, else false.
+	 */
 	protected static boolean isFieldValid(String value) {
 		return (value != null) && (!value.trim().isEmpty());
 	}
-
-	protected abstract void validateFields(HttpServletRequest req) throws BeanValidationError;
 }

@@ -213,7 +213,7 @@ public class GenericCrud<Entity> {
 	 */
 	private Expression<Boolean> handleStringFilter(CriteriaBuilder cb, Root<Entity> root, Expression<Boolean> condition,
 			String attributeName, Object expectedValue) {
-		condition = cb.and(condition, cb.like(root.get(attributeName).as(String.class), "%" + (String) expectedValue + "%"));
+		condition = cb.and(condition, cb.like(cb.lower(root.get(attributeName).as(String.class)), "%" + ((String) expectedValue).toLowerCase() + "%"));
 		return condition;
 	}
 
