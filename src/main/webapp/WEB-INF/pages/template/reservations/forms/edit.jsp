@@ -25,7 +25,7 @@
 	<div class="form-group">
 		<label for="reserver">Utilisateur</label>
 		<select class="form-control" id="reserver" name="reserver" readonly>
-			<option value="${requestScope.reservation.reserver.id}" selected>${model.reserver.firstName} ${requestScope.reservation.reserver.lastName}</option>
+			<option value="${model.reserver.id}" selected>${model.reserver.firstName} ${requestScope.reservation.reserver.lastName}</option>
 		</select>
 	</div>
 	
