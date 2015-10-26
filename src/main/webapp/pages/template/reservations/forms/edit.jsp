@@ -27,7 +27,7 @@
 		</select>
 	</div>
 	
-	<in:Input name="begin" display="Début" placeholder="Début" value="${formattedBegin}" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\"" type="date"/>
-	<in:Input name="end" display="Fin" placeholder="Fin" value="${formattedEnd}" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\"" type="date"/>
+	<in:Input name="begin" display="Début" placeholder="Début" value="${formattedBegin}" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\"" />
+	<in:Input name="end" display="Fin" placeholder="Fin" value="${formattedEnd}" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\""/>
 	<mod:ModelSubmit model="${model}"/>	
 </form>

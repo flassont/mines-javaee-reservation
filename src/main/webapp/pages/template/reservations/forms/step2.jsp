@@ -23,8 +23,8 @@
 		</select>
 	</div>
 	
-	<in:Input name="begin" display="Début" placeholder="Début" value=""  type="date" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\""/>
-	<in:Input name="end" display="Fin" placeholder="Fin" value=""  type="date" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\""/>
+	<in:Input name="begin" display="Début" placeholder="Début" value="" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\""/>
+	<in:Input name="end" display="Fin" placeholder="Fin" value="" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\""/>
 
 	<mod:ModelSubmit model="${model}"/>	
 
