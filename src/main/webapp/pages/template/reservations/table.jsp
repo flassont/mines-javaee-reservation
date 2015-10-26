@@ -19,9 +19,9 @@
 				<td>${reservation.id}</td>
 				<td>${reservation.reserver.firstName} ${reservation.reserver.lastName}</td>
 				<td>${reservation.reserved.name}</td>
-				<td class="col-md-2"><fmt:formatDate value="${reservation.begin}" pattern="dd/MM/yyyy" /></td>
-				<td class="col-md-2"><fmt:formatDate value="${reservation.end}" pattern="dd/MM/yyyy"/></td>
-				<td class="text-center col-md-2">
+				<td><fmt:formatDate value="${reservation.begin}" pattern="dd/MM/yyyy" /></td>
+				<td><fmt:formatDate value="${reservation.end}" pattern="dd/MM/yyyy"/></td>
+				<td class="text-center">
 				
 					<div class="btn-group btn-group-sm">
 						<c:if test="${user.isAdmin}">

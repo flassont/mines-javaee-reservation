@@ -4,8 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +16,6 @@ import org.emn.javaee.crud.UserCrud;
 import org.emn.javaee.models.Reservation;
 import org.emn.javaee.models.Resource;
 import org.emn.javaee.models.ResourceType;
-import org.emn.javaee.models.User;
 
 public class ReservationAction extends ActionDispatcher<Reservation> {
 
@@ -32,13 +29,13 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 	private static final String REQUEST_ATTR_SELECTED_RESOURCETYPE_NAME = "resourceType";
 	private static final String REQUEST_ATTR_RESOURCES_NAME = "resources";
 
+
 	private static final String DATE_EXPECTED_FORMAT = "dd/MM/yyyy";
 	private final SimpleDateFormat formatter = new SimpleDateFormat(DATE_EXPECTED_FORMAT);
 
 	private ResourceTypeCrud typeCrud;
 	private ResourceCrud resourceCrud;
 	private UserCrud userCrud;
-//	private ReservationCrud reservationCrud;
 
 	public ReservationAction() {
 		super(new ReservationCrud());
@@ -46,26 +43,6 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		this.typeCrud = new ResourceTypeCrud();
 		this.resourceCrud = new ResourceCrud();
 		this.userCrud = new UserCrud();
-//		this.reservationCrud = new ReservationCrud();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	protected void getAll(HttpServletRequest req, HttpServletResponse resp) {
-		super.getAll(req, resp);
-		
-		User authenticatedUser = getAuthenticatedUser(req);
-		if(!authenticatedUser.getIsAdmin()){
-			List<Reservation> reservations = (List<Reservation>) req.getAttribute(REQUEST_ATTR_MODELLIST_NAME);
-			int userId = authenticatedUser.getId();
-			
-			for (Iterator<Reservation> iterator = reservations.iterator(); iterator.hasNext();) {
-				Reservation reservation = iterator.next();	
-				if(reservation.getReserver().getId() != userId) {
-					iterator.remove();
-				}
-			}
-		}
 	}
 
 	@Override
@@ -77,13 +54,13 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 	protected String getEntityFolderName() {
 		return "reservations";
 	}
-
+	
 	@Override
 	protected void createEntity(HttpServletRequest req, HttpServletResponse resp) {
 		super.createEntity(req, resp);
-
+		
 		String typeId = req.getParameter(FIELD_RESERVED_TYPE_NAME);
-		if (typeId == null) {
+		if(typeId == null){
 			createEntityStepOne(req, resp);
 		} else {
 			creatEntityStepTwo(req, resp);
@@ -103,15 +80,25 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		if (reserved != null && !reserver.trim().isEmpty()) {
 			filters.put(FIELD_RESERVER_NAME, reserver);
 		}
-
+		
 		String begin = req.getParameter(FIELD_BEGIN_NAME);
-		if (begin != null) {
-			filters.put(FIELD_BEGIN_NAME, begin);
+		if(begin != null && !begin.trim().isEmpty()) {
+			try {
+				filters.put(FIELD_BEGIN_NAME, formatter.parse(begin));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-
+		
 		String end = req.getParameter(FIELD_END_NAME);
-		if (end != null) {
-			filters.put(FIELD_END_NAME, end);
+		if(begin != null && !begin.trim().isEmpty()) {
+			try {
+				filters.put(FIELD_END_NAME, formatter.parse(end));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		return filters;
@@ -146,37 +133,33 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 	@Override
 	protected void validateFields(HttpServletRequest req) throws BeanValidationError {
 		int reserverId = Integer.parseInt(req.getParameter(FIELD_RESERVER_NAME));
-		if (userCrud.find(reserverId) == null) {
+		if(userCrud.find(reserverId) == null) {
 			throw new BeanValidationError("Utilisateur invalide");
 		}
-
+		
 		int reservedId = Integer.parseInt(req.getParameter(FIELD_RESERVED_NAME));
 		Resource resource = resourceCrud.find(reservedId);
-		if (resource == null) {
+		if(resource == null){
 			throw new BeanValidationError("Ressource invalide");
 		}
-
+		
 		String begin = req.getParameter(FIELD_BEGIN_NAME);
-		if (!isFieldValid(begin)) {
+		if(!isFieldValid(begin)) {
 			throw new BeanValidationError("Date de début invalide");
 		}
-
+		
 		String end = req.getParameter(FIELD_END_NAME);
-		if (!isFieldValid(end)) {
+		if(!isFieldValid(end)) {
 			throw new BeanValidationError("Date de fin invalide");
 		}
-
+		
 		try {
 			Date endDate = formatter.parse(end);
 			Date beginDate = formatter.parse(begin);
-
-			if (beginDate.compareTo(endDate) > 0) {
+			
+			if(beginDate.compareTo(endDate) > 0) {
 				throw new BeanValidationError("La date de fin est antérieure à la date de début");
 			}
-
-//			if (this.reservationCrud.isResourceReservedBetween(resource, beginDate, endDate)) {
-//				throw new BeanValidationError("La ressource n'est pas disponible sur cette période");
-//			}
 		} catch (ParseException e) {
 			throw new BeanValidationError("Erreur de convertion des dates.");
 		}
@@ -185,12 +168,12 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 	private void createEntityStepOne(HttpServletRequest req, HttpServletResponse resp) {
 		req.setAttribute(REQUEST_ATTR_RESOURCETYPES_NAME, this.typeCrud.findAll());
 	}
-
+	
 	private void creatEntityStepTwo(HttpServletRequest req, HttpServletResponse resp) {
 		int typeId = Integer.parseInt(req.getParameter(FIELD_RESERVED_TYPE_NAME));
 		ResourceType type = this.typeCrud.find(typeId);
-
-		req.setAttribute(REQUEST_ATTR_RESOURCES_NAME, this.resourceCrud.findByType(type));
+		
+		req.setAttribute(REQUEST_ATTR_RESOURCES_NAME, this.resourceCrud.findByType(typeId));
 		req.setAttribute(REQUEST_ATTR_SELECTED_RESOURCETYPE_NAME, type);
 	}
 

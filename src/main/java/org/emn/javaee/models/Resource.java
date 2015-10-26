@@ -99,7 +99,6 @@ public class Resource extends AbstractModel{
 
 	@Override
 	public String getFilterBy() {
-		// TODO Auto-generated method stub
-		return null;
+		return "name";
 	}
 }

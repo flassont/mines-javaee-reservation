@@ -151,6 +151,7 @@ public class GenericCrud<Entity> {
 				String[] associationFilters;
 				try {
 					// get the filters of the joined entity separated by ","
+					System.out.println("JAVATYPE => " +association.getJavaType());
 					associationFilters = association.getJavaType().newInstance().getFilterBy().split(",");
 					System.out.println("Filtres : "+associationFilters.toString());
 					// array of predicate
