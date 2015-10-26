@@ -1,5 +1,11 @@
 package org.emn.javaee.tools;
 
+/**
+ * This class is used as the second argument of a map representing filters
+ * Allow to add a parameter for a given value (ex: the dates)
+ * @author Xavier
+ *
+ */
 public class ValueParameter {
 	Object value;
 	Object parameter;

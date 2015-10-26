@@ -30,7 +30,7 @@ public class GenericCrud<Entity> {
 	 * EntityManager
 	 */
 	protected EntityManager em = Em.getInstance().getEm();
-	
+
 	/**
 	 * Dynamic class
 	 */
@@ -89,7 +89,7 @@ public class GenericCrud<Entity> {
 	 */
 	public boolean remove(int id) {
 		Entity entity = (Entity) this.find(id);
-		
+
 		if(entity == null) return false;
 		try 
 		{	
@@ -111,7 +111,7 @@ public class GenericCrud<Entity> {
 	public Entity find(int id) {
 		return this.em.find(this.entityClass, id);
 	}
-	
+
 	/**
 	 * Find all the entities
 	 * @return collection of entities
@@ -151,11 +151,11 @@ public class GenericCrud<Entity> {
 			} else if (attribute.getJavaType() == Boolean.class) {
 				condition = handleBooleanFilter(cb, root, condition, attributeName, expectedValue);
 			} 
-			 else if (attribute.getJavaType() == Date.class)
-				{
-					condition = handleDateFilter(filters, cb, root, condition, attributeName, expectedValue);
-				}
-			 else {
+			else if (attribute.getJavaType() == Date.class)
+			{
+				condition = handleDateFilter(filters, cb, root, condition, attributeName, expectedValue);
+			}
+			else {
 
 				condition = cb.and(condition, cb.equal(root.get(attributeName), expectedValue));
 			}
@@ -164,6 +164,15 @@ public class GenericCrud<Entity> {
 		return this.em.createQuery(query.where(condition)).getResultList();
 	}
 
+	/**
+	 * Handle the filtering on an entity attribute
+	 * @param cb
+	 * @param root
+	 * @param condition
+	 * @param attribute
+	 * @param expectedValue
+	 * @return condition
+	 */
 	private Expression<Boolean> handleAssociationFilter(CriteriaBuilder cb, Root<Entity> root,
 			Expression<Boolean> condition, Attribute<? super Entity, ?> attribute, Object expectedValue) {
 		// join the mapped entity
@@ -192,13 +201,31 @@ public class GenericCrud<Entity> {
 		}
 		return condition;
 	}
-	
+
+	/**
+	 * Handle filtering on String class attributes
+	 * @param cb
+	 * @param root
+	 * @param condition
+	 * @param attributeName
+	 * @param expectedValue
+	 * @return condition
+	 */
 	private Expression<Boolean> handleStringFilter(CriteriaBuilder cb, Root<Entity> root, Expression<Boolean> condition,
 			String attributeName, Object expectedValue) {
 		condition = cb.and(condition, cb.like(root.get(attributeName).as(String.class), "%" + (String) expectedValue + "%"));
 		return condition;
 	}
 
+	/**
+	 * Handle filtering on boolean Class attributes
+	 * @param cb
+	 * @param root
+	 * @param condition
+	 * @param attributeName
+	 * @param expectedValue
+	 * @return condition
+	 */
 	private Expression<Boolean> handleBooleanFilter(CriteriaBuilder cb, Root<Entity> root,
 			Expression<Boolean> condition, String attributeName, Object expectedValue) {
 		Expression<Boolean> expectedExpression;
@@ -211,16 +238,28 @@ public class GenericCrud<Entity> {
 		return condition;
 	}
 
+	/**
+	 * Handle filtering on Date class attribute
+	 * @param filters
+	 * @param cb
+	 * @param root
+	 * @param condition
+	 * @param attributeName
+	 * @param expectedValue
+	 * @return condition
+	 */
 	private Expression<Boolean> handleDateFilter(Map<String, Object> filters, CriteriaBuilder cb, Root<Entity> root,
 			Expression<Boolean> condition, String attributeName, Object expectedValue) {
+		
+		// switch on the parameter as we know it's a DateSearch enum
 		switch((DateSearch)((ValueParameter) filters.get(attributeName)).getParameter())
 		{
 		case FROM:
 			condition = cb.and(condition, cb.greaterThanOrEqualTo(root.get(attributeName).as(Date.class), (Date) expectedValue));
-		break;
+			break;
 		case TO:
 			condition = cb.and(condition, cb.lessThanOrEqualTo(root.get(attributeName).as(Date.class), (Date) expectedValue));
-		break;
+			break;
 		default:
 			condition = cb.and(condition, cb.equal(root.get(attributeName).as(Date.class), (Date) expectedValue));
 			break;

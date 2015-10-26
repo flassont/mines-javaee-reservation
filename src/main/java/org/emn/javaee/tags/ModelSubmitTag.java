@@ -7,6 +7,11 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+/**
+ * Tag to simplify the submit button based on an edition or a creation
+ * @author Xavier
+ *
+ */
 public class ModelSubmitTag extends SimpleTagSupport {
 	private String model;
 

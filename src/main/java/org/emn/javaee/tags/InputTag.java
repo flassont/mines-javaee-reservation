@@ -6,7 +6,11 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-
+/**
+ * Tag to simplify the input in the templates
+ * @author Xavier
+ *
+ */
 public class InputTag extends SimpleTagSupport {
 	private String placeholder;
 	private String value;
