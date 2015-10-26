@@ -1,4 +1,4 @@
-package org.emn.javaee.servlets;
+package org.emn.javaee.actions;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.emn.javaee.crud.ReservationCrud;
 import org.emn.javaee.crud.ResourceCrud;
 import org.emn.javaee.crud.UserCrud;
+import org.emn.javaee.exceptions.BeanValidationError;
 import org.emn.javaee.models.User;
 import org.emn.javaee.tools.ValueParameter;
 

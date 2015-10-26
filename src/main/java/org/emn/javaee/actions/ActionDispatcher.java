@@ -1,4 +1,4 @@
-package org.emn.javaee.servlets;
+package org.emn.javaee.actions;
 
 import java.io.IOException;
 import java.util.Map;
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.emn.javaee.crud.GenericCrud;
+import org.emn.javaee.exceptions.BeanValidationError;
 import org.emn.javaee.models.User;
 import org.emn.javaee.tools.ValueParameter;
 

@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.emn.javaee.actions.ActionDispatcher;
+import org.emn.javaee.actions.ReservationAction;
+import org.emn.javaee.actions.ResourceAction;
+import org.emn.javaee.actions.ResourceTypeAction;
+import org.emn.javaee.actions.UserAction;
 import org.emn.javaee.models.Reservation;
 import org.emn.javaee.models.Resource;
 import org.emn.javaee.models.ResourceType;
