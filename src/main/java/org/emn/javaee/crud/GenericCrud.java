@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
@@ -154,7 +155,8 @@ public class GenericCrud<Entity> {
 				{
 					condition = handleDateFilter(filters, cb, root, condition, attributeName, expectedValue);
 				}
-			else {
+			 else {
+
 				condition = cb.and(condition, cb.equal(root.get(attributeName), expectedValue));
 			}
 		}

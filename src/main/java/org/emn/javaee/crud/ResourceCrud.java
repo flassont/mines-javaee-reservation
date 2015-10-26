@@ -9,6 +9,8 @@ import javax.persistence.Query;
 import org.emn.javaee.models.Resource;
 import org.emn.javaee.models.ResourceType;
 import org.emn.javaee.tools.ValueParameter;
+import org.emn.javaee.models.ResourceType;
+
 
 /**
  * Resource CRUD

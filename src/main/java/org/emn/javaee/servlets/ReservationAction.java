@@ -174,8 +174,8 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 	private void creatEntityStepTwo(HttpServletRequest req, HttpServletResponse resp) {
 		int typeId = Integer.parseInt(req.getParameter(FIELD_RESERVED_TYPE_NAME));
 		ResourceType type = this.typeCrud.find(typeId);
-		
-		req.setAttribute(REQUEST_ATTR_RESOURCES_NAME, this.resourceCrud.findByType(typeId));
+
+		req.setAttribute(REQUEST_ATTR_RESOURCES_NAME, this.resourceCrud.findByType(type));
 		req.setAttribute(REQUEST_ATTR_SELECTED_RESOURCETYPE_NAME, type);
 	}
 
