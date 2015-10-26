@@ -8,8 +8,9 @@ import javax.persistence.Query;
 
 import org.emn.javaee.models.Resource;
 import org.emn.javaee.models.ResourceType;
+import org.emn.javaee.models.User;
+import org.emn.javaee.servlets.BeanValidationError;
 import org.emn.javaee.tools.ValueParameter;
-import org.emn.javaee.models.ResourceType;
 
 
 /**
@@ -35,6 +36,14 @@ public class ResourceCrud extends GenericCrud<Resource> {
     	typeFilter.put("type", new ValueParameter(type));
     	
     	return this.filter(typeFilter);
+    }
+    
+    public boolean isResponsible(User user) {
+    	HashMap<String, Object> filters = new HashMap<>();
+    	
+    	filters.put("responsible", new ValueParameter(user));
+    	
+    	return !this.filter(filters).isEmpty();
     }
     
     /*
