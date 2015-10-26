@@ -41,7 +41,14 @@ public class AuthenticationFilter implements Filter {
 			if(user != null)
 			{
 				session.setAttribute("authenticatedUser", user);
-				resp.sendRedirect(request.getServletContext().getContextPath() + "/app/reservations");
+				if(user.getIsAdmin()) 
+				{
+					resp.sendRedirect(req.getRequestURI());
+				}
+				else
+				{
+					resp.sendRedirect(request.getServletContext().getContextPath() + "/app/reservations");
+				}
 				return;
 			}
 			else
@@ -52,7 +59,7 @@ public class AuthenticationFilter implements Filter {
 
 		if (session.getAttribute("authenticatedUser") == null) {
 			request.setAttribute("page", "template/connection/login.jsp");
-			request.setAttribute("title", "Connection");
+			request.setAttribute("title", "Connexion");
 			request.getRequestDispatcher("/WEB-INF/pages/main.jsp").forward(request, response);
 			return; //break filter chain, requested JSP/servlet will not be executed
 		}

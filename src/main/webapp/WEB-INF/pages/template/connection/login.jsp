@@ -4,9 +4,6 @@
 
 		<span class="form-header">
 			<h2>Se connecter</h2>
-<!-- 			<p> -->
-<!-- 				<a href="signup">Ou créez un compte</a> -->
-<!-- 			</p> -->
 		</span>
 		<c:if test="${not empty error}">
 			<div class="alert alert-danger" role="alert">${error}</div>
@@ -24,8 +21,6 @@
 			</div>
 			<div class="text-center">
 				<button type="submit" class="btn btn-success inline-button">Connexion</button>
-				<button type="button" class="btn btn-default inline-button">Mot
-					de passe oublié</button>
 			</div>
 		</form>
 	</div>
