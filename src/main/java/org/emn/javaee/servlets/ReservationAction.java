@@ -94,7 +94,7 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		}
 		
 		String end = req.getParameter(FIELD_END_NAME);
-		if(begin != null && !begin.trim().isEmpty()) {
+		if(end != null && !end.trim().isEmpty()) {
 			try {
 				filters.put(FIELD_END_NAME, new ValueParameter(formatter.parse(end), DateSearch.TO));
 			} catch (ParseException e) {

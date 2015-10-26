@@ -1,7 +1,6 @@
 package org.emn.javaee.crud;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,6 @@ import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
 
-import org.emn.javaee.models.AbstractModel;
 import org.emn.javaee.tools.DateSearch;
 import org.emn.javaee.tools.Em;
 import org.emn.javaee.tools.ValueParameter;
@@ -134,10 +132,8 @@ public class GenericCrud<Entity> {
 		Expression<Boolean> condition = cb.conjunction();
 		for (Attribute<? super Entity,?> attribute: entityType.getAttributes()){
 			String attributeName = attribute.getName();
-			System.out.println("generic crud attribut : " +attributeName);
 			// No filter, reach next attribute
 			if(!keys.contains(attributeName)) {
-				System.out.println("next");
 				continue;
 			}
 
@@ -147,71 +143,86 @@ public class GenericCrud<Entity> {
 			// handle the relations between the entities
 			if(attribute.isAssociation())
 			{
-				System.out.println("Filtre sur "+attribute.getName());
-				// join the mapped entity
-				Join<Object, org.emn.javaee.models.AbstractModel> association = root.join(attribute.getName());
-				// the filters of the joined entity
-				String[] associationFilters;
-				try {
-					// get the filters of the joined entity separated by ","
-					System.out.println("JAVATYPE => " +association.getJavaType());
-					associationFilters = association.getJavaType().newInstance().getFilterBy().split(",");
-					System.out.println("Filtres : "+associationFilters.toString());
-					// array of predicate
-					Predicate[] predicates = new Predicate[associationFilters.length];
-					int i = 0;
-					// loop through the array of filters
-					for(String s:associationFilters)
-					{
-						// add the predicate according to the current filter
-						predicates[i]=cb.like(association.get(s).as(String.class), "%" + (String) expectedValue + "%");
-						i++;
-					}
-					// finally, make a or condition on all the filters
-					condition = cb.and(condition, cb.or(predicates));
-				} catch(Exception e)
-				{
-					// todo
-					System.out.println("!!!!!!!!!!!!!!!!!!!EXCEPTION");
-					e.printStackTrace();
-				}
+				condition = handleAssociationFilter(cb, root, condition, attribute, expectedValue);
 			}
 			else if(attribute.getJavaType() == String.class) {
-				System.out.println("C'est un string");
-				condition = cb.and(condition, cb.like(root.get(attributeName).as(String.class), "%" + (String) expectedValue + "%"));
+				condition = handleStringFilter(cb, root, condition, attributeName, expectedValue);
 			} else if (attribute.getJavaType() == Boolean.class) {
-				System.out.println("c'est un boolean");
-				Expression<Boolean> expectedExpression;
-				if ((Boolean) expectedValue) {
-					System.out.println("la valeur est vraie");
-					expectedExpression = cb.isTrue(root.get(attributeName).as(Boolean.class));
-				} else {
-					System.out.println("la valeur est fausse");
-					expectedExpression = cb.isFalse(root.get(attributeName).as(Boolean.class));
-				}
-				condition = cb.and(condition, expectedExpression);
+				condition = handleBooleanFilter(cb, root, condition, attributeName, expectedValue);
 			} 
 			 else if (attribute.getJavaType() == Date.class)
 				{
-					switch((DateSearch)((ValueParameter) filters.get(attributeName)).getParameter())
-					{
-					case FROM:
-						condition = cb.and(condition, cb.greaterThanOrEqualTo(root.get(attributeName).as(Date.class), (Date) expectedValue));
-					break;
-					case TO:
-						condition = cb.and(condition, cb.lessThanOrEqualTo(root.get(attributeName).as(Date.class), (Date) expectedValue));
-					break;
-					default:
-						condition = cb.and(condition, cb.equal(root.get(attributeName).as(Date.class), (Date) expectedValue));
-						break;
-					}
+					condition = handleDateFilter(filters, cb, root, condition, attributeName, expectedValue);
 				}
 			else {
-				System.out.println("ni string ni boolean");
 				condition = cb.and(condition, cb.equal(root.get(attributeName), expectedValue));
 			}
 		}
 
 		return this.em.createQuery(query.where(condition)).getResultList();
+	}
+
+	private Expression<Boolean> handleAssociationFilter(CriteriaBuilder cb, Root<Entity> root,
+			Expression<Boolean> condition, Attribute<? super Entity, ?> attribute, Object expectedValue) {
+		// join the mapped entity
+		Join<Object, org.emn.javaee.models.AbstractModel> association = root.join(attribute.getName());
+		// the filters of the joined entity
+		String[] associationFilters;
+		try {
+			// get the filters of the joined entity separated by ","
+			associationFilters = association.getJavaType().newInstance().getFilterBy().split(",");
+			// array of predicate
+			Predicate[] predicates = new Predicate[associationFilters.length];
+			int i = 0;
+			// loop through the array of filters
+			for(String s:associationFilters)
+			{
+				// add the predicate according to the current filter
+				predicates[i]=cb.like(association.get(s).as(String.class), "%" + (String) expectedValue + "%");
+				i++;
+			}
+			// finally, make a or condition on all the filters
+			condition = cb.and(condition, cb.or(predicates));
+		} catch(Exception e)
+		{
+			// todo
+			e.printStackTrace();
+		}
+		return condition;
+	}
+	
+	private Expression<Boolean> handleStringFilter(CriteriaBuilder cb, Root<Entity> root, Expression<Boolean> condition,
+			String attributeName, Object expectedValue) {
+		condition = cb.and(condition, cb.like(root.get(attributeName).as(String.class), "%" + (String) expectedValue + "%"));
+		return condition;
+	}
+
+	private Expression<Boolean> handleBooleanFilter(CriteriaBuilder cb, Root<Entity> root,
+			Expression<Boolean> condition, String attributeName, Object expectedValue) {
+		Expression<Boolean> expectedExpression;
+		if ((Boolean) expectedValue) {
+			expectedExpression = cb.isTrue(root.get(attributeName).as(Boolean.class));
+		} else {
+			expectedExpression = cb.isFalse(root.get(attributeName).as(Boolean.class));
+		}
+		condition = cb.and(condition, expectedExpression);
+		return condition;
+	}
+
+	private Expression<Boolean> handleDateFilter(Map<String, Object> filters, CriteriaBuilder cb, Root<Entity> root,
+			Expression<Boolean> condition, String attributeName, Object expectedValue) {
+		switch((DateSearch)((ValueParameter) filters.get(attributeName)).getParameter())
+		{
+		case FROM:
+			condition = cb.and(condition, cb.greaterThanOrEqualTo(root.get(attributeName).as(Date.class), (Date) expectedValue));
+		break;
+		case TO:
+			condition = cb.and(condition, cb.lessThanOrEqualTo(root.get(attributeName).as(Date.class), (Date) expectedValue));
+		break;
+		default:
+			condition = cb.and(condition, cb.equal(root.get(attributeName).as(Date.class), (Date) expectedValue));
+			break;
+		}
+		return condition;
 	}
 }
