@@ -11,8 +11,8 @@
 	<in:Input name="resourceType" display="Type de la ressource" placeholder="Type de la ressource" value="${model.reserved.type.name}"/>
 	
 	<div class="form-group">
-		<label for="resource">Ressource</label>
-		<select class="form-control" id="resource" name="reserved" required>
+		<label for="reserved">Ressource</label>
+		<select class="form-control" id="reserved" name="reserved" required>
 			<option value="${model.reserved.id}" selected>${model.reserved.name}</option>
 			<c:forEach items="${resources}" var="resource">
 				<c:if test="${resource.id != model.reserved.id}">
