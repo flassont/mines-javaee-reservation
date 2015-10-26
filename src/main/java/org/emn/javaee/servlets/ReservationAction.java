@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -99,9 +100,14 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 			filters.put(FIELD_RESERVED_NAME, new ValueParameter(reserved, AUTO_FILTERING));
 		}
 
-		String reserver = req.getParameter(FIELD_RESERVER_NAME);
-		if (reserved != null && !reserver.trim().isEmpty()) {
-			filters.put(FIELD_RESERVER_NAME, new ValueParameter(reserver, AUTO_FILTERING));
+		User authenticated = getAuthenticatedUser(req);
+		if (authenticated.getIsAdmin()) {
+			String reserver = req.getParameter(FIELD_RESERVER_NAME);
+			if (reserved != null && !reserver.trim().isEmpty()) {
+				filters.put(FIELD_RESERVER_NAME, new ValueParameter(reserver, AUTO_FILTERING));
+			}
+		} else {
+			filters.put(FIELD_RESERVER_NAME, new ValueParameter(authenticated));
 		}
 
 		String begin = req.getParameter(FIELD_BEGIN_NAME);
@@ -187,10 +193,10 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		} catch (ParseException e) {
 			throw new BeanValidationError("Erreur de convertion des dates.");
 		}
-		boolean isFree = ((ReservationCrud)this.crud).isFree(beginDate, endDate, resource);
-		if(!isFree)
-		{
-			throw new BeanValidationError("La ressource "+resource.getName()+" est déjà réservée pour la période du " +begin+" au "+end+".");
+		boolean isFree = ((ReservationCrud) this.crud).isFree(beginDate, endDate, resource);
+		if (!isFree) {
+			throw new BeanValidationError("La ressource " + resource.getName()
+					+ " est déjà réservée pour la période du " + begin + " au " + end + ".");
 		}
 	}
 

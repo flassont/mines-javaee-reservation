@@ -8,7 +8,9 @@
 <form method="get" action="${param.contextPath}/app/${requestScope.entity}/search">
 	
 	<in:Input required="false" name="reserved" display="Ressource" placeholder="Ressource" value="${reserved}"/>
-	<in:Input required="false" name="reserver" display="Utilisateur" placeholder="Utilisateur" value="${reserver}"/>
+	<c:if test="${authenticatedUser.isAdmin}">
+		<in:Input required="false" name="reserver" display="Utilisateur" placeholder="Utilisateur" value="${reserver}"/>
+	</c:if>
 	<in:Input required="false" name="begin" display="Du" placeholder="Du" value="${formattedBegin}" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\"" />
 	<in:Input required="false" name="end" display="Au" placeholder="Au" value="${formattedEnd}" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\"" />
 	

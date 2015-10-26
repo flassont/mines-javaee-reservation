@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.emn.javaee.crud.GenericCrud;
 import org.emn.javaee.models.User;
 import org.emn.javaee.tools.ValueParameter;
-import org.emn.javaee.models.User;
 
 /**
  * Created by florian on 22/10/15.
