@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Logout
+ * Servlet which handle logout request.
  */
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {

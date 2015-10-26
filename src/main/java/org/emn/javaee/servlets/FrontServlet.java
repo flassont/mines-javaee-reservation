@@ -21,7 +21,7 @@ import org.emn.javaee.models.ResourceType;
 import org.emn.javaee.models.User;
 
 /**
- * Servlet implementation class HelloServlet
+ * Application's front servlet.
  */
 @WebServlet(urlPatterns = { "/app/*" })
 public class FrontServlet extends HttpServlet {
@@ -34,8 +34,9 @@ public class FrontServlet extends HttpServlet {
 	private ActionDispatcher<Reservation> reservationAction = new ReservationAction();
 
 	private List<String> userPaths = Arrays.asList("reservations", "logout");
-	private List<String> userActions = Arrays.asList("new","delete","search", "edit");
+	private List<String> userActions = Arrays.asList("new", "delete", "search", "edit");
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String[] paths = request.getPathInfo().split("/");
@@ -71,6 +72,7 @@ public class FrontServlet extends HttpServlet {
 		}
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String[] paths = request.getPathInfo().split("/");
@@ -103,6 +105,13 @@ public class FrontServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Check if the specified user has the required rights.
+	 * 
+	 * @param user The user.
+	 * @param paths The paths.
+	 * @return True if he is allowed, else false.
+	 */
 	public boolean isAllowed(User user, String[] paths) {
 		boolean ret;
 
@@ -110,7 +119,7 @@ public class FrontServlet extends HttpServlet {
 			ret = true;
 		} else {
 			ret = userPaths.contains(paths[1]);
-			if(paths.length >= 3) {
+			if (paths.length >= 3) {
 				ret = ret && userActions.contains(paths[2]);
 			}
 		}
