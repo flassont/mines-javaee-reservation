@@ -1,8 +1,5 @@
 package org.emn.javaee.tools;
 
-/*
- * This class allows to get a singleton version of the entity manager
- */
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -12,7 +9,7 @@ public class Em {
 	 * EntityManager em
 	 */
 	private EntityManager em;
-	
+
 	/**
 	 * static Singleton instance
 	 */
@@ -35,13 +32,13 @@ public class Em {
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Get the EntityManager
+	 * 
 	 * @return em
 	 */
-	public EntityManager getEm()
-	{
+	public EntityManager getEm() {
 		return this.em;
 	}
 
