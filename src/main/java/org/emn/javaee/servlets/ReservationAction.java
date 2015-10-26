@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import org.emn.javaee.crud.UserCrud;
 import org.emn.javaee.models.Reservation;
 import org.emn.javaee.models.Resource;
 import org.emn.javaee.models.ResourceType;
+import org.emn.javaee.models.User;
 
 public class ReservationAction extends ActionDispatcher<Reservation> {
 
@@ -35,7 +38,7 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 	private ResourceTypeCrud typeCrud;
 	private ResourceCrud resourceCrud;
 	private UserCrud userCrud;
-	private ReservationCrud reservationCrud;
+//	private ReservationCrud reservationCrud;
 
 	public ReservationAction() {
 		super(new ReservationCrud());
@@ -43,7 +46,26 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		this.typeCrud = new ResourceTypeCrud();
 		this.resourceCrud = new ResourceCrud();
 		this.userCrud = new UserCrud();
-		this.reservationCrud = new ReservationCrud();
+//		this.reservationCrud = new ReservationCrud();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void getAll(HttpServletRequest req, HttpServletResponse resp) {
+		super.getAll(req, resp);
+		
+		User authenticatedUser = getAuthenticatedUser(req);
+		if(!authenticatedUser.getIsAdmin()){
+			List<Reservation> reservations = (List<Reservation>) req.getAttribute(REQUEST_ATTR_MODELLIST_NAME);
+			int userId = authenticatedUser.getId();
+			
+			for (Iterator<Reservation> iterator = reservations.iterator(); iterator.hasNext();) {
+				Reservation reservation = iterator.next();	
+				if(reservation.getReserver().getId() != userId) {
+					iterator.remove();
+				}
+			}
+		}
 	}
 
 	@Override

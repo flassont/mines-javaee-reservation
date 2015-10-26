@@ -27,7 +27,7 @@ public class UserCrud extends GenericCrud<User>{
 
 		return this.filter(filters);
 	}
-
+	
 	public User findByLoginAndPassword(String login, String password)
 	{
 		try

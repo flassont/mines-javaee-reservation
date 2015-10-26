@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.emn.javaee.crud.GenericCrud;
+import org.emn.javaee.models.User;
 
 /**
  * Created by florian on 22/10/15.
@@ -23,10 +24,14 @@ public abstract class ActionDispatcher<T> {
 	public static final String REQUEST_ATTR_CREATIONMODE_NAME = "creationMode";
 	public static final String REQUEST_ATTR_MODEL_NAME = "model";
 	protected static final String REQUEST_ATTR_TEMPLATE_VALUE = "template/manager.jsp";
+
 	protected static final String REQUEST_ATTR_PAGE_NAME = "page";
 	protected static final String REQUEST_ATTR_ENTITY_NAME = "entity";
 	protected static final String REQUEST_ATTR_TITLE_NAME = "title";
+
 	protected static final String SESSION_ATTR_ERROR_NAME = "transactionError";
+	protected static final String SESSION_ATTR_AUTHENTICATED_USER = "authenticatedUser";
+
 	protected final GenericCrud<T> crud;
 
 	protected ActionDispatcher(GenericCrud<T> crud) {
@@ -159,11 +164,9 @@ public abstract class ActionDispatcher<T> {
 	protected void getSearch(HttpServletRequest req, HttpServletResponse resp) {
 		Map<String, Object> filters = getFilters(req);
 		req.setAttribute(REQUEST_ATTR_MODELLIST_NAME, this.crud.filter(filters));
-		for (Entry<String, Object> entry : filters.entrySet())
-		{
+		for (Entry<String, Object> entry : filters.entrySet()) {
 			req.setAttribute(entry.getKey(), entry.getValue());
 		}
-
 
 	}
 
@@ -247,6 +250,10 @@ public abstract class ActionDispatcher<T> {
 		}
 	}
 
+	protected User getAuthenticatedUser(HttpServletRequest req) {
+		return (User) req.getSession().getAttribute(SESSION_ATTR_AUTHENTICATED_USER);
+	}
+
 	/**
 	 * Map the entity to req parameters
 	 *
@@ -316,14 +323,9 @@ public abstract class ActionDispatcher<T> {
 				req.getServletContext().getContextPath() + req.getServletPath() + "/" + getEntityFolderName());
 	}
 
-	//	private boolean isAdmin(HttpServletRequest req) {
-	//		User user = (User) req.getSession().getAttribute("authenticatedUser");
-	//		return user == null ? false : user.getIsAdmin();
-	//	}
-
-	protected abstract void validateFields(HttpServletRequest req) throws BeanValidationError;
-
 	protected static boolean isFieldValid(String value) {
 		return (value != null) && (!value.trim().isEmpty());
 	}
+
+	protected abstract void validateFields(HttpServletRequest req) throws BeanValidationError;
 }

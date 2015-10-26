@@ -13,7 +13,8 @@ import org.emn.javaee.models.ResourceType;
  * Resource CRUD
  */
 public class ResourceCrud extends GenericCrud<Resource> {
-    /**
+    
+	/**
      * Find Resources containing nameFragment in their name
      * @param nameFragment String contained within the name
      * @return Resources having nameFragment in their name

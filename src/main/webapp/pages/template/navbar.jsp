@@ -17,9 +17,9 @@
 	      	<ul class="nav navbar-nav">
 	        	<li <c:if test="${requestScope.entity == 'reservations'}"> class="active"</c:if>><a href="${param.contextPath}/app/reservations">Réservations</a></li>
 		        	<c:if test="${authenticatedUser.isAdmin}">
-		        		<li <c:if test="${requestScope.entity == 'resources'}">class="active"</c:if>><a href="${param.contextPath}/app/resources">Ressources</a></li>
-		        		<li <c:if test="${requestScope.entity == 'resourceTypes'}">    class="active"</c:if>><a href="${param.contextPath}/app/resourceTypes">Types de ressources</a></li>
-		        		<li <c:if test="${requestScope.entity == 'users'}">    class="active"</c:if>><a href="${param.contextPath}/app/users">Utilisateurs</a></li>
+		        		<li <c:if test="${requestScope.entity == 'resources'}"> class="active"</c:if>><a href="${param.contextPath}/app/resources">Ressources</a></li>
+		        		<li <c:if test="${requestScope.entity == 'resourceTypes'}"> class="active"</c:if>><a href="${param.contextPath}/app/resourceTypes">Types de ressources</a></li>
+		        		<li <c:if test="${requestScope.entity == 'users'}"> class="active"</c:if>><a href="${param.contextPath}/app/users">Utilisateurs</a></li>
 		        	</c:if>	
 	        	</ul>
 	      
