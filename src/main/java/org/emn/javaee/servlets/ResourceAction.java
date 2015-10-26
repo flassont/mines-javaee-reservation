@@ -70,12 +70,12 @@ public class ResourceAction extends ActionDispatcher<Resource> {
 
 		String responsible = req.getParameter(FIELD_RESPONSIBLE);
 		if (responsible != null && !responsible.trim().isEmpty()) {
-			filters.put(FIELD_RESPONSIBLE, new ValueParameter(responsible));
+			filters.put(FIELD_RESPONSIBLE, new ValueParameter(responsible, AUTO_FILTERING));
 		}
 
 		String type = req.getParameter(FIELD_TYPE);
 		if (type != null && !type.trim().isEmpty()) {
-			filters.put(FIELD_TYPE, new ValueParameter(type));
+			filters.put(FIELD_TYPE, new ValueParameter(type, AUTO_FILTERING));
 		}
 
 		return filters;

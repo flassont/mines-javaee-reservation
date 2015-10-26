@@ -142,7 +142,7 @@ public class GenericCrud<Entity> {
 			// or equal (other types)
 			Object expectedValue = ((ValueParameter) filters.get(attributeName)).getValue();
 			// handle the relations between the entities
-			if(attribute.isAssociation())
+			if(attribute.isAssociation() && "autofilter".equals(((ValueParameter)filters.get(attributeName)).getParameter()))
 			{
 				condition = handleAssociationFilter(cb, root, condition, attribute, expectedValue);
 			}

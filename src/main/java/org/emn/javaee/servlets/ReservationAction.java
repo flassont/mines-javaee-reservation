@@ -96,12 +96,12 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 
 		String reserved = req.getParameter(FIELD_RESERVED_NAME);
 		if (reserved != null && !reserved.trim().isEmpty()) {
-			filters.put(FIELD_RESERVED_NAME, new ValueParameter(reserved));
+			filters.put(FIELD_RESERVED_NAME, new ValueParameter(reserved, AUTO_FILTERING));
 		}
 
 		String reserver = req.getParameter(FIELD_RESERVER_NAME);
 		if (reserved != null && !reserver.trim().isEmpty()) {
-			filters.put(FIELD_RESERVER_NAME, new ValueParameter(reserver));
+			filters.put(FIELD_RESERVER_NAME, new ValueParameter(reserver, AUTO_FILTERING));
 		}
 
 		String begin = req.getParameter(FIELD_BEGIN_NAME);

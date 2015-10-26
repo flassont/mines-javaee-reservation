@@ -25,6 +25,8 @@ public abstract class ActionDispatcher<T> {
 	public static final String REQUEST_ATTR_MODELLIST_NAME = "models";
 	public static final String REQUEST_ATTR_CREATIONMODE_NAME = "creationMode";
 	public static final String REQUEST_ATTR_MODEL_NAME = "model";
+	public static final String AUTO_FILTERING = "autofilter";
+
 	protected static final String REQUEST_ATTR_TEMPLATE_VALUE = "template/manager.jsp";
 
 	protected static final String REQUEST_ATTR_PAGE_NAME = "page";
