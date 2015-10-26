@@ -1,14 +1,11 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="in" uri="/../../tags/input.tld"%>
+<%@ taglib prefix="mod" uri="/../../tags/modelSubmit.tld"%>
 
 <form method="post" action="${param.contextPath}/app/${requestScope.entity}/${parameter}">	
 	
-	<div class="form-group">
-		<label for="resourceType">Type de la ressource</label>
-		<input type="text" class="form-control" id="resourceType"
-		placeholder="${requestScope.resourceType.name}" 
-		disabled/>
-	</div>
+	<in:Input name="resourceType" display="Type de la ressource" placeholder="Type de la ressource" value="${resourceType.name}" additionalHtml="disabled"/>
 	
 	<div class="form-group">
 		<label for="reserved">Ressource</label>
@@ -25,25 +22,10 @@
 			<option value="${authenticatedUser.id}">${authenticatedUser.firstName} ${authenticatedUser.lastName}</option>
 		</select>
 	</div>
-			
-	<div class="form-group">
-		<label for="begin">Début</label>
-		<input type="date" class="form-control" id="begin" name="begin" data-provide="datepicker" data-date-format="dd/mm/yyyy" required>
-	</div>
-			
-	<div class="form-group">
-		<label for="end">Fin</label>
-		<input type="date" class="form-control" id="end" name="end" data-provide="datepicker" data-date-format="dd/mm/yyyy" required>
-	</div>
+	
+	<in:Input name="begin" display="Début" placeholder="Début" value="" additionalHtml="disabled" type="date" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\""/>
+	<in:Input name="end" display="Fin" placeholder="Fin" value="" additionalHtml="disabled" type="date" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\""/>
 
-	<div class="text-center">
-		<c:choose>
-			<c:when test="${not empty model}">
-				<button type="submit" class="btn btn-success inline-button">Modifier</button>
-			</c:when>
-			<c:otherwise>
-				<button type="submit" class="btn btn-success">Valider</button>
-			</c:otherwise>
-		</c:choose>
-	</div>
+	<mod:ModelSubmit model="${model}"/>	
+
 </form>

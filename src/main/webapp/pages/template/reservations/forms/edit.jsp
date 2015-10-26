@@ -1,11 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="in" uri="/../../tags/input.tld"%>
+<%@ taglib prefix="mod" uri="/../../tags/modelSubmit.tld"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:formatDate value="${model.begin}" pattern="dd/MM/yyyy" var="formattedBegin"/>
+<fmt:formatDate value="${model.end}" pattern="dd/MM/yyyy" var="formattedEnd"/>
 
 <form method="post" action="${param.contextPath}/app/${requestScope.entity}/${parameter}">	
 	
-	<div class="form-group">
-		<label for="resourceType">Type de la ressource</label>
-		<input type="text" class="form-control" id="resourceType" name="resourceType" value="${model.reserved.type.name}" readonly>
-	</div>
+	<in:Input name="resourceType" display="Type de la ressource" placeholder="Type de la ressource" value="${model.reserved.type.name}"/>
 	
 	<div class="form-group">
 		<label for="resource">Ressource</label>
@@ -23,25 +26,8 @@
 			<option value="${requestScope.reservation.reserver.id}" selected>${model.reserver.firstName} ${requestScope.reservation.reserver.lastName}</option>
 		</select>
 	</div>
-			
-	<div class="form-group">
-		<label for="begin">Début</label>
-		<input type="date" class="form-control" id="begin" name="begin" value="${model.begin}" required>
-	</div>
-			
-	<div class="form-group">
-		<label for="end">Fin</label>
-		<input type="date" class="form-control" id="end" name="end" value="${model.end}" required>
-	</div>
-
-	<div class="text-center">
-		<c:choose>
-			<c:when test="${not empty model}">
-				<button type="submit" class="btn btn-success inline-button">Modifier</button>
-			</c:when>
-			<c:otherwise>
-				<button type="submit" class="btn btn-success">Valider</button>
-			</c:otherwise>
-		</c:choose>
-	</div>
+	
+	<in:Input name="begin" display="Début" placeholder="Début" value="${formattedBegin}" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\"" type="date"/>
+	<in:Input name="end" display="Fin" placeholder="Fin" value="${formattedEnd}" additionalHtml="data-provide=\"datepicker\" data-date-format=\"dd/mm/yyyy\"" type="date"/>
+	<mod:ModelSubmit model="${model}"/>	
 </form>
