@@ -175,16 +175,22 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		if (!isFieldValid(end)) {
 			throw new BeanValidationError("Date de fin invalide");
 		}
-
+		Date endDate;
+		Date beginDate;
 		try {
-			Date endDate = formatter.parse(end);
-			Date beginDate = formatter.parse(begin);
+			endDate = formatter.parse(end);
+			beginDate = formatter.parse(begin);
 
 			if (beginDate.compareTo(endDate) > 0) {
 				throw new BeanValidationError("La date de fin est antérieure à la date de début");
 			}
 		} catch (ParseException e) {
 			throw new BeanValidationError("Erreur de convertion des dates.");
+		}
+		boolean isFree = ((ReservationCrud)this.crud).isFree(beginDate, endDate, resource);
+		if(!isFree)
+		{
+			throw new BeanValidationError("La ressource "+resource.getName()+" est déjà réservée pour la période du " +begin+" au "+end+".");
 		}
 	}
 
