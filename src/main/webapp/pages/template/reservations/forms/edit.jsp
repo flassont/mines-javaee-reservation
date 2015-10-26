@@ -13,9 +13,11 @@
 	<div class="form-group">
 		<label for="resource">Ressource</label>
 		<select class="form-control" id="resource" name="reserved" required>
-			<option value="${requestScope.reservation.reserved.id}" selected>${model.reserved.name}</option>
+			<option value="${model.reserved.id}" selected>${model.reserved.name}</option>
 			<c:forEach items="${resources}" var="resource">
-				<option value="${resource.id}">${resource.name}</option>
+				<c:if test="${resource.id != model.reserved.id}">
+					<option value="${resource.id}">${resource.name}</option>
+				</c:if>
 			</c:forEach>
 		</select>
 	</div>

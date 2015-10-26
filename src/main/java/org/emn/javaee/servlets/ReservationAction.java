@@ -72,6 +72,15 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 	}
 
 	@Override
+	protected void editEntity(HttpServletRequest req, HttpServletResponse resp) {
+		super.editEntity(req, resp);
+
+		// Keep the expected resource type from the reservation
+		Reservation edited = (Reservation) req.getAttribute(REQUEST_ATTR_MODEL_NAME);
+		editEntity(req, edited.getReserved().getType());
+	}
+
+	@Override
 	protected void getAll(HttpServletRequest req, HttpServletResponse resp) {
 		super.getAll(req, resp);
 
@@ -207,6 +216,15 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		int typeId = Integer.parseInt(req.getParameter(FIELD_RESERVED_TYPE_NAME));
 		ResourceType type = this.typeCrud.find(typeId);
 
+		editEntity(req, type);
+	}
+
+	/**
+	 * Prepare the edition screen, proposing Resource matching the type param
+	 * @param req	The request
+	 * @param type	The expected type for Resources
+	 */
+	private void editEntity(HttpServletRequest req, ResourceType type) {
 		req.setAttribute(REQUEST_ATTR_RESOURCES_NAME, this.resourceCrud.findByType(type));
 		req.setAttribute(REQUEST_ATTR_SELECTED_RESOURCETYPE_NAME, type);
 	}
