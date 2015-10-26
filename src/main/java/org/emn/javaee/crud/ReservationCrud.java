@@ -16,6 +16,12 @@ import org.emn.javaee.tools.ValueParameter;
  */
 public class ReservationCrud extends GenericCrud<Reservation> {
 
+	/**
+	 * This method indicates if the specified has current reservations.
+	 * 
+	 * @param user The user.
+	 * @return True if he has reservations.
+	 */
 	public boolean isReserver(User user) {
 		HashMap<String, Object> filters = new HashMap<>();
 
@@ -25,11 +31,12 @@ public class ReservationCrud extends GenericCrud<Reservation> {
 	}
 
 	/**
-	 * Return true if there is no other reservation made for these dates for the given resource, else false
-	 * @param beginDate
-	 * @param endDate
-	 * @param resource
-	 * @return boolean
+	 * Return true if there is no other reservation made for these dates for the given resource, else false.
+	 * 
+	 * @param beginDate The begin date.
+	 * @param endDate The end date.
+	 * @param resource The resource.
+	 * @return boolean True if there is no reservation, else false.
 	 */
 	public boolean isFree(Date beginDate, Date endDate, Resource resource)
 	{
@@ -42,12 +49,13 @@ public class ReservationCrud extends GenericCrud<Reservation> {
 	}
 
 	/**
-	 * Return true if there is no other reservation made for these dates for the given resource, else false
-	 * @param beginDate
-	 * @param endDate
-	 * @param resource
-	 * @param id 		Id of the currently edited Reservation
-	 * @return boolean
+	 * Return true if there is no other reservation made for these dates for the given resource, else false.
+	 * 
+	 * @param beginDate The begin date
+	 * @param endDate The end date.
+	 * @param resource The resource.
+	 * @param id Id of the currently edited Reservation.
+	 * @return boolean True if there is no reservation, else false.
 	 */
 	public boolean isFree(Date beginDate, Date endDate, Resource resource, int id) {
 		String queryString = "SELECT r from Reservation r where (((:begin >= r.begin and :begin <= r.end) or (:end <= r.end and :end >= r.begin)) or (:begin <= r.begin and :end >= r.end)) and r.reserved = :resource and r.id <> :id";
@@ -60,9 +68,10 @@ public class ReservationCrud extends GenericCrud<Reservation> {
 	}
 
 	/**
-	 * Return true if at least one reservation has a the given resourceType, else false
-	 * @param resourceType
-	 * @return boolean
+	 * Return true if at least one reservation has a the given resourceType, else false.
+	 * 
+	 * @param resourceType The resource type.
+	 * @return boolean True if there is at least one reservation.
 	 */
 	public boolean existWithResourceType(ResourceType resourceType)
 	{
@@ -73,8 +82,9 @@ public class ReservationCrud extends GenericCrud<Reservation> {
 
 	/**
 	 * Return true if at least on reservation has a the given resource, else false
-	 * @param resourceType
-	 * @return boolean
+	 * 
+	 * @param resource The resource.
+	 * @return boolean True if there is at least one.
 	 */
 	public boolean existWithResource(Resource resource)
 	{
