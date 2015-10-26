@@ -11,7 +11,7 @@ import org.emn.javaee.tools.ValueParameter;
  */
 public class ReservationCrud extends GenericCrud<Reservation> {
 	
-	public boolean isResponsible(User user) {
+	public boolean isReserver(User user) {
 		HashMap<String, Object> filters = new HashMap<>();
 		
 		filters.put("reserver", new ValueParameter(user));

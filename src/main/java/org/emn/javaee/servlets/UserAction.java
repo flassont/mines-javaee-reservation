@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.emn.javaee.crud.ReservationCrud;
+import org.emn.javaee.crud.ResourceCrud;
 import org.emn.javaee.crud.UserCrud;
 import org.emn.javaee.models.User;
 import org.emn.javaee.tools.ValueParameter;
@@ -28,10 +29,12 @@ public class UserAction extends ActionDispatcher<User> {
     public static final String FIELD_MAIL = "mail";
 
     private ReservationCrud reservationCrud;
+    private ResourceCrud resourceCrud;
     
     public UserAction() {
         super(new UserCrud());
         this.reservationCrud = new ReservationCrud();
+        this.resourceCrud = new ResourceCrud();
     }
 
     @Override
@@ -46,14 +49,21 @@ public class UserAction extends ActionDispatcher<User> {
 
 	@Override
 	protected void deleteEntity(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		User user = this.crud.find(getId(req));
 		
-		if (this.reservationCrud.isResponsible(this.crud.find(getId(req)))) {
+		if (this.reservationCrud.isReserver(user)) {
 			req.getSession().setAttribute(SESSION_ATTR_ERROR_NAME,
 					"Impossible de supprimer l'utilisateur. Il a des réservations en cours.");
-			
-		} else {
-			super.deleteEntity(req, resp);
+			return;
+		} 
+		
+		if(this.resourceCrud.isResponsible(user)) {
+			req.getSession().setAttribute(SESSION_ATTR_ERROR_NAME,
+					"Impossible de supprimer l'utilisateur. Il est responsable de ressources.");
+			return;
 		}
+		
+		super.deleteEntity(req, resp);
 	}
 
     @Override
