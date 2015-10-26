@@ -42,6 +42,24 @@ public class ReservationCrud extends GenericCrud<Reservation> {
 	}
 
 	/**
+	 * Return true if there is no other reservation made for these dates for the given resource, else false
+	 * @param beginDate
+	 * @param endDate
+	 * @param resource
+	 * @param id 		Id of the currently edited Reservation
+	 * @return boolean
+	 */
+	public boolean isFree(Date beginDate, Date endDate, Resource resource, int id) {
+		String queryString = "SELECT r from Reservation r where (((:begin >= r.begin and :begin <= r.end) or (:end <= r.end and :end >= r.begin)) or (:begin <= r.begin and :end >= r.end)) and r.reserved = :resource and r.id <> :id";
+		Query query = this.em.createQuery(queryString, Reservation.class);
+		query.setParameter("begin", beginDate);
+		query.setParameter("end", endDate);
+		query.setParameter("resource", resource);
+		query.setParameter("id", id);
+		return query.getResultList().isEmpty();
+	}
+
+	/**
 	 * Return true if at least one reservation has a the given resourceType, else false
 	 * @param resourceType
 	 * @return boolean

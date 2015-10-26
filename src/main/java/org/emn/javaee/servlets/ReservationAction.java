@@ -201,7 +201,15 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		} catch (ParseException e) {
 			throw new BeanValidationError("Erreur de convertion des dates.");
 		}
-		boolean isFree = ((ReservationCrud) this.crud).isFree(beginDate, endDate, resource);
+
+		// Check if in edition mode
+		// to exclude the edited object from the isFree search
+		boolean isFree;
+		if(req.getParameter("id").isEmpty()) {
+			isFree =((ReservationCrud) this.crud).isFree(beginDate, endDate, resource);
+		} else {
+			isFree = ((ReservationCrud) this.crud).isFree(beginDate, endDate, resource, this.getId(req));
+		}
 		if (!isFree) {
 			throw new BeanValidationError("La ressource " + resource.getName()
 					+ " est déjà réservée pour la période du " + begin + " au " + end + ".");
