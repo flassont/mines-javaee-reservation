@@ -11,7 +11,7 @@
 			<th>Ressource</th>
 			<th>Début</th>
 			<th>Fin</th>
-			<th>Action</th>
+			<th class="text-center">Action</th>
 		</tr>
 	
 		<c:forEach items="${requestScope.models}" var="reservation">
@@ -29,10 +29,7 @@
 								href="${param.contextPath}/app/${requestScope.entity}/edit?id=${reservation.id}"
 								class="btn btn-default"> <span
 								class="glyphicon glyphicon glyphicon-edit"></span>
-							</a>
-						</c:if>
-						<a
-							href="${param.contextPath}/app/${requestScope.entity}/delete?id=${reservation.id}"
+							</a></c:if><a href="${param.contextPath}/app/${requestScope.entity}/delete?id=${reservation.id}"
 							class="btn btn-danger"> <span
 							class="glyphicon glyphicon-remove"></span>
 						</a>
