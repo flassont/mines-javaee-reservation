@@ -22,7 +22,7 @@
 				
 				<div class="form-group">
 					<label for="resourceType">Type de ressource</label> <select
-						class="form-control" id="resourceType" name="resourceType" required>
+						class="form-control" id="type" name="type" required>
 						<c:forEach items="${requestScope.resourceTypes}" var="type">
 							<option value="${type.id}" <c:if test="${type.id == model.type.id}">selected</c:if>>${type.name}</option>
 						</c:forEach>
