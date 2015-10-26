@@ -1,5 +1,5 @@
 <form method="get" action="${param.contextPath}/app/${requestScope.entity}/search">
-<%@ taglib prefix="in" uri="/../../tags/input.tld"%>
+<%@ taglib prefix="in" uri="/WEB-INF/tags/input.tld"%>
 
 	<in:Input required="false" name="name" display="Libellé" placeholder="Libellé" value="${name}"/>	
 	<in:Input required="false" name="responsible" display="Responsable" placeholder="Responsable" value="${responsible}"/>	

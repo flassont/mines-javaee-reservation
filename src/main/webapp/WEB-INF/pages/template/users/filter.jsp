@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="in" uri="/../../tags/input.tld"%>
+<%@ taglib prefix="in" uri="/WEB-INF/tags/input.tld"%>
 <!-- dynamiccaly check the checkbox if needed -->
 <c:choose>
 	<c:when test="${isAdmin}">

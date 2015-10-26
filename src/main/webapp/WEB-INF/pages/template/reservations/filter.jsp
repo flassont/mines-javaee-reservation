@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="in" uri="/../../tags/input.tld"%>
+<%@ taglib prefix="in" uri="/WEB-INF/tags/input.tld"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <fmt:formatDate value="${begin}" pattern="dd/MM/yyyy" var="formattedBegin"/>

@@ -76,7 +76,7 @@ public abstract class ActionDispatcher<T> {
 				return;
 			}
 		}
-		req.getRequestDispatcher("/pages/main.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/pages/main.jsp").forward(req, resp);
 	}
 
 	/**

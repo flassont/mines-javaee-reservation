@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="in" uri="/../../tags/input.tld"%>
-<%@ taglib prefix="mod" uri="/../../tags/modelSubmit.tld"%>
+<%@ taglib prefix="in" uri="/WEB-INF/tags/input.tld"%>
+<%@ taglib prefix="mod" uri="/WEB-INF/tags/modelSubmit.tld"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <fmt:formatDate value="${model.begin}" pattern="dd/MM/yyyy" var="formattedBegin"/>

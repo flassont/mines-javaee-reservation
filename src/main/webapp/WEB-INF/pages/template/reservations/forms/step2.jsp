@@ -1,7 +1,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="in" uri="/../../tags/input.tld"%>
-<%@ taglib prefix="mod" uri="/../../tags/modelSubmit.tld"%>
+<%@ taglib prefix="in" uri="/WEB-INF/tags/input.tld"%>
+<%@ taglib prefix="mod" uri="/WEB-INF/tags/modelSubmit.tld"%>
 
 <form method="post" action="${param.contextPath}/app/${requestScope.entity}/${parameter}">	
 	

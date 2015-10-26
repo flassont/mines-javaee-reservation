@@ -53,7 +53,7 @@ public class AuthenticationFilter implements Filter {
 		if (session.getAttribute("authenticatedUser") == null) {
 			request.setAttribute("page", "template/connection/login.jsp");
 			request.setAttribute("title", "Connection");
-			request.getRequestDispatcher("/pages/main.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/main.jsp").forward(request, response);
 			return; //break filter chain, requested JSP/servlet will not be executed
 		}
 
