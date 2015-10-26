@@ -12,7 +12,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
@@ -36,11 +35,12 @@ public class GenericCrud<Entity> {
 	/**
 	 * Constructor
 	 */
+	@SuppressWarnings("unchecked")
 	public GenericCrud(){
 		/**
 		 * Get the current class at runtime
 		 */
-		entityClass = ((Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+		entityClass = ((Class<Entity>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
 	};
 
 	/**
@@ -112,6 +112,7 @@ public class GenericCrud<Entity> {
 	 * Find all the entities
 	 * @return collection of entities
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Entity> findAll()
 	{
 		Query query = this.em.createNamedQuery(this.entityClass.getSimpleName() + ".findAll");
@@ -161,10 +162,10 @@ public class GenericCrud<Entity> {
 					expectedExpression = cb.isFalse(root.get(attributeName).as(Boolean.class));
 				}
 				condition = cb.and(condition, expectedExpression);
-			} /*else {
+			} else {
 				System.out.println("ni string ni boolean");
 				condition = cb.and(condition, cb.equal(root.get(attributeName), expectedValue));
-			}*/
+			}
 		}
 
 		return this.em.createQuery(query.where(condition)).getResultList();

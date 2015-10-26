@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.persistence.Query;
 
 import org.emn.javaee.models.Resource;
+import org.emn.javaee.models.ResourceType;
 
 /**
  * Resource CRUD
@@ -23,7 +24,7 @@ public class ResourceCrud extends GenericCrud<Resource> {
         return this.filter(nameFilter);
     }
     
-    public List<Resource> findByType(int type) {
+    public List<Resource> findByType(ResourceType type) {
     	Map<String, Object> typeFilter = new HashMap<>(1);
     	
     	typeFilter.put("type", type);
@@ -34,7 +35,8 @@ public class ResourceCrud extends GenericCrud<Resource> {
     /*
      * Search resources by name, location and its responsible firstName and/or lastName
      */
-    public List<Resource> findByNameAndLocationAndResponsible(String name, String location, String responsible) {
+    @SuppressWarnings("unchecked")
+	public List<Resource> findByNameAndLocationAndResponsible(String name, String location, String responsible) {
     	String queryString = "SELECT r FROM Resource r WHERE 1=1 ";
 		if(name != null)
 		{
