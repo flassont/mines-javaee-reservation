@@ -33,7 +33,7 @@ public class ReservationCrud extends GenericCrud<Reservation> {
 	 */
 	public boolean isFree(Date beginDate, Date endDate, Resource resource)
 	{
-		String queryString = "SELECT r from Reservation r where (:begin >= r.begin or :end <= r.end) or (:begin <= r.begin and :end >= r.end) and r.reserved = :resource";
+		String queryString = "SELECT r from Reservation r where ((:begin >= r.begin and :begin <= r.end) or (:end <= r.end and :end >= r.begin)) or (:begin <= r.begin and :end >= r.end) and r.reserved = :resource";
 		Query query = this.em.createQuery(queryString, Reservation.class);
 		query.setParameter("begin", beginDate);
 		query.setParameter("end", endDate);
