@@ -24,7 +24,7 @@
 				<td class="text-center">
 				
 					<div class="btn-group btn-group-sm">
-						<c:if test="${user.isAdmin}">
+						<c:if test="${authenticatedUser.isAdmin}">
 							<a
 								href="${param.contextPath}/app/${requestScope.entity}/edit?id=${reservation.id}"
 								class="btn btn-default"> <span
