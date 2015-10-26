@@ -2,14 +2,13 @@ package org.emn.javaee.crud;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.persistence.Query;
 
 import org.emn.javaee.models.Reservation;
 import org.emn.javaee.models.Resource;
+import org.emn.javaee.models.ResourceType;
 import org.emn.javaee.models.User;
-import org.emn.javaee.tools.DateSearch;
 import org.emn.javaee.tools.ValueParameter;
 
 /**
@@ -40,5 +39,18 @@ public class ReservationCrud extends GenericCrud<Reservation> {
 		query.setParameter("end", endDate);
 		query.setParameter("resource", resource);
 		return query.getResultList().isEmpty();
+	}
+	
+	/**
+	 * Return true if at least on reservation has a the given resourceType, else false
+	 * @param resourceType
+	 * @return boolean
+	 */
+	public boolean existWithResourceType(ResourceType resourceType)
+	{
+		String queryString = "SELECT r from Reservation r where r.reserved.type = :resourceType";
+		Query query = this.em.createQuery(queryString, Reservation.class);
+		query.setParameter("resourceType", resourceType);
+		return !query.getResultList().isEmpty();
 	}
 }

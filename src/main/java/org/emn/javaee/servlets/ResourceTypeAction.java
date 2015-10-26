@@ -1,10 +1,13 @@
 package org.emn.javaee.servlets;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.emn.javaee.crud.ReservationCrud;
 import org.emn.javaee.crud.ResourceTypeCrud;
 import org.emn.javaee.models.ResourceType;
 import org.emn.javaee.tools.ValueParameter;
@@ -12,9 +15,11 @@ import org.emn.javaee.tools.ValueParameter;
 public class ResourceTypeAction extends ActionDispatcher<ResourceType> {
 
 	public static final String FIELD_NAME = "name";
+	private ReservationCrud reservationCrud;
 
 	public ResourceTypeAction() {
 		super(new ResourceTypeCrud());
+		this.reservationCrud = new ReservationCrud();
 	}
 
 	@Override
@@ -70,6 +75,19 @@ public class ResourceTypeAction extends ActionDispatcher<ResourceType> {
 		{
 			throw new BeanValidationError("Un type de ressource portant le même libellé existe déjà.");
 		}
+	}
+	
+	@Override
+	protected void deleteEntity(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		ResourceType resourceType = this.crud.find(getId(req));
+		
+		if (this.reservationCrud.existWithResourceType(resourceType)) {
+			req.getSession().setAttribute(SESSION_ATTR_ERROR_NAME,
+					"Impossible de supprimer le type de ressource " + resourceType.getName()+". Des réservations y sont liées.");
+			return;
+		} 
+		
+		super.deleteEntity(req, resp);
 	}
 
 }
