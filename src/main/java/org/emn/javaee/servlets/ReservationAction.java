@@ -14,6 +14,8 @@ import org.emn.javaee.crud.ResourceCrud;
 import org.emn.javaee.crud.ResourceTypeCrud;
 import org.emn.javaee.crud.UserCrud;
 import org.emn.javaee.models.Reservation;
+import org.emn.javaee.models.Resource;
+import org.emn.javaee.models.ResourceType;
 
 public class ReservationAction extends ActionDispatcher<Reservation> {
 
@@ -120,13 +122,14 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 
 	@Override
 	protected void validateFields(HttpServletRequest req) throws BeanValidationError {
-		int reservedId = Integer.parseInt(req.getParameter(FIELD_RESERVED_NAME));
-		if(userCrud.find(reservedId) == null) {
+		int reserverId = Integer.parseInt(req.getParameter(FIELD_RESERVER_NAME));
+		if(userCrud.find(reserverId) == null) {
 			throw new BeanValidationError("Utilisateur invalide");
 		}
 		
-		int reserverId = Integer.parseInt(req.getParameter(FIELD_RESERVER_NAME));
-		if(resourceCrud.find(reserverId) == null){
+		int reservedId = Integer.parseInt(req.getParameter(FIELD_RESERVED_NAME));
+		Resource resource = resourceCrud.find(reservedId);
+		if(resource == null){
 			throw new BeanValidationError("Ressource invalide");
 		}
 		
@@ -139,6 +142,17 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		if(!isFieldValid(end)) {
 			throw new BeanValidationError("Date de fin invalide");
 		}
+		
+		try {
+			Date endDate = formatter.parse(end);
+			Date beginDate = formatter.parse(begin);
+			
+			if(beginDate.compareTo(endDate) > 0) {
+				throw new BeanValidationError("La date de fin est antérieure à la date de début");
+			}
+		} catch (ParseException e) {
+			throw new BeanValidationError("Erreur de convertion des dates.");
+		}
 	}
 
 	private void createEntityStepOne(HttpServletRequest req, HttpServletResponse resp) {
@@ -147,9 +161,10 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 	
 	private void creatEntityStepTwo(HttpServletRequest req, HttpServletResponse resp) {
 		int typeId = Integer.parseInt(req.getParameter(FIELD_RESERVED_TYPE_NAME));
+		ResourceType type = this.typeCrud.find(typeId);
 		
 		req.setAttribute(REQUEST_ATTR_RESOURCES_NAME, this.resourceCrud.findByType(typeId));
-		req.setAttribute(REQUEST_ATTR_SELECTED_RESOURCETYPE_NAME, this.typeCrud.find(typeId));
+		req.setAttribute(REQUEST_ATTR_SELECTED_RESOURCETYPE_NAME, type);
 	}
 
 	private Date readDate(String date) throws ParseException {
