@@ -205,7 +205,7 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		// Check if in edition mode
 		// to exclude the edited object from the isFree search
 		boolean isFree;
-		if(req.getParameter("id").isEmpty()) {
+		if(req.getParameter("id") == null) {
 			isFree =((ReservationCrud) this.crud).isFree(beginDate, endDate, resource);
 		} else {
 			isFree = ((ReservationCrud) this.crud).isFree(beginDate, endDate, resource, this.getId(req));
