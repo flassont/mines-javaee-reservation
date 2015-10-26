@@ -3,7 +3,7 @@
 
 	<in:Input required="false" name="name" display="Libellé" placeholder="Libellé" value="${name}"/>	
 	<in:Input required="false" name="responsible" display="Responsable" placeholder="Responsable" value="${responsible}"/>	
-	<in:Input required="false" name="resourceType" display="Type de ressource" placeholder="Type de ressource" value="${resourceType}"/>
+	<in:Input required="false" name="type" display="Type de ressource" placeholder="Type de ressource" value="${type}"/>
 	
 	<button type="submit" class="btn btn-default">Rechercher</button>
 	

@@ -1,6 +1,7 @@
 package org.emn.javaee.crud;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +17,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
 
+import org.emn.javaee.models.AbstractModel;
 import org.emn.javaee.tools.Em;
 
 /**
@@ -128,9 +130,8 @@ public class GenericCrud<Entity> {
 		EntityType<Entity> entityType = root.getModel();
 		Expression<Boolean> condition = cb.conjunction();
 		for (Attribute<? super Entity,?> attribute: entityType.getAttributes()){
-			
 			String attributeName = attribute.getName();
-			System.out.println("generic crud attribut : " +attributeName+" => " + attribute.isAssociation()+ " | "+attribute.getJavaType());
+			System.out.println("generic crud attribut : " +attributeName);
 			// No filter, reach next attribute
 			if(!keys.contains(attributeName)) {
 				System.out.println("next");
@@ -140,13 +141,36 @@ public class GenericCrud<Entity> {
 			// Exists, check whether use like (for String)
 			// or equal (other types)
 			Object expectedValue = filters.get(attributeName);
-			if(attribute.isAssociation() && attribute.getName().equals("responsible"))
+			// handle the relations between the entities
+			if(attribute.isAssociation())
 			{
-				System.out.println("*******************JOIN*******************");
+				System.out.println("Filtre sur "+attribute.getName());
+				// join the mapped entity
 				Join<Object, org.emn.javaee.models.AbstractModel> association = root.join(attribute.getName());
-				condition = cb.and(condition, cb.equal(association.get("firstName"),(String) expectedValue));
-				//condition = cb.and(condition, cb.like(association.get("firstName"),(String) expectedValue));
-
+				// the filters of the joined entity
+				String[] associationFilters;
+				try {
+					// get the filters of the joined entity separated by ","
+					associationFilters = association.getJavaType().newInstance().getFilterBy().split(",");
+					System.out.println("Filtres : "+associationFilters.toString());
+					// array of predicate
+					Predicate[] predicates = new Predicate[associationFilters.length];
+					int i = 0;
+					// loop through the array of filters
+					for(String s:associationFilters)
+					{
+						// add the predicate according to the current filter
+						predicates[i]=cb.like(association.get(s).as(String.class), "%" + (String) expectedValue + "%");
+						i++;
+					}
+					// finally, make a or condition on all the filters
+					condition = cb.and(condition, cb.or(predicates));
+				} catch(Exception e)
+				{
+					// todo
+					System.out.println("!!!!!!!!!!!!!!!!!!!EXCEPTION");
+					e.printStackTrace();
+				}
 			}
 			else if(attribute.getJavaType() == String.class) {
 				System.out.println("C'est un string");

@@ -19,7 +19,7 @@ import javax.persistence.Table;
 	@NamedQuery( name = "Resource.findAll",
 			query = "SELECT R FROM Resource AS R" )
 })
-public class Resource {
+public class Resource extends AbstractModel{
 
     @Id
     @GeneratedValue
@@ -96,4 +96,10 @@ public class Resource {
     public void setType(ResourceType type) {
         this.type = type;
     }
+
+	@Override
+	public String getFilterBy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

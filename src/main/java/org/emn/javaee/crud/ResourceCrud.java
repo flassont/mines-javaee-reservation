@@ -18,8 +18,9 @@ public class ResourceCrud extends GenericCrud<Resource> {
      * Find Resources containing nameFragment in their name
      * @param nameFragment String contained within the name
      * @return Resources having nameFragment in their name
+     * @throws BeanValidationError 
      */
-    public List<Resource> findByNameContaining(String nameFragment) {
+    public List<Resource> findByNameContaining(String nameFragment){
         Map<String, Object> nameFilter= new HashMap<>();
         nameFilter.put("name", "%" + nameFragment + "%");
         return this.filter(nameFilter);

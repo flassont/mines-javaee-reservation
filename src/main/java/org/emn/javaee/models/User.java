@@ -118,6 +118,6 @@ public class User extends AbstractModel{
 
 	@Override
 	public String getFilterBy() {
-		return this.firstName;
+		return "firstName,lastName";
 	}
 }

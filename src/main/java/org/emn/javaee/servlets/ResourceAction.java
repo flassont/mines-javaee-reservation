@@ -14,7 +14,7 @@ import org.emn.javaee.models.Resource;
 public class ResourceAction extends ActionDispatcher<Resource> {
 
 	public static final String FIELD_NAME = "name";
-	public static final String FIELD_TYPE = "resourceType";
+	public static final String FIELD_TYPE = "type";
 	public static final String FIELD_RESPONSIBLE = "responsible";
 	public static final String FIELD_DESCRIPTION = "description";
 	public static final String FIELD_LOCATION = "location";
