@@ -25,7 +25,7 @@
 	      
 	      	<ul class="nav navbar-nav navbar-right">
 <!-- 	        	  <li><a href="#">Profil</a></li> -->
-	          	<li><a href="${param.contextPath}/app/logout">Deconnexion (${authenticatedUser.login})</a></li>
+	          	<li><a href="${param.contextPath}/app/logout">Déconnexion (${authenticatedUser.login})</a></li>
 	      	</ul>
 	    </div>
  	</div>
