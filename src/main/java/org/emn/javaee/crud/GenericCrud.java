@@ -189,7 +189,7 @@ public class GenericCrud<Entity> {
 			for(String s:associationFilters)
 			{
 				// add the predicate according to the current filter
-				predicates[i]=cb.like(association.get(s).as(String.class), "%" + (String) expectedValue + "%");
+				predicates[i]=cb.like(cb.lower(association.get(s).as(String.class)), "%" + ((String) expectedValue).toLowerCase() + "%");
 				i++;
 			}
 			// finally, make a or condition on all the filters
