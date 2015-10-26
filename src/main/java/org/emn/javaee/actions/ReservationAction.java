@@ -23,6 +23,9 @@ import org.emn.javaee.models.User;
 import org.emn.javaee.tools.DateSearch;
 import org.emn.javaee.tools.ValueParameter;
 
+/**
+ * Handle reservation request.
+ */
 public class ReservationAction extends ActionDispatcher<Reservation> {
 
 	public static final String FIELD_BEGIN_NAME = "begin";
@@ -124,7 +127,6 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 			try {
 				filters.put(FIELD_BEGIN_NAME, new ValueParameter(formatter.parse(begin), DateSearch.FROM));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -134,7 +136,6 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 			try {
 				filters.put(FIELD_END_NAME, new ValueParameter(formatter.parse(end), DateSearch.TO));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

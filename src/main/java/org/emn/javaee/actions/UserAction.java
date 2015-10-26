@@ -15,7 +15,7 @@ import org.emn.javaee.models.User;
 import org.emn.javaee.tools.ValueParameter;
 
 /**
- * User web action dispatcher
+ * Handle user request.
  */
 public class UserAction extends ActionDispatcher<User> {
 

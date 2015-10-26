@@ -13,6 +13,9 @@ import org.emn.javaee.exceptions.BeanValidationError;
 import org.emn.javaee.models.ResourceType;
 import org.emn.javaee.tools.ValueParameter;
 
+/**
+ * Handle resource type request.
+ */
 public class ResourceTypeAction extends ActionDispatcher<ResourceType> {
 
 	public static final String FIELD_NAME = "name";
