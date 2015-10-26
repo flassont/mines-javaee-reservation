@@ -14,7 +14,7 @@ import org.emn.javaee.models.User;
 import org.emn.javaee.tools.ValueParameter;
 
 /**
- * Created by florian on 22/10/15.
+ * Super-class for handling client actions on entities.
  */
 public abstract class ActionDispatcher<T> {
 
@@ -38,6 +38,11 @@ public abstract class ActionDispatcher<T> {
 
 	protected final GenericCrud<T> crud;
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param crud The CRUD of the managed entity.
+	 */
 	protected ActionDispatcher(GenericCrud<T> crud) {
 		this.crud = crud;
 	}
