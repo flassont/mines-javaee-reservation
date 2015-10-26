@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import org.emn.javaee.models.Resource;
 import org.emn.javaee.models.ResourceType;
+import org.emn.javaee.tools.ValueParameter;
 
 /**
  * Resource CRUD
@@ -22,14 +23,14 @@ public class ResourceCrud extends GenericCrud<Resource> {
      */
     public List<Resource> findByNameContaining(String nameFragment){
         Map<String, Object> nameFilter= new HashMap<>();
-        nameFilter.put("name", "%" + nameFragment + "%");
+        nameFilter.put("name", new ValueParameter("%" + nameFragment + "%"));
         return this.filter(nameFilter);
     }
     
     public List<Resource> findByType(ResourceType type) {
     	Map<String, Object> typeFilter = new HashMap<>(1);
     	
-    	typeFilter.put("type", type);
+    	typeFilter.put("type", new ValueParameter(type));
     	
     	return this.filter(typeFilter);
     }

@@ -2,6 +2,7 @@ package org.emn.javaee.crud;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +19,9 @@ import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
 
 import org.emn.javaee.models.AbstractModel;
+import org.emn.javaee.tools.DateSearch;
 import org.emn.javaee.tools.Em;
+import org.emn.javaee.tools.ValueParameter;
 
 /**
  * Generic CRUD class
@@ -122,7 +125,7 @@ public class GenericCrud<Entity> {
 	}
 
 	public List<Entity> filter(Map<String, Object> filters) {
-		Set<String> keys = filters.keySet();
+		Set<String> keys =  filters.keySet();
 		CriteriaBuilder cb = this.em.getCriteriaBuilder();
 		CriteriaQuery<Entity> query = cb.createQuery(this.entityClass);
 
@@ -140,7 +143,7 @@ public class GenericCrud<Entity> {
 
 			// Exists, check whether use like (for String)
 			// or equal (other types)
-			Object expectedValue = filters.get(attributeName);
+			Object expectedValue = ((ValueParameter) filters.get(attributeName)).getValue();
 			// handle the relations between the entities
 			if(attribute.isAssociation())
 			{
@@ -187,7 +190,23 @@ public class GenericCrud<Entity> {
 					expectedExpression = cb.isFalse(root.get(attributeName).as(Boolean.class));
 				}
 				condition = cb.and(condition, expectedExpression);
-			} else {
+			} 
+			 else if (attribute.getJavaType() == Date.class)
+				{
+					switch((DateSearch)((ValueParameter) filters.get(attributeName)).getParameter())
+					{
+					case FROM:
+						condition = cb.and(condition, cb.greaterThanOrEqualTo(root.get(attributeName).as(Date.class), (Date) expectedValue));
+					break;
+					case TO:
+						condition = cb.and(condition, cb.lessThanOrEqualTo(root.get(attributeName).as(Date.class), (Date) expectedValue));
+					break;
+					default:
+						condition = cb.and(condition, cb.equal(root.get(attributeName).as(Date.class), (Date) expectedValue));
+						break;
+					}
+				}
+			else {
 				System.out.println("ni string ni boolean");
 				condition = cb.and(condition, cb.equal(root.get(attributeName), expectedValue));
 			}

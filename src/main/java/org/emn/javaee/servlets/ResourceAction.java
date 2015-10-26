@@ -10,6 +10,7 @@ import org.emn.javaee.crud.ResourceCrud;
 import org.emn.javaee.crud.ResourceTypeCrud;
 import org.emn.javaee.crud.UserCrud;
 import org.emn.javaee.models.Resource;
+import org.emn.javaee.tools.ValueParameter;
 
 public class ResourceAction extends ActionDispatcher<Resource> {
 
@@ -64,17 +65,17 @@ public class ResourceAction extends ActionDispatcher<Resource> {
 
 		String name = req.getParameter(FIELD_NAME);
 		if (name != null) {
-			filters.put(FIELD_NAME, name);
+			filters.put(FIELD_NAME, new ValueParameter(name));
 		}
 
 		String responsible = req.getParameter(FIELD_RESPONSIBLE);
 		if (responsible != null && !responsible.trim().isEmpty()) {
-			filters.put(FIELD_RESPONSIBLE, responsible);
+			filters.put(FIELD_RESPONSIBLE, new ValueParameter(responsible));
 		}
 
 		String type = req.getParameter(FIELD_TYPE);
 		if (type != null && !type.trim().isEmpty()) {
-			filters.put(FIELD_TYPE, type);
+			filters.put(FIELD_TYPE, new ValueParameter(type));
 		}
 
 		return filters;

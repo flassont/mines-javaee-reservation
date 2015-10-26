@@ -16,6 +16,8 @@ import org.emn.javaee.crud.UserCrud;
 import org.emn.javaee.models.Reservation;
 import org.emn.javaee.models.Resource;
 import org.emn.javaee.models.ResourceType;
+import org.emn.javaee.tools.DateSearch;
+import org.emn.javaee.tools.ValueParameter;
 
 public class ReservationAction extends ActionDispatcher<Reservation> {
 
@@ -73,18 +75,18 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 
 		String reserved = req.getParameter(FIELD_RESERVED_NAME);
 		if (reserved != null && !reserved.trim().isEmpty()) {
-			filters.put(FIELD_RESERVED_NAME, reserved);
+			filters.put(FIELD_RESERVED_NAME, new ValueParameter(reserved));
 		}
 
 		String reserver = req.getParameter(FIELD_RESERVER_NAME);
 		if (reserved != null && !reserver.trim().isEmpty()) {
-			filters.put(FIELD_RESERVER_NAME, reserver);
+			filters.put(FIELD_RESERVER_NAME, new ValueParameter(reserver));
 		}
 		
 		String begin = req.getParameter(FIELD_BEGIN_NAME);
 		if(begin != null && !begin.trim().isEmpty()) {
 			try {
-				filters.put(FIELD_BEGIN_NAME, formatter.parse(begin));
+				filters.put(FIELD_BEGIN_NAME, new ValueParameter(formatter.parse(begin), DateSearch.FROM));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -94,7 +96,7 @@ public class ReservationAction extends ActionDispatcher<Reservation> {
 		String end = req.getParameter(FIELD_END_NAME);
 		if(begin != null && !begin.trim().isEmpty()) {
 			try {
-				filters.put(FIELD_END_NAME, formatter.parse(end));
+				filters.put(FIELD_END_NAME, new ValueParameter(formatter.parse(end), DateSearch.TO));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

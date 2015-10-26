@@ -2,6 +2,7 @@ package org.emn.javaee.servlets;
 
 import org.emn.javaee.crud.UserCrud;
 import org.emn.javaee.models.User;
+import org.emn.javaee.tools.ValueParameter;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -42,17 +43,17 @@ public class UserAction extends ActionDispatcher<User> {
 
         String firstName = req.getParameter(FIELD_FIRST_NAME);
         if (firstName != null && !firstName.trim().isEmpty()) {
-            filters.put(FIELD_FIRST_NAME, firstName);
+            filters.put(FIELD_FIRST_NAME, new ValueParameter(firstName));
         }
 
         String lastName = req.getParameter(FIELD_LAST_NAME);
         if (lastName != null && !lastName.trim().isEmpty()) {
-            filters.put(FIELD_LAST_NAME, lastName);
+            filters.put(FIELD_LAST_NAME, new ValueParameter(lastName));
         }
 
         Boolean administrator = BOOL_ON_STATUS.equals(req.getParameter(FIELD_ADMINISTRATOR));
         // There's no null status
-        filters.put(FIELD_ADMINISTRATOR, administrator);
+        filters.put(FIELD_ADMINISTRATOR, new ValueParameter(administrator));
 
         return filters;
     }

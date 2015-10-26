@@ -8,6 +8,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.emn.javaee.models.User;
+import org.emn.javaee.tools.ValueParameter;
 
 /**
  * User crud
@@ -18,10 +19,10 @@ public class UserCrud extends GenericCrud<User>{
 	{
 		Map<String, Object> filters = new HashMap<>(3);
 		if(!lastName.isEmpty()) {
-			filters.put("lastName", "%" + lastName + "%");
+			filters.put("lastName", new ValueParameter("%" + lastName + "%"));
 		}
 		if(!firstName.isEmpty()) {
-			filters.put("firstName", "%" + firstName + "%");
+			filters.put("firstName", new ValueParameter("%" + firstName + "%"));
 		}
 		filters.put("isAdmin", isAdmin);
 

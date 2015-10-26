@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.emn.javaee.crud.GenericCrud;
 import org.emn.javaee.models.User;
+import org.emn.javaee.tools.ValueParameter;
 
 /**
  * Created by florian on 22/10/15.
@@ -164,8 +165,14 @@ public abstract class ActionDispatcher<T> {
 	protected void getSearch(HttpServletRequest req, HttpServletResponse resp) {
 		Map<String, Object> filters = getFilters(req);
 		req.setAttribute(REQUEST_ATTR_MODELLIST_NAME, this.crud.filter(filters));
+<<<<<<< HEAD
 		for (Entry<String, Object> entry : filters.entrySet()) {
 			req.setAttribute(entry.getKey(), entry.getValue());
+=======
+		for (Entry<String, Object> entry : filters.entrySet())
+		{
+			req.setAttribute(entry.getKey(), ((ValueParameter) entry.getValue()).getValue());
+>>>>>>> Gestion générique des dates pour le filtrage
 		}
 
 	}

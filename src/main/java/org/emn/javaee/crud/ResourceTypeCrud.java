@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.persistence.Query;
 
 import org.emn.javaee.models.ResourceType;
+import org.emn.javaee.tools.ValueParameter;
 
 /**
  * ResourceType CRUD
@@ -17,7 +18,7 @@ public class ResourceTypeCrud extends GenericCrud<ResourceType>{
 	{
 		Map<String, Object> filters = new HashMap<>(1);
 		if(!name.isEmpty()) {
-			filters.put("name", "%" + name + "%");
+			filters.put("name", new ValueParameter("%" + name + "%"));
 		}
 		return this.filter(filters);
 	}

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.emn.javaee.crud.ResourceTypeCrud;
 import org.emn.javaee.models.ResourceType;
+import org.emn.javaee.tools.ValueParameter;
 
 public class ResourceTypeAction extends ActionDispatcher<ResourceType> {
 
@@ -32,7 +33,7 @@ public class ResourceTypeAction extends ActionDispatcher<ResourceType> {
 
 		String name = req.getParameter(FIELD_NAME);
 		if(name != null && !name.trim().isEmpty()){
-			filters.put(FIELD_NAME, name);
+			filters.put(FIELD_NAME, new ValueParameter(name));
 		}
 
 		return filters;
