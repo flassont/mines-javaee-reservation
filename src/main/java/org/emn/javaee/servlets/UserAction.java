@@ -1,12 +1,16 @@
 package org.emn.javaee.servlets;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.emn.javaee.crud.ReservationCrud;
 import org.emn.javaee.crud.UserCrud;
 import org.emn.javaee.models.User;
 import org.emn.javaee.tools.ValueParameter;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * User web action dispatcher
@@ -23,8 +27,11 @@ public class UserAction extends ActionDispatcher<User> {
     public static final String FIELD_PHONE = "phone";
     public static final String FIELD_MAIL = "mail";
 
+    private ReservationCrud reservationCrud;
+    
     public UserAction() {
         super(new UserCrud());
+        this.reservationCrud = new ReservationCrud();
     }
 
     @Override
@@ -36,6 +43,18 @@ public class UserAction extends ActionDispatcher<User> {
     protected String getEntityFolderName() {
         return "users";
     }
+
+	@Override
+	protected void deleteEntity(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+		if (this.reservationCrud.isResponsible(this.crud.find(getId(req)))) {
+			req.getSession().setAttribute(SESSION_ATTR_ERROR_NAME,
+					"Impossible de supprimer l'utilisateur. Il a des réservations en cours.");
+			
+		} else {
+			super.deleteEntity(req, resp);
+		}
+	}
 
     @Override
     protected Map<String, Object> getFilters(HttpServletRequest req) {
