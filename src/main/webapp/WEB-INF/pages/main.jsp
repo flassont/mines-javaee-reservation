@@ -2,13 +2,13 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%= application.getContextPath()%>"/>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <link rel="stylesheet" href="${contextPath}/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="${contextPath}/css/datepicker.css"/>
-    <link rel="stylesheet" href="${contextPath}/css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="${contextPath}/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="${contextPath}/css/datepicker.css"/>
+    <link type="text/css" rel="stylesheet" href="${contextPath}/css/style.css"/>
 <title>${requestScope.title}</title>
 </head>
 <body>

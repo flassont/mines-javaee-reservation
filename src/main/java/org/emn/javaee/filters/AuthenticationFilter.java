@@ -32,6 +32,12 @@ public class AuthenticationFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse)response;
 		HttpSession session = ((HttpServletRequest) request).getSession();
 
+		// Exclude assets folders
+		if(req.getRequestURI().matches("^" + req.getContextPath() + "/(css|js|fonts)/.*")) {
+			chain.doFilter(request, response);
+			return;
+		}
+
 		String login = req.getParameter("loginAuth");
 		String password = req.getParameter("passwordAuth");
 		if(login != null && password != null)
