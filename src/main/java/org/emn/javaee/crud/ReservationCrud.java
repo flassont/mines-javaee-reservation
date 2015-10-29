@@ -75,9 +75,10 @@ public class ReservationCrud extends GenericCrud<Reservation> {
 	 */
 	public boolean existWithResourceType(ResourceType resourceType)
 	{
-		HashMap<String, Object> filters = new HashMap<>();
-		filters.put("reserved.type", new ValueParameter(resourceType));
-		return !filter(filters).isEmpty();
+		String queryString = "SELECT r from Reservation r where r.reserved.type = :resourceType";
+		Query query = this.em.createQuery(queryString, Reservation.class);
+		query.setParameter("resourceType", resourceType);
+		return !query.getResultList().isEmpty();
 	}
 
 	/**

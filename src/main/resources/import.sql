@@ -1,5 +1,14 @@
 INSERT INTO User(id, login, password, firstName, lastName, mail, phone, isAdmin) VALUES (1, 'admin', 'admin', 'Administrateur', '', 'noreply@javaee.emn', '+33123456789', 1);
 INSERT INTO User(id, login, password, firstName, lastName, mail, phone, isAdmin) VALUES (2, 'user', 'user', 'Utilisateur', 'Lambda', 'user@javaee.emn', '+33987654321', 0);
-INSERT INTO ResourceType(id, name) VALUES (1, 'MatÃ©riel vidÃ©o');
-INSERT INTO Resource(id, description, location, name, type_id, responsible_id) VALUES (1, 'Projecteur vidÃ©o Epson', 'B118', 'Projecteur vidÃ©o', 1, 1);
+INSERT INTO User(id, login, password, firstName, lastName, mail, phone, isAdmin) VALUES (3, 'NH', 'aqwzsxedc', 'Nicolas', 'Hebrard', 'nicolas.hebrard@outlook.com', '+33781426094', 0);
+INSERT INTO User(id, login, password, firstName, lastName, mail, phone, isAdmin) VALUES (4, 'FL', 'aqwzsxedc', 'Florian', 'Lassont', 'flassont@gmail.com', '+337826367', 0);
+INSERT INTO User(id, login, password, firstName, lastName, mail, phone, isAdmin) VALUES (5, 'XH', 'aqwzsxedc', 'Xavier', 'Hurberdeau', 'xavier.h@gmail.com', '+3360606069', 0);
+INSERT INTO ResourceType(id, name) VALUES (1, 'Matériel vidéo');
+INSERT INTO ResourceType(id, name) VALUES (2, 'Salle');
+INSERT INTO ResourceType(id, name) VALUES (3, 'Voiture');
+INSERT INTO Resource(id, description, location, name, type_id, responsible_id) VALUES (1, 'Projecteur vidéo Epson', 'B118', 'Projecteur vidéo', 1, 1);
+INSERT INTO Resource(id, description, location, name, type_id, responsible_id) VALUES (2, 'Projecteur vidéo HP', 'B228', 'Projecteur video', 1, 3);
+INSERT INTO Resource(id, description, location, name, type_id, responsible_id) VALUES (3, 'Salle B116', 'EMN', 'Salle B106', 2, 3);
+INSERT INTO Resource(id, description, location, name, type_id, responsible_id) VALUES (4, 'Salle B118', 'EMN', 'Salle B118', 2, 3);
 INSERT INTO Reservation(id, begin, end, reserved_id, reserver_id) VALUES (1, TIMESTAMPADD(DAY, 1, TRUNCATE(CURRENT_TIMESTAMP())), TIMESTAMPADD(DAY, 3, TRUNCATE(CURRENT_TIMESTAMP())), 1, 1);
+INSERT INTO Reservation(id, begin, end, reserved_id, reserver_id) VALUES (2, TIMESTAMPADD(DAY, 1, TRUNCATE(CURRENT_TIMESTAMP())), TIMESTAMPADD(DAY, 3, TRUNCATE(CURRENT_TIMESTAMP())), 3, 3);
